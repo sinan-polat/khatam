@@ -44,3 +44,11 @@ favicon.svg     ikon
 ## Redigering
 Produkter, priser og tekster står i `index.html` i listen `const P = [...]`.
 Fragtgrænse og fragtpriser: `const FREE = 349, SHIP_PS = 45, SHIP_HOME = 59, HOME_UPGRADE = 15`.
+
+## Nye funktioner (salg og synlighed)
+
+- **Produktfotos:** Læg rigtige fotos i `img/foto/` som `<id>-1.webp` op til `-3.webp`. Se `img/foto/LAES_MIG.txt`.
+- **Anmeldelser:** Tilføj rigtige anmeldelser i `const REVIEWS = []` øverst i `index.html`. Sektionen vises først, når der er mindst én.
+- **Ramadan-frist:** Datoen står i `RAMADAN_DEADLINE`. Nedtællingen forsvinder selv efter fristen.
+- **Statistik:** Opret en konto på plausible.io og skriv domænet i `ANALYTICS_DOMAIN`. Siden måler så "Læg i kurven", "Til kassen", "Ordre" og "Del design" uden cookies.
+- **Google og deling:** `p/<id>.html`, `sitemap.xml` og `robots.txt` laves af `node tools/seo.mjs`. Kør den igen, når du ændrer produkter, eller når `SITE_URL` skifter til dit eget domæne.

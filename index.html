@@ -7,7 +7,7 @@
 <meta name="description" content="Personlige islamiske gaver med arabisk kalligrafi: hyldeskilte, nøgleringe, entré-sæt og gaveæsker. Designet og lavet i Danmark.">
 <meta property="og:title" content="KHATAM – gaver med betydning">
 <meta property="og:description" content="Personlige gaver med arabisk kalligrafi, designet og lavet i Danmark.">
-<meta property="og:image" content="img/maktaba.webp">
+<meta property="og:image" content="https://sinan-polat.github.io/khatam/img/maktaba.webp">
 <meta name="theme-color" content="#1E3A2F">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
@@ -618,6 +618,30 @@ h1,h2,h3{text-wrap:balance} p{text-wrap:pretty}
 .qty button{display:grid;place-items:center}.x svg,.qty svg{display:block}
 .crumbs a{display:inline-flex;align-items:center;min-height:32px}
 @media (prefers-reduced-motion:reduce){.btn:active,.chip:active,.qty button:active{transform:none}}
+
+/* ===== sales features: sticky buy bar, deadline, share, real photos, reviews ===== */
+.deadline{display:flex;gap:10px;align-items:flex-start;margin-top:14px;font-size:14px;color:var(--soft)}
+.deadline svg{flex:none;margin-top:2px;color:var(--guld-txt)}
+.sharebtn{display:inline-flex;align-items:center;gap:8px;margin-top:14px;min-height:40px}
+.realfoto{width:100%;height:100%;object-fit:cover;display:block}
+.buybar{display:none}
+@media (max-width:820px){
+  .buybar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;align-items:center;gap:12px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--line);box-shadow:0 -8px 24px rgba(22,21,19,.08);transform:translateY(110%);transition:transform .28s cubic-bezier(.16,1,.3,1)}
+  .buybar.on{transform:none}
+  .buybar>div{flex:1;min-width:0;display:flex;flex-direction:column;font-size:12.5px;color:var(--muted)}
+  .buybar>div b{font-size:15px;color:var(--ink)}
+  .buybar>div span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .buybar .btn{flex:none;min-height:48px;padding:0 18px;white-space:nowrap}
+}
+@media (prefers-reduced-motion:reduce){.buybar{transition:none}}
+.reviews{padding:72px 0;background:var(--panel)}
+.reviews h2{margin-bottom:28px}
+.rv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
+.rv{background:#fff;padding:24px;margin:0;display:flex;flex-direction:column;gap:14px}
+.rv img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.rv blockquote{margin:0;font-size:16px;line-height:1.6}
+.rv figcaption{font-size:13.5px;color:var(--muted);display:flex;gap:6px;flex-wrap:wrap}
+.rv figcaption a{margin-left:auto;color:var(--guld-txt)}
 </style>
 </head>
 <body>
@@ -690,8 +714,8 @@ const P = [
   desc:'Fire glasbrikker til te og qahwa med geometrisk khatam-mønster og en holder med navn eller initialer.',
   details:'4 brikker Ø 10 cm, holder 11 × 6 cm. Tåler varme glas. Aftørres med fugtig klud.'},
  {id:'safar', name:'SAFAR', ar:'سفر', type:'Bilophæng', price:89, cats:['ham','ramadan'], personal:'name', req:false, imgs:['safar'],
-  desc:'Et bilophæng med rejsedua på forsiden og navn på bagsiden, hvis du ønsker det. En stille påmindelse på hver tur.',
-  details:'Ca. 6 × 9 cm, guldsnor og kvast. Varmebestandigt PETG, der tåler en solrig forrude.'},
+  desc:'Et bilophæng med بسم الله i guld på forsiden og navnet indgraveret på bagsiden, hvis du ønsker det. En stille påmindelse på hver tur.',
+  details:'Ca. 4,8 × 7 cm, 3 mm tyk, med øje til snor. Varmebestandigt PETG, der tåler en solrig forrude.'},
  {id:'ism', name:'ISM', ar:'اسم', type:'Nøglering og vognmønt', price:59, cats:['ham','born'], badge:'2 for 99 kr', personal:'name', req:true, imgs:['ism'],
   desc:'Nøglering og indkøbsvognsmønt i én. Navnet står i guld på arabisk på forsiden og med latinske bogstaver på bagsiden. Guldet ligger i samme plan som mønten, så den glider ind i vognlåsen. Køb to, og betal 99 kr.',
   details:'20-krone-størrelse: Ø 27 mm og 2,3 mm tyk. 10-krone-størrelse: Ø 23,3 mm. Ring i rustfrit stål. Navne op til 10 bogstaver.'},
@@ -724,6 +748,17 @@ const P = [
   details:'Ca. 12 × 7,5 cm pr. skilt, 5° hældning. Vælg 4 af 8 kategorier.'},
 ];
 const byId = id => P.find(p => p.id === id);
+
+/* ---------- shop settings ---------- */
+const SITE_URL = 'https://sinan-polat.github.io/khatam/';     // change to https://khatam.dk/ when the domain is ready
+const ANALYTICS_DOMAIN = '';                                   // e.g. 'khatam.dk' once a Plausible account exists; empty = off
+const RAMADAN_DEADLINE = new Date('2027-01-25T23:59:59+01:00'); // last order day for delivery before Ramadan
+/* Real reviews only. Add one object per review, e.g.
+   {name:'Maryam', city:'Aarhus', product:'zawj', text:'Smukt lavet ...', img:'img/anmeldelser/maryam.webp'} */
+const REVIEWS = [];
+function track(ev, props){ try{ if(window.plausible) window.plausible(ev, props?{props}:undefined); }catch(e){} }
+if(ANALYTICS_DOMAIN){ const sc=document.createElement('script'); sc.defer=true; sc.dataset.domain=ANALYTICS_DOMAIN; sc.src='https://plausible.io/js/script.js'; document.head.appendChild(sc);
+  window.plausible = window.plausible || function(){ (window.plausible.q = window.plausible.q || []).push(arguments); }; }
 
 /* common names → Arabic (suggestion only; customer approves a proof) */
 const NAMES = {
@@ -836,7 +871,7 @@ function preview(p, cfg, scale=1){
   switch(p.id){
     case 'ism': { const sc2 = cfg.coin==='10' ? 0.865 : 1; return `<div class="coinwrap" style="transform:scale(${sc2})"><i class="cring"></i><div class="ctab" style="${st}"><i class="chole"></i></div><div class="obj o-coin" style="${st}"><i class="fr"></i><i class="cstar"></i>${nameBlock(cfg,58*s)}</div></div>`; }
     case 'safar': {
-      const inner = (cfg.ar||cfg.name) ? nameBlock(cfg,40*s) : `<div><div class="an" lang="ar" style="font-size:${22*s}px;line-height:1.5">سُبْحَانَ الَّذِي<br>سَخَّرَ لَنَا هَٰذَا</div></div>`;
+      const inner = `<div><div class="an" lang="ar" style="font-size:${26*s}px;line-height:1.5">بسم الله</div>${(cfg.ar||cfg.name)?`<div class="ln" style="font-size:${7*s}px;margin-top:${6*s}px;opacity:.8">Bagside: ${esc(cfg.ar||'')} ${esc(cfg.name||'')}</div>`:''}</div>`;
       return `<div class="obj o-safar" style="${st}"><i class="cord"></i><i class="tassel"></i>${frame()}<div style="padding:0 14%">${inner}</div></div>`;}
     case 'eidiyya': return `<div class="obj o-eidiyya" style="${st}">${frame()}<div><div class="an" lang="ar" style="font-size:${20*s}px;opacity:.75;margin-bottom:${10*s}px">عيدية</div>${nameBlock(cfg,56*s)}</div></div>`;
     case 'qahwa': return `<div class="obj o-qahwa" style="${st}">${frame()}<div>${(cfg.ar||cfg.name)?nameBlock(cfg,50*s):`<svg viewBox="0 0 100 100" style="width:${120*s}px;color:var(--guld-lys)">${SEAL}</svg>`}</div></div>`;
@@ -902,6 +937,11 @@ function card(p){
     <div class="sw-dots"><i style="background:#161513"></i><i style="background:#1E3A2F"></i></div></a>`;
 }
 
+function reviewsHtml(list){
+  if(!list.length) return '';
+  return `<section class="reviews"><div class="wrap"><h2>Det siger kunderne</h2><div class="rv-grid">${list.map(r=>{const p=byId(r.product);
+    return `<figure class="rv">${r.img?`<img src="${esc(r.img)}" alt="" loading="lazy">`:''}<blockquote>${esc(r.text)}</blockquote><figcaption><b>${esc(r.name)}</b>${r.city?', '+esc(r.city):''}${p?`<a href="#/p/${p.id}">${nice(p.name)}</a>`:''}</figcaption></figure>`;}).join('')}</div></div></section>`;
+}
 function viewHome(cat){
   cat = CATS[cat] ? cat : 'alle';
   const list = P.filter(p => cat==='alle' || p.cats.includes(cat));
@@ -978,6 +1018,7 @@ function viewHome(cat){
     <div class="faq">${faq()}</div>
   </div></section>
 
+  ${reviewsHtml(REVIEWS)}
   <section class="news">
     <h2>Hør først om nye designs</h2>
     <p>Få besked, når Ramadan- og Eid-kollektionen er klar.</p>
@@ -989,10 +1030,18 @@ const ICON_OK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stro
 let pv = {};
 function viewProduct(id, editKey){
   const p = byId(id); if(!p) return viewHome('alle');
+  const shared = new URLSearchParams((location.hash.split('?')[1])||'');
   const existing = editKey ? cart.find(i=>i.key===editKey) : null;
   pv = existing ? JSON.parse(JSON.stringify(existing)) : {id, color:'sort', coin:'20', names:['','','',''], name:'', ar:'', arManual:false, greeting:'ramadan', shelf:['quran','tafsir','hadith','fiqh'], qty:1};
   pv.editKey = editKey||null;
   if(id==='ism' && !editKey){ try{ const hn=sessionStorage.getItem('khatam_hero_name'); if(hn){ pv.name=hn; } }catch(e){} }
+  // a shared design link (#/p/ism?n=Yusuf&c=smaragd) opens with the same choices
+  if(!editKey){ const cl=(v,n)=>(v||'').replace(/[<>]/g,'').slice(0,n);
+    if(shared.get('c') && COLORS[shared.get('c')]) pv.color=shared.get('c');
+    if(shared.get('n')){ pv.name=cl(shared.get('n'),10); pv.ar=toAr(pv.name); }
+    if(shared.get('ns')) pv.names=[...shared.get('ns').split('|').map(x=>cl(x,10)),'','','',''].slice(0,4);
+    if(shared.get('g')==='eid') pv.greeting='eid';
+    if(shared.get('s')){ const sh=shared.get('s').split(',').filter(k=>SHELF.some(x=>x[0]===k)).slice(0,4); if(sh.length) pv.shelf=sh; } }
   const H = (a,b='') => `<div class="opt-h">${a}${b?` <span>${b}</span>`:''}</div>`;
   let opts = '';
   opts += `<div class="opt">${H('Farve:',`<span id="colorLbl">${COLORS[pv.color].label}</span>`)}<div class="swatches">${Object.entries(COLORS).map(([k,c])=>`<button class="sw ${k===pv.color?'on':''}" data-color="${k}"><i style="background:${c.hex}"></i>${c.label}</button>`).join('')}</div></div>`;
@@ -1024,9 +1073,12 @@ function viewProduct(id, editKey){
   opts += `<div class="opt">${H('Antal')}<div class="add-row">
       <div class="qty"><button data-q="-1" aria-label="Færre"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 10h10"/></svg></button><span id="qv">${pv.qty}</span><button data-q="1" aria-label="Flere"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 10h10M10 5v10"/></svg></button></div>
       <button class="btn btn-dark" id="addBtn">${editKey?'Gem ændringer':'Læg i kurven'}, <span class="addPrice">${kr(p.price*pv.qty)}</span></button></div>
-      <div id="shipHint"></div></div>`;
+      <div id="shipHint"></div>${deadlineHtml()}
+      <button class="textbtn sharebtn" id="shareBtn" type="button"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M10 3v10M6 7l4-4 4 4M4 12v4h12v-4"/></svg>Del dit design</button></div>`;
   const thumbs = [`<button data-view="design" class="on" aria-label="Vis dit design" aria-pressed="true"><span class="dz"><b>${p.ar}</b>Dit design</span></button>`,
-    `<button data-view="foto" aria-label="Vis produktbillede" aria-pressed="false">${p.imgs.length>1?productImg(p):`<img src="img/${p.imgs[0]}.webp" alt="">`}</button>`]
+    `<button data-view="foto" aria-label="Vis produktbillede" aria-pressed="false">${p.imgs.length>1?productImg(p):`<img src="img/${p.imgs[0]}.webp" alt="">`}</button>`,
+    // real photos: drop img/foto/<id>-1.webp, -2.webp, -3.webp in the folder and they appear here automatically
+    ...[1,2,3].map(n=>`<button data-view="r${n}" aria-label="Foto ${n} af ${nice(p.name)}" aria-pressed="false" hidden><img class="photo" src="img/foto/${p.id}-${n}.webp" alt="" onload="this.parentNode.hidden=false" onerror="this.parentNode.remove()"></button>`)]
     .join('');
   const others = P.filter(x=>x.id!==id && x.cats.some(c=>p.cats.includes(c))).slice(0,4);
   return `
@@ -1044,6 +1096,7 @@ function viewProduct(id, editKey){
         <p class="tax">Inkl. moms. Fragt beregnes ved kassen.</p>
         <p class="desc">${p.desc}</p>
         ${opts}
+        <div class="buybar" id="buyBar" aria-hidden="true"><div><b>${nice(p.name)}</b><span id="barSum"></span></div><button class="btn btn-dark" id="barBtn" tabindex="-1">Læg i kurven, <span class="addPrice">${kr(p.price*pv.qty)}</span></button></div>
         <div class="assure">
           <div>${ICON_OK}<span>Digitalt udkast inden for 24 timer. Du kan rette, før vi printer.</span></div>
           <div>${ICON_OK}<span>Sendes 3–5 hverdage efter godkendelse, pakket som gave.</span></div>
@@ -1075,8 +1128,37 @@ $('#search').addEventListener('click', e => { if(e.target.closest('a')) $('#sear
 document.addEventListener('submit', e => { if(e.target.id==='newsForm'){ e.preventDefault(); e.target.reset(); toast('Tak. Du hører fra os, når nye designs er klar.'); } });
 
 let stageView = 'design';
+function shareUrl(p){
+  const q = new URLSearchParams(); if(pv.color!=='sort') q.set('c', pv.color);
+  if(pv.name) q.set('n', pv.name.trim());
+  const ns=(pv.names||[]).map(n=>n.trim()).filter(Boolean); if(p.personal==='names' && ns.length) q.set('ns', ns.join('|'));
+  if(p.personal==='greeting' && pv.greeting==='eid') q.set('g','eid');
+  if(p.personal==='shelf' || p.shelf) q.set('s', pv.shelf.join(','));
+  // the static page p/<id>.html gives WhatsApp/Instagram a proper preview, then opens the design
+  const base = location.href.split('#')[0].split('?')[0].replace(/index\.html$/,''); const qs = q.toString();
+  return `${base}p/${p.id}.html${qs?'?'+qs:''}`;
+}
+function genitive(n){ n=n.trim(); return /[sxz]$/i.test(n) ? n+"'" : n+'s'; }
+function deadlineHtml(){
+  const ms = RAMADAN_DEADLINE - Date.now(); if(ms <= 0) return '';
+  const d = Math.ceil(ms/864e5);
+  return `<p class="deadline"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><circle cx="10" cy="10" r="7"/><path d="M10 6v4l2.5 2"/></svg><span>Bestil inden 25. januar, så når gaven frem til Ramadan. <b>${d===1?'1 dag':d+' dage'} tilbage.</b></span></p>`;
+}
 function bindProduct(){
   const p = byId(pv.id);
+  const sb = $('#shareBtn'); if(sb) sb.onclick = async () => {
+    const url = shareUrl(p), who = pv.name.trim() || (pv.names||[]).map(n=>n.trim()).filter(Boolean)[0];
+    const text = who ? `Se hvordan ${genitive(who)} ${nice(p.name)} ser ud` : `Se ${nice(p.name)} fra KHATAM`;
+    track('Del design', {produkt:p.id});
+    if(navigator.share){ try{ await navigator.share({title:'KHATAM', text, url}); return; }catch(e){ if(e.name==='AbortError') return; } }
+    try{ await navigator.clipboard.writeText(url); toast('Linket er kopieret. Send det til familien.'); }catch(e){ prompt('Kopiér linket:', url); }
+  };
+  const bar = $('#buyBar'), add = $('#addBtn');
+  if(bar && add && 'IntersectionObserver' in window){
+    $('#barBtn').onclick = () => add.click();
+    const io = new IntersectionObserver(([e]) => { const show = !e.isIntersecting && e.boundingClientRect.top > 0; bar.classList.toggle('on', show); bar.setAttribute('aria-hidden', !show); $('#barBtn').tabIndex = show ? 0 : -1; });
+    io.observe(add); window._pdpIO && window._pdpIO.disconnect(); window._pdpIO = io;
+  }
   const render = () => {
     const box = $('#pvBox');
     const use3d = stageView==='design' && window.K3D && K3D.supports(p.id);
@@ -1084,7 +1166,8 @@ function bindProduct(){
     if(use3d){ if(!box.querySelector('canvas.k3d')){ box.innerHTML=''; K3D.mount(box, p.id, cfg3); } else K3D.update(cfg3); box.classList.add('is3d'); }
     else { if(window.K3D) K3D.unmount(); box.classList.remove('is3d'); box.innerHTML = stageView==='design' ? preview(p, pv, Math.min(1.25, box.clientWidth/440)) : `<img src="img/${p.imgs[0]}.webp" alt="">`; }
     if(stageView==='foto' && p.imgs.length>1) box.innerHTML = productImg(p);
-    $('#stageNote').textContent = stageView==='design' ? (box.classList.contains('is3d') ? 'Træk for at dreje. Det endelige udkast sendes til godkendelse.' : 'Forhåndsvisning. Det endelige udkast sendes til godkendelse.') : '';
+    if(/^r\d$/.test(stageView)){ if(window.K3D) K3D.unmount(); box.classList.remove('is3d'); box.innerHTML = `<img class="realfoto" src="img/foto/${p.id}-${stageView.slice(1)}.webp" alt="Foto af ${nice(p.name)}">`; }
+    $('#stageNote').textContent = stageView==='design' ? (box.classList.contains('is3d') ? (p.id==='safar' ? 'Træk for at dreje. Navnet står på bagsiden.' : 'Træk for at dreje. Det endelige udkast sendes til godkendelse.') : 'Forhåndsvisning. Det endelige udkast sendes til godkendelse.') : '';
     const jb=$('#joinBtn'); if(jb) jb.hidden = !(p.id==='zawj' && box.classList.contains('is3d'));
     $$('.addPrice').forEach(e=>e.textContent = kr(p.price*pv.qty));
     const bits=[COLORS[pv.color].label]; if(pv.name) bits.push(pv.name+(pv.ar?' (\u2068'+pv.ar+'\u2069)':'')); if(p.personal==='greeting') bits.push(pv.greeting==='eid'?'Eid Mubarak':'Ramadan Mubarak'); if(p.personal==='shelf'||p.shelf) bits.push(pv.shelf.length+' af 4 skilte'); bits.push(pv.qty+' stk.');
@@ -1150,6 +1233,7 @@ function addToCart(){
   if(same) same.qty += item.qty; else cart.push(item);
   save(); updateBadge(true);
   if(pv.editKey){ window._keepDrawer = true; location.hash = '#/'; }
+  track('Læg i kurven', {produkt:item.id});
   window._newKey = item.key; openDrawer(); setTimeout(()=>{ window._newKey=null; },1700);
 }
 
@@ -1168,7 +1252,9 @@ function upsell(t){
   if(t.free || !cart.length) return '';
   const inCart = new Set(cart.map(i=>i.id));
   const cand = [...P].sort((a,b)=>a.price-b.price);
-  const pick = cand.find(p=>p.price>=t.missing && !inCart.has(p.id)) || cand.find(p=>p.price>=t.missing) || cand[cand.length-1];
+  const ismOdd = cart.filter(i=>i.id==='ism').reduce((a,i)=>a+i.qty,0) % 2 === 1;
+  const pick = (ismOdd && byId('ism')) || cand.find(p=>p.price>=t.missing && !inCart.has(p.id)) || cand.find(p=>p.price>=t.missing) || cand[cand.length-1];
+  if(ismOdd) return `<div class="upsell">${liImg(pick)}<p><b>Én ISM mere</b>, kun 40 kr<br><span class="muted">2 nøgleringe for 99 kr</span></p><a class="btn btn-line" href="#/p/ism" data-close-nav>Vælg navn</a></div>`;
   return `<div class="upsell">${liImg(pick)}<p><b>${nice(pick.name)}</b>, ${kr(pick.price)}<br><span class="muted">${pick.price>=t.missing?'Så får du gratis fragt':'Tæt på gratis fragt'}</span></p><a class="btn btn-line" href="#/p/${pick.id}" data-close-nav>Se</a></div>`;
 }
 function renderDrawer(){
@@ -1306,6 +1392,7 @@ function pay(){
   $('#mockPaid').onclick = () => {
     const order = {no:'KH-'+(1000+Math.floor(Math.random()*9000)), items:JSON.parse(JSON.stringify(cart)), t:totals(), email:checkout.email};
     store.set('khatam_last_order', order); window._order = order;
+    track('Ordre', {beløb: String(totals().total)});
     cart = []; save(); updateBadge(); coStep=1; m.classList.remove('on'); location.hash = '#/tak';
   };
 }
@@ -1352,21 +1439,23 @@ function paintPatterns(){ $$('[data-pattern]').forEach(el=>{ el.style.background
 
 /* ---------- router ---------- */
 addEventListener('k3d-ready', () => { if(window._pdpRender && $('#pvBox')) window._pdpRender(); heroMount(); });
+document.addEventListener('focusin', e => { if (e.target && e.target.id === 'heroName') dispatchEvent(new Event('k3d-wanted')); });
 function heroMount(){ const st=$('#heroStage'); if(!st || !window.K3D) return; const inp=$('#heroName'); const cfg=()=>{ const n=(inp.value||'').trim()||'Yusuf'; return {color:'sort', name:n, ar:toAr(n), coin:'20'}; };
   st.querySelector('.h2fallback')?.remove(); if(!st.querySelector('canvas.k3d')) K3D.mount(st,'ism',cfg()); inp.oninput=()=>{ K3D.update(cfg()); $('#heroBuy').href='#/p/ism'; sessionStorage && (()=>{try{sessionStorage.setItem('khatam_hero_name', inp.value.trim())}catch(e){}})(); }; }
+function setMeta(title, desc){ document.title = title; const m=document.querySelector('meta[name=description]'); if(m && desc) m.content = desc; }
 function route(){
-  window._pdpRender = null; if(window.K3D) K3D.unmount();
+  window._pdpRender = null; if(window.K3D) K3D.unmount(); window._pdpIO && window._pdpIO.disconnect();
   const h = location.hash.slice(1) || '/';
   const [path, qs] = h.split('?'); const params = new URLSearchParams(qs||'');
   if(!window._keepDrawer) closeDrawer(); window._keepDrawer = false;
   const app = $('#app'); app.onclick = null; app.oninput = null; app.onchange = null; window.onresize = null;
   let cat = null;
-  if(path.startsWith('/p/')){ stageView='design'; app.innerHTML = viewProduct(path.slice(3), params.get('edit')); paintPatterns(); bindProduct(); scrollTo(0,0); }
-  else if(path==='/kasse'){ coStep = coStep||1; app.innerHTML = viewCheckout(); paintPatterns(); bindCheckout(); scrollTo(0,0); }
+  if(path.startsWith('/p/')){ const mp=byId(path.slice(3)); if(mp) setMeta(`${nice(mp.name)} – ${mp.type} | KHATAM`, mp.desc.replace(/<[^>]+>/g,'')); stageView='design'; app.innerHTML = viewProduct(path.slice(3), params.get('edit')); paintPatterns(); bindProduct(); scrollTo(0,0); }
+  else if(path==='/kasse'){ track('Til kassen'); coStep = coStep||1; app.innerHTML = viewCheckout(); paintPatterns(); bindCheckout(); scrollTo(0,0); }
   else if(path==='/tak'){ app.innerHTML = viewThanks(); paintPatterns(); scrollTo(0,0); }
   else if(path.startsWith('/info')){ app.innerHTML = viewInfo(); paintPatterns(); const a = h.split('#')[1]; a?setTimeout(()=>document.getElementById(a)?.scrollIntoView({behavior:'smooth'}),50):scrollTo(0,0); }
   else {
-    cat = params.get('c') || 'alle';
+    cat = params.get('c') || 'alle'; setMeta('KHATAM – personlige gaver med arabisk kalligrafi', 'Personlige islamiske gaver med arabisk kalligrafi: hyldeskilte, nøgleringe, entré-sæt og gaveæsker. Designet og lavet i Danmark.');
     const prevShop = $('#shop');
     app.innerHTML = viewHome(cat); paintPatterns(); setTimeout(heroMount, 0);
     if(params.get('c') && (prevShop || window._scrollShop)) { $('#shop').scrollIntoView({behavior: prevShop?'smooth':'auto'}); }
@@ -1385,9 +1474,20 @@ updateBadge(); route();
 <script type="module">
 // KHATAM live 3D preview: real-time product models with the customer's name in gold.
 // three.js from jsDelivr via the import map in index.html. Exposes window.K3D.
-import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+// three.js (≈700 kB) loads lazily: right away on a product page, otherwise once the page is idle,
+// so the home page paints and becomes usable first. The hero shows its product image until then.
+await new Promise(go => {
+  const now = () => go();
+  if (location.hash.startsWith('#/p/')) return now();
+  addEventListener('hashchange', () => { if (location.hash.startsWith('#/p/')) now(); });
+  addEventListener('k3d-wanted', now, { once: true });
+  const idle = () => (window.requestIdleCallback ? requestIdleCallback(now, { timeout: 2500 }) : setTimeout(now, 1200));
+  document.readyState === 'complete' ? idle() : addEventListener('load', idle, { once: true });
+});
+const mods = await Promise.all([
+  import('three'), import('three/addons/controls/OrbitControls.js'), import('three/addons/environments/RoomEnvironment.js')])
+  .catch(() => { console.info('KHATAM: 3D unavailable, showing the 2D preview'); return new Promise(() => {}); });   // offline: stay on the 2D preview
+const [THREE, { OrbitControls }, { RoomEnvironment }] = mods;
 
 const GOLD = '#b8862a';          // reads as the printed silk gold under the studio light
 const TEX = 4096;                         // 4K textures for the gold layer
@@ -1396,14 +1496,14 @@ const SHELF = { quran: 'القرآن', tafsir: 'التفسير', hadith: 'الح
 
 /* ------------------------------------------------------------------ shapes (mm) */
 // Same silhouette as signs.py / products.py: straight sides, 2 mm chamfer, a flat shoulder ledge, then a pointed arch
-function mihrabS(W, rectH, inset, rise) {
-  const s = new THREE.Shape(), a = W / 2 - inset, yb = rectH + 2, N = 48;
+function mihrabS(W, rectH, inset, rise, ch = 2) {
+  const s = new THREE.Shape(), a = W / 2 - inset, yb = rectH + ch, N = 48;
   const c = (rise * rise - a * a) / (2 * a), R = a + c, th1 = Math.atan2(rise, -c), left = [];
   for (let i = 0; i <= N; i++) { const th = Math.PI + (th1 - Math.PI) * i / N; left.push([c + R * Math.cos(th), yb + R * Math.sin(th)]); }
-  s.moveTo(-W / 2, 0); s.lineTo(W / 2, 0); s.lineTo(W / 2, rectH); s.lineTo(W / 2 - 2, yb);
+  s.moveTo(-W / 2, 0); s.lineTo(W / 2, 0); s.lineTo(W / 2, rectH); s.lineTo(W / 2 - ch, yb);
   for (let i = 0; i <= N; i++) s.lineTo(-left[i][0], left[i][1]);
   for (let i = N - 1; i >= 0; i--) s.lineTo(left[i][0], left[i][1]);
-  s.lineTo(-W / 2 + 2, yb); s.lineTo(-W / 2, rectH); s.closePath();
+  s.lineTo(-W / 2 + ch, yb); s.lineTo(-W / 2, rectH); s.closePath();
   return s;
 }
 function mihrab(w, rectH, rise, sh = 1.5) {
@@ -1488,6 +1588,7 @@ class Face {
     this.layer(c => { c.beginPath(); for (let k = 0; k < 16; k++) { const a = Math.PI / 2 + k * Math.PI / 8, rr = k % 2 ? r : R; const x = this.X(cx + Math.cos(a) * rr), y = this.Y(cy + Math.sin(a) * rr); k ? c.lineTo(x, y) : c.moveTo(x, y); } c.closePath(); c.fill();
       if (hole) { c.globalCompositeOperation = 'destination-out'; c.beginPath(); c.arc(this.X(cx), this.Y(cy), this.L(hole), 0, Math.PI * 2); c.fill(); } });
   }
+  poly(pts) { const c = this.ctx; c.beginPath(); pts.forEach(([x, y], i) => i ? c.lineTo(this.X(x), this.Y(y)) : c.moveTo(this.X(x), this.Y(y))); c.closePath(); c.fill(); }
   diamond(cx, cy, w, h) { const c = this.ctx; c.beginPath(); c.moveTo(this.X(cx - w), this.Y(cy)); c.lineTo(this.X(cx), this.Y(cy + h)); c.lineTo(this.X(cx + w), this.Y(cy)); c.lineTo(this.X(cx), this.Y(cy - h)); c.closePath(); c.fill(); }
   done() { this.tex.needsUpdate = true; }
 }
@@ -1653,15 +1754,27 @@ const BUILD = {
     const b = mk(other(cfg.color), false); b.rotation.x = -Math.PI / 2.6; b.position.set(40, -4, -30);
     g.add(a, b); pieces.push(a, b); g.userData = { pieces }; return g;
   },
-  safar(cfg) {
-    const sh = mihrab(48, 34, 26); sh.holes.push(circle(1.6, 0, 56, true));
-    const p = piece(sh, 3, COL[cfg.color] || COL.sort, (f, c) => {
-      f.shapeLine(sh, 1.8, 0.55); f.star(0, 50, 1.8, 0.9);
-      if (c.ar) f.text(c.ar, 0, 22, 36, 14, { ar: true }); else { f.text('سُبْحَانَ الَّذِي', 0, 30, 38, 8, { ar: true }); f.text('سَخَّرَ لَنَا هَٰذَا', 0, 17, 38, 8, { ar: true }); }
-      if (c.ar && c.name) f.text(up(c.name), 0, 9, 34, 2.8, { weight: 600, track: .25 });
-    });
-    const cord = new THREE.Mesh(new THREE.CylinderGeometry(.6, .6, 60, 12), new THREE.MeshPhysicalMaterial({ color: '#c99a45', roughness: .5 }));
-    cord.position.y = 58 + 30; const g = new THREE.Group(); g.add(p, cord); g.position.y = -40; g.userData = { pieces: [p] }; return g;
+  safar(cfg) {            // gifts.py hanger(): 48 mm mihrab, ring on top, Bismillah in gold, name engraved on the back
+    const TOP = 34 + 1.5 + 26, sh = mihrabS(48, 34, 7, 26, 1.5), col = COL[cfg.color] || COL.sort;
+    const p = piece(sh, 3, col, (f) => {
+      f.band(sh, 1.3, 2.1); f.band(sh, 2.9, 3.4);
+      f.starHollow(0, 35.5 + 26 * 0.4, 3.8, 2.0, 0.9);
+      f.text('بسم الله', 0, 19.5, 35, 12, { ar: true });
+      f.diamond(0, 8, 2.2, 1.6);
+      for (const sx of [-1, 1]) f.poly([[sx * 3.2, 7.65], [sx * 11, 7.85], [sx * 11, 8.15], [sx * 3.2, 8.35]]);
+    }, .3);
+    const ringS = circle(5, 0, TOP + 2.6); ringS.holes.push(circle(2, 0, TOP + 3, true));
+    const rg = new THREE.ExtrudeGeometry(ringS, { depth: 3, bevelEnabled: true, bevelThickness: .3, bevelSize: .3, bevelSegments: 2, curveSegments: 48 }); rg.translate(0, 0, -1.5);
+    const ring = new THREE.Mesh(rg, plateMat(col)); ring.castShadow = true; p.add(ring);
+    // back: the name engraved (recessed) into the plate, read from behind
+    const back = new Face(sh), bg = new THREE.ShapeGeometry(sh, 64); capUV(bg, back.b); bg.rotateY(Math.PI);
+    const bm = new THREE.MeshPhysicalMaterial({ color: '#2c2a26', roughness: .95, alphaMap: back.tex, transparent: true, alphaTest: .35, bumpMap: back.tex, bumpScale: -.5, polygonOffset: true, polygonOffsetFactor: -2 });
+    const bd = new THREE.Mesh(bg, bm); bd.position.z = -1.5 - .3 - .02; p.add(bd);
+    const front = p.userData.redraw;
+    p.userData.redraw = c => { front(c); back.clear(); back.ctx.save(); back.ctx.translate(back.cv.width, 0); back.ctx.scale(-1, 1);
+      if (c.ar) back.text(c.ar, 0, 21, 32, 11, { ar: true }); if (c.name) back.text(up(c.name), 0, c.ar ? 11 : 19, 32, c.ar ? 2.6 : 5, { weight: 600, track: .25 });
+      back.ctx.restore(); back.done(); };
+    const g = new THREE.Group(); g.add(p); g.position.y = -32; g.userData = { pieces: [p], showBack: true }; return g;
   },
   mubarak(cfg) {
     const sh = mihrabS(100, 44, 12, 40);
@@ -1742,7 +1855,8 @@ function makeViewer(el) {
   const loop = () => {
     v.raf = requestAnimationFrame(loop);
     const t = (performance.now() - v.t0) / 1000;
-    if (v.root && !v.touched && !reduce) v.root.rotation.y = Math.sin(t * 0.55) * 0.32;
+    v.turn = v.turn || 0; v.turn += ((v.turnTarget || 0) - v.turn) * (reduce ? 1 : 0.08);
+    if (v.root && !v.touched) v.root.rotation.y = v.turn + (reduce ? 0 : Math.sin(t * 0.55) * 0.32 * (1 - Math.min(1, Math.abs(v.turn) / 1.5)));
     if (v.anim) v.anim(t);
     if (v.glow > 0) { v.glow = Math.max(0, v.glow - 0.025); v.root && v.root.traverse(o => { if (o.userData && o.userData.gm) o.userData.gm.emissiveIntensity = v.glow * 0.9; }); }
     controls.update(); renderer.render(scene, cam);
@@ -1779,7 +1893,9 @@ window.K3D = {
   update(cfg) {
     if (!V || !V.root) return;
     if (cfg.color !== V.color) { const el = V.el, id = V.id; V.id = null; return this.mount(el, id, cfg); }
+    const prev = V.lastCfg || {};
     V.lastCfg = cfg; redrawAll(V, cfg); V.glow = 1;
+    if (V.root.userData.showBack && cfg.name && cfg.name !== prev.name) { V.turnTarget = Math.PI; clearTimeout(V.turnT); V.turnT = setTimeout(() => { V.turnTarget = 0; }, 3500); }
   },
   join(on) {             // ZAWJ: slide the two keyrings together into the star
     if (!V || !V.root || !V.root.userData.A) return;

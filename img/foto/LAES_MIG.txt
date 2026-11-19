@@ -1,0 +1,8 @@
+Rigtige produktfotos
+
+Læg fotos her som WebP, navngivet efter produktets id og et nummer:
+  ism-1.webp, ism-2.webp, ism-3.webp
+  zawj-1.webp, bab-1.webp, maktaba-1.webp, mubarak-1.webp, safar-1.webp ...
+
+Op til 3 fotos pr. produkt. De dukker selv op som miniaturer på produktsiden.
+Brug gerne 1600 x 2000 px (4:5) og under 300 kB pr. foto.
