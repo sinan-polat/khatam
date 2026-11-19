@@ -1389,12 +1389,23 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
-const GOLD = '#d4a64e';
+const GOLD = '#b8862a';          // reads as the printed silk gold under the studio light
 const TEX = 4096;                         // 4K textures for the gold layer
-const COL = { sort: '#1b1a18', smaragd: '#1e3a2f' };
+const COL = { sort: '#0b0b0a', smaragd: '#173326' };
 const SHELF = { quran: 'القرآن', tafsir: 'التفسير', hadith: 'الحديث', aqidah: 'العقيدة', fiqh: 'الفقه', seerah: 'السيرة', tazkiyah: 'التزكية', historie: 'التاريخ' };
 
 /* ------------------------------------------------------------------ shapes (mm) */
+// Same silhouette as signs.py / products.py: straight sides, 2 mm chamfer, a flat shoulder ledge, then a pointed arch
+function mihrabS(W, rectH, inset, rise) {
+  const s = new THREE.Shape(), a = W / 2 - inset, yb = rectH + 2, N = 48;
+  const c = (rise * rise - a * a) / (2 * a), R = a + c, th1 = Math.atan2(rise, -c), left = [];
+  for (let i = 0; i <= N; i++) { const th = Math.PI + (th1 - Math.PI) * i / N; left.push([c + R * Math.cos(th), yb + R * Math.sin(th)]); }
+  s.moveTo(-W / 2, 0); s.lineTo(W / 2, 0); s.lineTo(W / 2, rectH); s.lineTo(W / 2 - 2, yb);
+  for (let i = 0; i <= N; i++) s.lineTo(-left[i][0], left[i][1]);
+  for (let i = N - 1; i >= 0; i--) s.lineTo(left[i][0], left[i][1]);
+  s.lineTo(-W / 2 + 2, yb); s.lineTo(-W / 2, rectH); s.closePath();
+  return s;
+}
 function mihrab(w, rectH, rise, sh = 1.5) {
   const s = new THREE.Shape(), a = w / 2;
   s.moveTo(-a, 0); s.lineTo(a, 0); s.lineTo(a, rectH); s.lineTo(a - sh, rectH + sh);
@@ -1456,8 +1467,28 @@ class Face {
     if ('letterSpacing' in c) c.letterSpacing = track ? `${fs * track}px` : '0px';
     for (let i = 0; i < 40; i++) { c.font = `${weight} ${fs}px ${fam}`; const m = c.measureText(t); if (m.width <= this.L(maxW)) break; fs *= 0.94; }
     c.fillText(t, this.X(cx), this.Y(cy) + (ar ? fs * 0.08 : 0));
+    const wmm = c.measureText(t).width / this.s;
     if ('letterSpacing' in c) c.letterSpacing = '0px';
+    return wmm;
   }
+  layer(draw) {                           // draw on a scratch canvas, then composite (keeps cut-outs local)
+    const t = document.createElement('canvas'); t.width = this.cv.width; t.height = this.cv.height;
+    const c = t.getContext('2d'); c.fillStyle = c.strokeStyle = '#fff'; c.lineJoin = 'round'; draw(c); this.ctx.drawImage(t, 0, 0);
+  }
+  band(shape, d1, d2) {                   // gold band between d1 and d2 mm inside the outline (true offset, like the STL)
+    const pts = shape.getPoints(120), tr = c => { c.beginPath(); pts.forEach((p, i) => i ? c.lineTo(this.X(p.x), this.Y(p.y)) : c.moveTo(this.X(p.x), this.Y(p.y))); c.closePath(); };
+    this.layer(c => { tr(c); c.save(); c.clip(); c.lineWidth = this.L(d2 * 2); tr(c); c.stroke();
+      c.globalCompositeOperation = 'destination-out'; c.lineWidth = this.L(d1 * 2); tr(c); c.stroke(); c.restore(); });
+  }
+  crescent(cx, cy, R, ox, oy, r) {
+    this.layer(c => { c.beginPath(); c.arc(this.X(cx), this.Y(cy), this.L(R), 0, Math.PI * 2); c.fill();
+      c.globalCompositeOperation = 'destination-out'; c.beginPath(); c.arc(this.X(ox), this.Y(oy), this.L(r), 0, Math.PI * 2); c.fill(); });
+  }
+  starHollow(cx, cy, R, r, hole) {
+    this.layer(c => { c.beginPath(); for (let k = 0; k < 16; k++) { const a = Math.PI / 2 + k * Math.PI / 8, rr = k % 2 ? r : R; const x = this.X(cx + Math.cos(a) * rr), y = this.Y(cy + Math.sin(a) * rr); k ? c.lineTo(x, y) : c.moveTo(x, y); } c.closePath(); c.fill();
+      if (hole) { c.globalCompositeOperation = 'destination-out'; c.beginPath(); c.arc(this.X(cx), this.Y(cy), this.L(hole), 0, Math.PI * 2); c.fill(); } });
+  }
+  diamond(cx, cy, w, h) { const c = this.ctx; c.beginPath(); c.moveTo(this.X(cx - w), this.Y(cy)); c.lineTo(this.X(cx), this.Y(cy + h)); c.lineTo(this.X(cx + w), this.Y(cy)); c.lineTo(this.X(cx), this.Y(cy - h)); c.closePath(); c.fill(); }
   done() { this.tex.needsUpdate = true; }
 }
 function capUV(geo, b) {                 // map shape coordinates to 0..1 over the bounding box
@@ -1467,16 +1498,23 @@ function capUV(geo, b) {                 // map shape coordinates to 0..1 over t
 }
 
 /* ------------------------------------------------------------------ materials */
-const plateMat = hex => new THREE.MeshPhysicalMaterial({ color: hex, roughness: 0.62, metalness: 0, clearcoat: 0.08, clearcoatRoughness: 0.6 });
+const plateMat = hex => new THREE.MeshPhysicalMaterial({ color: hex, roughness: 0.82, metalness: 0, envMapIntensity: 0.18, specularIntensity: 0.35 });   // matte PLA
 function goldMat(face) {
-  return new THREE.MeshPhysicalMaterial({ color: GOLD, metalness: 1, roughness: 0.26, alphaMap: face.tex, transparent: true, alphaTest: 0.35,
-    bumpMap: face.tex, bumpScale: 0.6, emissive: new THREE.Color('#ffcf6a'), emissiveIntensity: 0, polygonOffset: true, polygonOffsetFactor: -2 });
+  return new THREE.MeshPhysicalMaterial({ color: GOLD, metalness: 0.3, roughness: 0.5, envMapIntensity: 0.7, alphaMap: face.tex, transparent: true, alphaTest: 0.35,
+    bumpMap: face.tex, bumpScale: 0.25, emissive: new THREE.Color('#ffcf6a'), emissiveIntensity: 0, polygonOffset: true, polygonOffsetFactor: -2 });
 }
 const steel = () => new THREE.MeshPhysicalMaterial({ color: '#cfccc6', metalness: 1, roughness: 0.22 });
 const brass = () => new THREE.MeshPhysicalMaterial({ color: '#c99a45', metalness: 1, roughness: 0.3 });
 
 /* piece = extruded plate + gold decal on the front, with a redraw(cfg) */
 // Bookshelf foot, same geometry as fod.stl: two stepped tiers, slotted holder and a thin tongue that slides under the books
+function tableFoot(hex) {               // products.py table_stand(): 112x46 + 96x34 tiers, 42x15 holder, 10 mm tall
+  const m = plateMat(hex), g = new THREE.Group();
+  const box = (w, h, d, y, z) => { const b = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m); b.position.set(0, y, z); g.add(b); };
+  box(112, 2.8, 46, 1.4, -4); box(110.4, 0.01, 44.4, 2.8, -4); box(96, 1.8, 34, 3.7, -4); box(42, 10, 15, 9.6, 0);
+  g.traverse(o => { if (o.isMesh) o.castShadow = o.receiveShadow = true; });
+  return g;
+}
 function shelfFoot(hex) {
   const m = plateMat(hex), g = new THREE.Group();
   const box = (w, h, d, y, z) => { const b = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m); b.position.set(0, y, z); g.add(b); };
@@ -1539,13 +1577,13 @@ const BUILD = {
   maktaba(cfg) {
     const g = new THREE.Group(), pieces = [], sel = (cfg.shelf || []).slice(0, 4);
     for (let i = 0; i < 4; i++) {
-      const sh = mihrab(72, 44, 42);
+      const sh = mihrabS(72, 34, 10, 31);
       const p = piece(sh, 3, COL[cfg.color] || COL.sort, (f, c) => {
-        f.shapeLine(sh, 2.0, 0.7); f.star(0, 64, 2.4, 1.2);
-        const k = (c.shelf || [])[i]; if (k) f.text(SHELF[k], 0, 27, 56, 22, { ar: true }); else f.text('VÆLG', 0, 27, 30, 5, { weight: 500, track: .2 });
+        f.band(sh, 1.6, 2.6); f.band(sh, 3.6, 4.3); f.starHollow(0, 36 + 31 * 0.42, 4.6, 2.6, 1.3);
+        const k = (c.shelf || [])[i]; if (k) f.text(SHELF[k], 0, 18.6, 57, 20, { ar: true }); else f.text('VÆLG', 0, 18.6, 30, 5, { weight: 500, track: .2 });
       });
       const base = shelfFoot(COL[cfg.color] || COL.sort);
-      const unit = new THREE.Group(); p.rotation.x = -0.087; p.position.set(0, 5.8, 0); unit.add(p, base);
+      const unit = new THREE.Group(); p.rotation.x = -0.087; p.position.set(0, 13.4, 0); unit.add(p, base);
       unit.position.x = (i - 1.5) * 92; unit.rotation.y = (i - 1.5) * -0.06; g.add(unit); pieces.push(p);
     }
     g.userData = { pieces }; return g;
@@ -1626,14 +1664,17 @@ const BUILD = {
     cord.position.y = 58 + 30; const g = new THREE.Group(); g.add(p, cord); g.position.y = -40; g.userData = { pieces: [p] }; return g;
   },
   mubarak(cfg) {
-    const sh = mihrab(100, 50, 58);
+    const sh = mihrabS(100, 44, 12, 40);
     const p = piece(sh, 3, COL[cfg.color] || COL.sort, (f, c) => {
-      f.shapeLine(sh, 2.6, 0.8); f.shapeLine(sh, 4.4, 0.4); f.star(0, 82, 3, 1.5);
+      f.band(sh, 1.6, 2.7); f.band(sh, 3.7, 4.4);
+      const cy = 46 + 40 * 0.42;
+      f.crescent(-1, cy, 7.5, 2.4, cy + 1.6, 6.4); f.starHollow(3.6, cy + 1.2, 2.9, 1.5, 0);
       const eid = c.greeting === 'eid';
-      f.text(eid ? 'عيد مبارك' : 'رمضان مبارك', 0, 42, 80, 30, { ar: true });
-      f.text(eid ? 'EID MUBARAK' : 'RAMADAN MUBARAK', 0, 18, 70, 4.4, { weight: 600, track: .25 });
+      f.text(eid ? 'عيد مبارك' : 'رمضان مبارك', 0, 27.5, 82, 19, { ar: true });
+      const lw = f.text(eid ? 'EID MUBARAK' : 'RAMADAN MUBARAK', 0, 10.5, 74, 3.9, { weight: 700, track: .32 }) / 2 + 4;
+      f.diamond(-lw, 10.5, 1.6, 1.6); f.diamond(lw, 10.5, 1.6, 1.6);
     });
-    p.rotation.x = -0.14; const base = new THREE.Mesh(new THREE.BoxGeometry(112, 8, 46), plateMat(COL[cfg.color] || COL.sort)); base.position.set(0, -4, 6); base.castShadow = true;
+    p.rotation.x = -0.14; p.position.y = 14.6; const base = tableFoot(COL[cfg.color] || COL.sort);
     const g = new THREE.Group(); g.add(p, base); g.position.y = -40; g.userData = { pieces: [p] }; return g;
   },
   tabaq(cfg) {
@@ -1645,7 +1686,7 @@ const BUILD = {
     const f = piece(floor, 3, col, (fc) => { fc.khatam(0, 0, 46, 1.4); fc.khatam(0, 0, 14, 1.2); fc.shapeLine(floor, 5, 0.8); });
     f.rotation.x = -Math.PI / 2; f.position.y = 1.5; g.add(f);
     const rimS = octagon(68); rimS.holes.push(octagon(65.4, true));
-    const rim = new THREE.Mesh(new THREE.ShapeGeometry(rimS), new THREE.MeshPhysicalMaterial({ color: GOLD, metalness: 1, roughness: .26 }));
+    const rim = new THREE.Mesh(new THREE.ShapeGeometry(rimS), new THREE.MeshPhysicalMaterial({ color: GOLD, metalness: 0.3, roughness: 0.5, envMapIntensity: 0.7 }));
     rim.rotation.x = -Math.PI / 2; rim.position.y = 20.45; g.add(rim);
     g.position.y = -10; g.userData = { pieces: [f] }; return g;
   },
