@@ -52,3 +52,14 @@ Fragtgrænse og fragtpriser: `const FREE = 349, SHIP_PS = 45, SHIP_HOME = 59, HO
 - **Ramadan-frist:** Datoen står i `RAMADAN_DEADLINE`. Nedtællingen forsvinder selv efter fristen.
 - **Statistik:** Opret en konto på plausible.io og skriv domænet i `ANALYTICS_DOMAIN`. Siden måler så "Læg i kurven", "Til kassen", "Ordre" og "Del design" uden cookies.
 - **Google og deling:** `p/<id>.html`, `sitemap.xml` og `robots.txt` laves af `node tools/seo.mjs`. Kør den igen, når du ændrer produkter, eller når `SITE_URL` skifter til dit eget domæne.
+
+## Produktsidens opbygning (opdateret november 2026)
+
+Produktsiden er bygget op efter en klassisk Shopify-produktside: galleri med pile og prikker til venstre, købsboks til højre, sticky "Læg i kurven" når man scroller forbi knappen, og faste sektioner nedenunder.
+
+Alt står i `index.html`:
+- `POINTS` – tre korte salgspunkter med ikon pr. produkt. Vises under beskrivelsen og i sektionen "Alt, du skal vide om …".
+- `FBT` – hvilke tre produkter der vises i "Passer godt sammen med". Produkter uden navn (fx Tabaq og Mubarak) kan lægges direkte i kurven derfra. Resten får knappen "Vælg navn".
+- `REVIEWS` – når du tilføjer rigtige anmeldelser (gerne med `rating: 5`), vises stjerner under produktnavnet og en anmeldelses-karrusel på produktsiden. Uden anmeldelser vises ingen af delene.
+- `RAMADAN_DEADLINE` – styrer nedtællingen i prisboksen og den øverste linje i topbjælken. Begge forsvinder selv efter fristen.
+- Rigtige fotos: `img/foto/<id>-1.webp` bruges i "Sådan bliver din gave til", `-2.webp` i FAQ-sektionen (for det første produkt i "Passer godt sammen med") og `-3.webp` som baggrund i banneret "Du ser den, før vi laver den". Indtil fotos findes, vises produktbillederne.

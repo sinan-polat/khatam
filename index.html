@@ -625,14 +625,7 @@ h1,h2,h3{text-wrap:balance} p{text-wrap:pretty}
 .sharebtn{display:inline-flex;align-items:center;gap:8px;margin-top:14px;min-height:40px}
 .realfoto{width:100%;height:100%;object-fit:cover;display:block}
 .buybar{display:none}
-@media (max-width:820px){
-  .buybar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;align-items:center;gap:12px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--line);box-shadow:0 -8px 24px rgba(22,21,19,.08);transform:translateY(110%);transition:transform .28s cubic-bezier(.16,1,.3,1)}
-  .buybar.on{transform:none}
-  .buybar>div{flex:1;min-width:0;display:flex;flex-direction:column;font-size:12.5px;color:var(--muted)}
-  .buybar>div b{font-size:15px;color:var(--ink)}
-  .buybar>div span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .buybar .btn{flex:none;min-height:48px;padding:0 18px;white-space:nowrap}
-}
+
 @media (prefers-reduced-motion:reduce){.buybar{transition:none}}
 .reviews{padding:72px 0;background:var(--panel)}
 .reviews h2{margin-bottom:28px}
@@ -642,27 +635,335 @@ h1,h2,h3{text-wrap:balance} p{text-wrap:pretty}
 .rv blockquote{margin:0;font-size:16px;line-height:1.6}
 .rv figcaption{font-size:13.5px;color:var(--muted);display:flex;gap:6px;flex-wrap:wrap}
 .rv figcaption a{margin-left:auto;color:var(--guld-txt)}
+
+/* ===== Layout pass inspired by modern Shopify product pages: pill buttons, rounded blocks, warm panels ===== */
+:root{--txt:#484848;--warm:#F7F5F2;--warm-2:#F4F2F0;--beige:#F3E9D9;--beige-h:#EADBC3;--bd:rgba(72,72,72,.12);--r:12px;--r-sm:8px;--green:#1F9D55}
+body{color:var(--txt)}
+h1,h2,h3,.sec-h h2,.iwt h2,.banner .box h2,.conf h1,.co h1,.thanks h1,.info h1,.coll .lab h3{color:var(--ink);font-weight:500;letter-spacing:-.02em}
+.btn{border-radius:60px;font-weight:600;font-size:15px;min-height:52px;padding:0 32px}
+.btn-xl{min-height:58px;font-size:16px}
+.btn-sm{min-height:40px;padding:0 18px;font-size:13px;font-weight:600}
+.btn-beige{background:var(--beige);color:var(--ink)}
+.btn-beige:hover{background:var(--beige-h)}
+.btn-line{border-radius:60px}
+.input{border-radius:var(--r-sm);border-color:var(--bd);border-color:#d9d6d0}
+.chip,.sw{border-radius:999px;border-color:#d9d6d0}
+.sw{padding:0 18px 0 6px}
+.qty{border-radius:60px;border-color:#d9d6d0;overflow:hidden}
+.suggest{border-radius:var(--r-sm)}
+.card .ph,.coll,.iwt,.banner,.prodmedia,.co-sec,.co-aside,.timeline,.upsell,.li-img,.modal .box,.notice{border-radius:var(--r)}
+.iwt,.banner{overflow:hidden}
+.card .ph{background:var(--warm)}
+.badge{border-radius:4px}
+
+/* announcement */
+.announce{background:var(--smaragd);color:#EDE8DC;padding:0;font-size:13px;line-height:1.35}
+.announce b{font-weight:600;color:#fff;letter-spacing:.04em;text-transform:uppercase}
+.ann-top{display:none}
+.ann-usp{display:flex;justify-content:center;max-width:var(--max);margin:0 auto}
+.ann-usp span,.ann-top{padding:9px 28px}
+.ann-usp span+span{border-left:1px solid rgba(255,255,255,.22)}
+@media (min-width:861px){
+  .announce{display:flex;justify-content:center}
+  .ann-top{display:flex;gap:10px;align-items:center;border-right:1px solid rgba(255,255,255,.22)}
+  .ann-usp{margin:0}
+}
+@media (max-width:860px){
+  .ann-top{display:flex;gap:10px;justify-content:center;padding:10px 16px;border-bottom:1px solid rgba(255,255,255,.18);font-size:13.5px}
+  .ann-usp span{flex:1;padding:8px 6px;font-size:12px;text-align:center;display:flex;align-items:center;justify-content:center}
+}
+
+/* header: logo left, menu beside it, icons right */
+.header{border-bottom:1px solid transparent}
+.header.scrolled{border-bottom-color:var(--bd)}
+.header .in{display:flex;align-items:center;gap:44px;height:76px}
+.header .logo{flex-direction:row;gap:10px;align-items:center}
+.header .logo svg{width:26px;height:26px}
+.logo span{font-size:21px;letter-spacing:.3em;margin-right:0;color:var(--ink)}
+.nav{gap:30px;font-size:14px;font-weight:400;color:var(--txt)}
+.nav a.on,.nav a:hover{color:var(--ink)}
+.nav a::after{bottom:6px}
+.icons{margin-left:auto}
+.count{background:var(--ink)}
+@media (max-width:860px){
+  .header .in{gap:6px;height:62px;padding:0 10px}
+  .header .logo{margin-right:auto}
+  .header .logo svg{width:22px;height:22px}
+  .logo span{font-size:17px}
+}
+
+/* breadcrumbs */
+.crumbs{display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-size:13px;color:var(--txt);padding:20px 0 22px;letter-spacing:0}
+.crumbs svg{width:13px;height:13px;color:var(--ink)}
+.crumbs span{color:var(--ink)}
+
+/* product: two columns, accordions under the gallery on desktop */
+.pdp{grid-template-columns:minmax(0,1.12fr) minmax(0,1fr);grid-template-areas:"g c" "a c";gap:0 56px;padding-bottom:30px}
+.gallery{grid-area:g;position:relative;top:0;grid-template-columns:76px minmax(0,1fr);gap:14px}
+.conf{grid-area:c;position:relative}
+.paccs{grid-area:a;margin-top:26px;padding-left:90px}
+.thumbs{gap:10px}
+.thumbs button{width:76px;border-radius:var(--r-sm);background:var(--warm);border:1px solid transparent}
+.thumbs button.on{border-color:var(--ink)}
+.stage{border-radius:var(--r);background:var(--warm);aspect-ratio:1/1.04}
+.garr{position:absolute;top:50%;transform:translateY(-50%);z-index:4;width:40px;height:40px;border-radius:50%;background:#fff;color:var(--ink);display:grid;place-items:center;box-shadow:0 2px 10px rgba(0,0,0,.12)}
+.garr.prev{left:14px}.garr.next{right:14px}
+.garr:hover{transform:translateY(-50%) scale(1.06)}
+.gdots{position:absolute;left:0;right:0;bottom:16px;display:flex;justify-content:center;gap:7px;z-index:4}
+.gdots button{width:8px;height:8px;border-radius:50%;background:rgba(22,21,19,.25);padding:0}
+.gdots button.on{background:var(--ink);width:20px;border-radius:5px}
+.stage-note{bottom:38px}
+
+.pbadge{display:inline-block;background:var(--ink);color:#fff;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:5px 9px;border-radius:3px;margin-bottom:10px}
+.prate{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--txt);margin-bottom:6px}
+.stars{display:inline-flex;gap:2px}
+.stars i{width:17px;height:17px;background:#dcdce6;display:grid;place-items:center;border-radius:2px}
+.stars i.on{background:#00B67A}
+.stars svg{width:13px;height:13px;color:#fff}
+.conf h1{font-size:clamp(26px,2.4vw,34px);line-height:1.2;margin:4px 0 4px;gap:12px}
+.conf h1 .ar{font-size:.62em}
+.ptype{font-size:14.5px;margin:0 0 14px;color:var(--txt)}
+.pbox{background:var(--warm);border-radius:var(--r);padding:16px 20px}
+.pbox .price{gap:10px;align-items:center}
+.pbox .price b{font-size:28px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
+.pbox .price s{font-size:14px;color:#9a948c}
+.disc{background:var(--ink);color:#fff;font-size:11px;font-weight:700;padding:4px 7px;border-radius:4px;line-height:1}
+.spar{font-size:14px;font-weight:600;color:var(--ink);margin-top:2px}
+.pbox .tax{margin:2px 0 0;font-size:12.5px}
+.cd{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid var(--bd);margin-top:14px;padding-top:12px}
+.cd>span{font-size:13.5px;font-weight:600;color:var(--ink)}
+.cd-n{display:flex;gap:14px}
+.cd-n div{display:flex;flex-direction:column;align-items:center;min-width:34px}
+.cd-n b{font-size:22px;font-weight:500;color:var(--ink);line-height:1.1;font-variant-numeric:tabular-nums}
+.cd-n small{font-size:10.5px;color:var(--muted)}
+.conf .desc{border-top:0;padding:20px 0 0;font-size:15px;color:var(--txt);font-weight:400}
+.pts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:20px 0 6px}
+.pts div{display:flex;gap:10px;align-items:center;font-size:12.5px;line-height:1.35;color:var(--ink)}
+.pts svg{flex:none;width:28px;height:28px;color:var(--ink)}
+.mini-acc .pacc summary{font-size:13px;padding:14px 0}
+.mini-acc .pacc{border-bottom:1px solid var(--bd)}
+.pacc{border-bottom:1px solid var(--bd)}
+.pacc:first-child{border-top:0}
+.pacc summary{font-size:15px;font-weight:400;color:var(--ink);padding:18px 0}
+.pacc summary::after{display:none}
+.pacc .pm{flex:none;transition:transform .25s var(--ease)}
+.pacc[open] .pm .v{display:none}
+.pacc-b{padding:0 0 20px;font-size:14px;color:var(--txt)}
+.pacc-b p{padding:0;font-weight:400;color:var(--txt)}
+.ul{padding-left:18px;display:grid;gap:4px}
+.opt{padding-top:22px}
+.opt-h{font-size:14px;font-weight:600;color:var(--ink)}
+.stock{display:flex;align-items:center;gap:10px;font-size:15px;color:var(--ink);margin:24px 0 12px}
+.stock i{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(31,157,85,.15)}
+.add-row{gap:10px}
+.add-row .qty{height:58px}
+.add-row .btn{flex:1}
+.pay-icons{display:flex;gap:6px;flex-wrap:wrap}
+.pay-icons.center{justify-content:center;margin-top:14px}
+.pi{display:inline-flex;align-items:center;justify-content:center;min-width:46px;height:28px;padding:0 7px;border:1px solid var(--bd);border-radius:5px;background:#fff;font-size:11px;white-space:nowrap}
+.pi b{font-weight:700}
+.pi i{display:block;width:14px;height:14px;border-radius:50%}
+.ship-hint{text-align:center;font-size:13.5px;margin-top:12px}
+.trust3{display:grid;grid-template-columns:repeat(3,1fr);margin:26px 0 8px}
+.trust3>div{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:4px 14px;font-size:12.5px;line-height:1.4;color:var(--txt)}
+.trust3>div+div{border-left:1px solid var(--bd)}
+.trust3 svg{width:30px;height:30px;color:var(--ink)}
+.fbt{border:1px solid var(--ink);border-radius:var(--r);padding:6px 20px 4px;margin-top:26px}
+.fbt h3{font-size:15px;font-weight:400;color:var(--ink);padding:14px 0;border-bottom:1px solid var(--bd)}
+.fbt-row{display:grid;grid-template-columns:64px 1fr auto;gap:16px;align-items:center;padding:14px 0}
+.fbt-row+.fbt-row{border-top:1px solid var(--bd)}
+.fbt-img{width:64px;aspect-ratio:1;border-radius:var(--r-sm);background:var(--warm);display:grid;place-items:center;overflow:hidden;position:relative}
+.fbt-img img{width:86%}
+.fbt-img .composite{width:86%}
+.fbt-t a{font-size:14px;color:var(--ink)}
+.fbt-p{font-size:13px;color:var(--ink)}
+.fbt-p s{color:#9a948c;margin-left:6px}
+.sharebtn{margin-top:18px}
+
+/* sticky add to cart: floating card on desktop, full-width bar on mobile */
+.buybar{display:flex;position:fixed;z-index:55;align-items:center;gap:14px;background:#fff;opacity:0;pointer-events:none;transition:opacity .25s var(--ease),transform .3s cubic-bezier(.16,1,.3,1)}
+.buybar.on{opacity:1;pointer-events:auto}
+@media (min-width:821px){
+  .buybar{right:24px;bottom:24px;width:390px;padding:12px;border-radius:var(--r);box-shadow:0 18px 50px rgba(72,72,72,.18);transform:translateY(16px)}
+  .buybar.on{transform:none}
+  .bb-img{flex:none;width:60px;aspect-ratio:1;border-radius:var(--r-sm);background:var(--warm);display:grid;place-items:center;overflow:hidden;position:relative}
+  .bb-img img{width:86%}
+  .bb-sum{display:none}
+}
+.bb-t{flex:1;min-width:0;display:flex;flex-direction:column;font-size:13.5px}
+.bb-t b{font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bb-t s{color:#9a948c;font-size:12px}
+.bb-t>span:not(.bb-sum){color:var(--green);font-weight:500}
+.buybar .btn{flex:none;min-height:44px;padding:0 20px;font-size:14px}
+@media (max-width:820px){
+  .buybar{left:0;right:0;bottom:0;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:var(--ink);color:#fff;border-top:0;box-shadow:none;transform:translateY(110%)}
+  .buybar.on{transform:none}
+  .bb-img,.bb-sum{display:none}
+  .bb-t b{color:#fff;font-weight:500;font-size:13px}
+  .bb-t>span:not(.bb-sum){color:#fff;font-weight:700;font-size:16px}
+  .bb-t s{color:rgba(255,255,255,.6)}
+  .buybar .btn{background:#fff;color:var(--ink);text-transform:uppercase;font-size:13px;letter-spacing:.02em;min-height:46px}
+}
+
+/* sections below the buy box */
+.psec{padding:72px 0 0}
+.psec h2{font-size:clamp(26px,2.4vw,34px);line-height:1.2}
+.ctr{text-align:center}
+.sec-row{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:24px}
+.arrows{display:flex;gap:10px}
+.arr{width:40px;height:40px;border-radius:50%;border:1px solid var(--bd);display:grid;place-items:center;color:var(--ink)}
+.arr:hover{border-color:var(--ink)}
+.steps{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;background:var(--warm);border-radius:var(--r);padding:48px 56px}
+.steps h2{margin-bottom:30px}
+.steps ol{list-style:none;display:grid;gap:22px}
+.steps li{display:grid;grid-template-columns:46px 1fr;gap:18px;align-items:center}
+.steps .n{width:46px;height:46px;border-radius:50%;border:1px solid var(--ink);display:grid;place-items:center;font-size:15px;color:var(--ink)}
+.steps li.on .n{background:var(--ink);color:#fff}
+.steps b{font-weight:500;color:var(--ink);font-size:15px}
+.steps p{font-size:13.5px;color:var(--txt)}
+.pmedia{position:relative;border-radius:var(--r);background:var(--panel-2);display:grid;place-items:center;overflow:hidden;aspect-ratio:1/1}
+.pmedia>img{width:78%;filter:drop-shadow(0 22px 26px rgba(0,0,0,.22))}
+.pmedia .composite{width:80%}
+.steps-m{aspect-ratio:1/.92}
+.rv-wrap{display:grid;grid-template-columns:240px minmax(0,1fr);gap:22px}
+.rv-sum{background:var(--warm);border-radius:var(--r);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:6px;padding:26px;font-size:13px}
+.rv-sum b{font-size:20px;color:var(--ink);font-weight:600}
+.rv-track{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 44px)/3);gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin;padding-bottom:14px}
+.rv-card{scroll-snap-align:start;display:flex;flex-direction:column;gap:12px;margin:0;font-size:14px}
+.rv-card img{border-radius:var(--r-sm);aspect-ratio:4/3;object-fit:cover}
+.rv-card blockquote{margin:0;color:var(--txt);line-height:1.55}
+.rv-card figcaption{font-size:13px;color:var(--ink)}
+.cmp-h{text-align:center;max-width:640px;margin:0 auto 34px}
+.cmp-h p{font-size:14.5px;margin-top:12px}
+.cmp{max-width:640px;margin:0 auto}
+.cmp-r{display:grid;grid-template-columns:1.4fr 1fr 1fr;align-items:center;text-align:center;font-size:14px}
+.cmp-r>span{padding:14px 12px;border-bottom:1px solid var(--bd);min-height:58px;display:flex;align-items:center;justify-content:center}
+.cmp-r>span:first-child{justify-content:flex-start;text-align:left;color:var(--ink)}
+.cmp-r:last-child>span{border-bottom:0}
+.cmp-head>span{font-weight:500;color:var(--ink);border-bottom:0}
+.cmp .us{border-left:1px solid var(--bd);border-right:1px solid var(--bd);background:#fff}
+.cmp-head .us{border-top:1px solid var(--bd);border-radius:var(--r) var(--r) 0 0;font-family:var(--display);letter-spacing:.24em;font-size:16px}
+.cmp-r:last-child .us{border-bottom:1px solid var(--bd);border-radius:0 0 var(--r) var(--r)}
+.cmp i{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;color:#fff}
+.cmp i svg{width:14px;height:14px}
+.cmp .yes{background:var(--green)}
+.cmp .no{background:#E5484D}
+.rf{position:relative;border-radius:var(--r);overflow:hidden;min-height:520px;display:flex;align-items:center;justify-content:flex-end;padding:48px}
+.rf-bg{position:absolute;inset:0;background:var(--panel-2);display:grid;place-items:center;justify-items:start;padding-left:8%}
+
+.rf-card{position:relative;z-index:2;background:#fff;border-radius:var(--r);padding:34px;max-width:440px;display:grid;gap:16px}
+.rf-card h2{font-size:24px}
+.rf-card p{font-size:14px}
+.rf-card small{text-align:center;font-size:12px;color:var(--muted)}
+.cf{display:grid;grid-template-columns:1fr minmax(0,1.1fr) 1fr;align-items:center;gap:20px;background:var(--warm);border-radius:var(--r);padding:30px 40px;margin-top:30px}
+.cf-col{display:grid;gap:44px}
+.cf-i{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px}
+.cf-ic{width:44px;height:44px;border-radius:50%;background:#fff;display:grid;place-items:center;margin-bottom:4px}
+.cf-ic svg{width:22px;height:22px;color:var(--ink)}
+.cf-i b{font-weight:500;color:var(--ink);font-size:14.5px}
+.cf-i p{font-size:13px;max-width:28ch}
+.cf-m{background:transparent;aspect-ratio:1/1}
+.faqi{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.faqi h2{margin-bottom:18px}
+.faq2 details{border-bottom:1px solid var(--bd)}
+.faq2 details:first-child{border-top:0}
+.faq2 summary{font-weight:400;color:var(--ink);font-size:15px}
+.faq2 details p{font-size:14px;color:var(--txt)}
+.faqi-m{aspect-ratio:1/1}
+
+/* newsletter card + footer */
+.news-g{padding:80px 0 50px}
+.news-card{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center;background:var(--warm-2);border-radius:var(--r);padding:44px 56px}
+.news-card h2{font-size:clamp(26px,2.4vw,34px);margin-bottom:10px}
+.news-card p{font-size:14px;max-width:42ch}
+.news-card form{display:grid;gap:10px}
+.news-card .input{border-radius:60px;background:#fff;border-color:transparent;height:50px;padding:0 22px}
+.news-card small{text-align:center;font-size:12px;color:var(--muted)}
+footer{background:#fff;color:var(--txt);padding:30px 0 30px;border-top:0}
+footer .logo{flex-direction:row;align-items:center;gap:10px}
+footer .logo svg{color:var(--guld)!important;width:24px;height:24px}
+footer .logo span{color:var(--guld-txt);font-size:19px}
+footer h4{color:var(--ink);font-size:15px;font-weight:500}
+footer a{color:var(--txt);font-size:14px;padding:6px 0}
+footer a:hover{color:var(--ink)}
+footer .about{color:var(--txt)}
+footer .soc{display:flex;gap:14px;margin-top:18px}
+footer .soc a{color:var(--ink);padding:0}
+footer .soc svg{width:22px;height:22px}
+footer .bottom{border-color:var(--bd);color:var(--txt)}
+footer .pay-icons span.pi{border-color:var(--bd)}
+footer :focus-visible{outline-color:var(--ink)}
+
+@media (max-width:1100px){ .pdp{gap:0 36px} .paccs{padding-left:0} }
+@media (max-width:860px){
+  .pdp{grid-template-columns:minmax(0,1fr);grid-template-areas:"g" "c" "a";gap:0}
+  .gallery{margin:0;grid-template-columns:minmax(0,1fr)}
+  .stage{aspect-ratio:1/1}
+  .thumbs{order:2;padding:0;flex-direction:row;overflow-x:auto;scrollbar-width:none}
+  .thumbs button{width:23%;flex:none}
+  .garr{width:36px;height:36px}
+  .conf{padding-top:20px}
+  .paccs{margin-top:20px}
+  .pts{gap:10px}
+  .pts div{font-size:11.5px;gap:7px}
+  .pts svg{width:24px;height:24px}
+  .trust3>div{padding:4px 8px;font-size:12px}
+  .fbt{padding:4px 16px}
+  .psec{padding-top:56px}
+  .steps{grid-template-columns:minmax(0,1fr);padding:32px 22px;gap:28px}
+  .steps-m{order:-1}
+  .rv-wrap{grid-template-columns:minmax(0,1fr)}
+  .rv-track{grid-auto-columns:82%}
+  .cmp-r{grid-template-columns:1.3fr .9fr .9fr;font-size:13px}
+  .cmp-r>span{padding:12px 8px}
+  .rf{min-height:0;flex-direction:column;align-items:stretch;padding:0;background:var(--panel-2)}
+  .rf-bg{position:relative;inset:auto;height:280px;justify-items:center;padding:0}
+  .rf-card{margin:0 12px 12px;max-width:none;padding:26px 20px}
+  .cf{grid-template-columns:1fr 1fr;padding:24px 16px;gap:24px 12px}
+  .cf-m{grid-column:1/-1;grid-row:1;max-width:320px;justify-self:center;width:100%}
+  .cf-col{gap:24px}
+  .faqi{grid-template-columns:minmax(0,1fr);gap:28px}
+  .faqi-m{display:none}
+  .news-g{padding:56px 0 36px}
+  .news-card{grid-template-columns:minmax(0,1fr);padding:30px 22px;gap:22px}
+  footer .cols{grid-template-columns:1fr 1fr}
+  .sec-row .arrows{display:none}
+}
+
+.pmedia img.lf{width:100%;height:100%;object-fit:cover;filter:none}
+.rf-bg{justify-items:start}
+.rf-trio{display:flex;align-items:flex-end;gap:2%;width:52%}
+.rf-trio img{width:32%;filter:drop-shadow(0 20px 24px rgba(0,0,0,.25))}
+.rf-trio img:first-child{width:44%}
+.rf-photo{position:absolute;inset:0;width:100%!important;height:100%;object-fit:cover;filter:none!important;opacity:0}
+.rf-bg.has-photo .rf-photo{opacity:1}.rf-bg.has-photo .rf-trio{display:none}
+.faq2 summary::after{content:"";border:0;width:14px;height:14px;transform:none;background:linear-gradient(currentColor,currentColor) center/14px 1.5px no-repeat,linear-gradient(currentColor,currentColor) center/1.5px 14px no-repeat}
+.faq2 details[open] summary::after{transform:none;background:linear-gradient(currentColor,currentColor) center/14px 1.5px no-repeat}
+@media (max-width:860px){ .rf-trio{width:86%;justify-content:center} .rf-bg{justify-items:center} }
+@media (max-width:860px){ .swatches .sw{font-size:13px;padding:0 12px 0 5px;gap:8px;white-space:nowrap} .sw i{width:28px;height:28px} }
 </style>
 </head>
 <body>
 
 <a class="skip" href="#app">Spring til indhold</a>
-<div class="announce" id="announce">Gratis fragt over 349 kr. Bestil senest 25. januar, så når gaven frem til Ramadan.</div>
+<div class="announce" id="announce">
+  <div class="ann-top" id="annTop"><b>Ramadan 2027</b><span>Bestil senest 25. januar</span></div>
+  <div class="ann-usp"><span>Udkast inden for 24 timer</span><span>Lavet i Danmark efter bestilling</span><span>Gratis fragt over 349 kr.</span></div>
+</div>
 <header class="header" id="header">
   <div class="in">
-    <div style="display:flex;align-items:center">
-      <button class="burger" id="burger" aria-label="Menu"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M2 6h18M2 11h18M2 16h18"/></svg></button>
-      <nav class="nav">
-        <a href="#/?c=alle" data-nav="alle">Shop</a>
-        <a href="#/p/maktaba" data-nav="maktaba">Hyldeskilte</a>
-        <a href="#/p/tilham" data-nav="tilham">Gaveæsken</a>
-        <a href="#/info" data-nav="info">Levering</a>
-      </nav>
-    </div>
+    <button class="burger" id="burger" aria-label="Menu"><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6h18M2 11h18M2 16h18"/></svg></button>
     <a href="#/" class="logo" aria-label="KHATAM forside"><svg viewBox="0 0 100 100" class="seal-svg"></svg><span>KHATAM</span></a>
+    <nav class="nav">
+      <a href="#/?c=alle" data-nav="alle">Shop</a>
+      <a href="#/p/maktaba" data-nav="maktaba">Hyldeskilte</a>
+      <a href="#/p/tilham" data-nav="tilham">Gaveæsken</a>
+      <a href="#/?c=ramadan" data-nav="ramadan">Ramadan &amp; Eid</a>
+      <a href="#/info" data-nav="info">Levering &amp; FAQ</a>
+    </nav>
     <div class="icons">
-      <button class="icon" id="searchBtn" aria-label="Søg"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="8.5" cy="8.5" r="6"/><path d="m13 13 5 5"/></svg></button>
-      <button class="icon" id="cartBtn" aria-label="Åbn kurv"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M3 6.5h14l-1.1 11H4.1L3 6.5Z"/><path d="M7 6.5V5a3 3 0 0 1 6 0v1.5"/></svg><span class="count" id="cartCount" data-n="0" aria-live="polite">0</span></button>
+      <button class="icon" id="searchBtn" aria-label="Søg"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8.5" cy="8.5" r="6"/><path d="m13 13 5 5"/></svg></button>
+      <button class="icon" id="cartBtn" aria-label="Åbn kurv"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 6.5h14l-1.1 11H4.1L3 6.5Z"/><path d="M7 6.5V5a3 3 0 0 1 6 0v1.5"/></svg><span class="count" id="cartCount" data-n="0" aria-live="polite">0</span></button>
     </div>
   </div>
 </header>
@@ -677,16 +978,21 @@ h1,h2,h3{text-wrap:balance} p{text-wrap:pretty}
 
 <main id="app" tabindex="-1"></main>
 
+<section class="news-g" aria-label="Nyhedsbrev"><div class="wrap"><div class="news-card">
+  <div><h2>Tilmeld dig nyhedsbrevet</h2><p>Hør først om nye designs, Ramadan- og Eid-kollektionen og bestillingsfrister.</p></div>
+  <form id="newsForm"><input type="email" class="input" placeholder="Skriv din e-mail" aria-label="E-mail" required><button class="btn btn-beige btn-block">Tilmeld dig</button><small>Vi skriver kun, når der er noget nyt. Ingen spam.</small></form>
+</div></div></section>
 <footer>
   <div class="wrap">
     <div class="cols">
-      <div><a href="#/" class="logo" style="align-items:flex-start"><svg viewBox="0 0 100 100" class="seal-svg"></svg><span>KHATAM</span></a>
-        <p class="about">Personlige gaver med arabisk kalligrafi. Designet og lavet efter bestilling i Danmark.</p></div>
-      <div><h4>Shop</h4><a href="#/p/maktaba">Hyldeskilte</a><a href="#/p/tilham">Gaveæsken til ham</a><a href="#/p/qahwa">Glasbrikker</a><a href="#/p/eidiyya">Eidiyya-æske</a><a href="#/p/ism">Nøglering</a></div>
-      <div><h4>Hjælp</h4><a href="#/info">Levering &amp; FAQ</a><a href="#/info#retur">Returret</a><a href="#/info#handel">Handelsbetingelser</a><a href="#/info#kontakt">Kontakt</a></div>
-      <div><h4>Følg os</h4><a href="#/">Instagram</a><a href="#/">TikTok</a></div>
+      <div><a href="#/" class="logo"><svg viewBox="0 0 100 100" class="seal-svg"></svg><span>KHATAM</span></a>
+        <p class="about">Personlige gaver med arabisk kalligrafi. Designet og lavet efter bestilling i Danmark.</p>
+        <div class="soc"><a href="#/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"/></svg></a><a href="#/" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.8A4.3 4.3 0 0 1 15.5 3h-3.1v12.4a2.6 2.6 0 1 1-2.6-2.6c.3 0 .5 0 .8.1V9.7a5.7 5.7 0 1 0 4.9 5.7V9.1a7.3 7.3 0 0 0 4.3 1.4V7.4a4.3 4.3 0 0 1-3.2-1.6Z"/></svg></a></div></div>
+      <div><h4>Shop</h4><a href="#/?c=alle">Alle gaver</a><a href="#/p/maktaba">Hyldeskilte</a><a href="#/p/tilham">Gaveæsken til ham</a><a href="#/p/entre">Entré-sættet</a><a href="#/p/ism">Nøglering</a></div>
+      <div><h4>Hjælp</h4><a href="#/info">Levering &amp; FAQ</a><a href="#/info#retur">Returret</a><a href="#/info#kontakt">Kontakt</a></div>
+      <div><h4>Info</h4><a href="#/info#handel">Handelsbetingelser</a><a href="#/info#handel">Privatlivspolitik</a></div>
     </div>
-    <div class="bottom"><span>© 2026 KHATAM, CVR [UDFYLD]. Billederne er visualiseringer.</span><div class="pay-icons"><span>MobilePay</span><span>Visa</span><span>Mastercard</span><span>Apple Pay</span><span>Google Pay</span></div></div>
+    <div class="bottom"><span>© 2026 KHATAM · CVR [UDFYLD] · Billederne er visualiseringer.</span><div class="pay-icons" data-pay></div></div>
   </div>
 </footer>
 
@@ -1019,14 +1325,93 @@ function viewHome(cat){
   </div></section>
 
   ${reviewsHtml(REVIEWS)}
-  <section class="news">
-    <h2>Hør først om nye designs</h2>
-    <p>Få besked, når Ramadan- og Eid-kollektionen er klar.</p>
-    <form id="newsForm"><input type="email" placeholder="Din e-mail" aria-label="E-mail" required><button>Tilmeld</button></form>
-  </section>`;
+`;
 }
 
 const ICON_OK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
+/* line icons used on the product page (24×24, stroke = currentColor) */
+const IC = {
+  pen:'<path d="M4 20h4L19 9l-4-4L4 16v4Z"/><path d="m13.5 6.5 4 4"/>',
+  ar:'<path d="M12 3 6.5 9l2 8.5h7l2-8.5L12 3Z"/><path d="M12 3v7.5"/><circle cx="12" cy="11.5" r="1.2"/><path d="M8.5 21h7"/>',
+  ruler:'<rect x="2.5" y="8" width="19" height="8" rx="1.5"/><path d="M6.5 8v3M10.5 8v4M14.5 8v3M18.5 8v4"/>',
+  grid:'<rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/>',
+  gift:'<rect x="3.5" y="8" width="17" height="4" rx="1"/><path d="M5 12v8h14v-8M12 8v12M12 8S10.5 4 8.5 4 6 6 8 8M12 8s1.5-4 3.5-4S18 6 16 8"/>',
+  tag:'<path d="M3.5 12.5V4h8.5l8.5 8.5-8.5 8.5-8.5-8.5Z"/><circle cx="8" cy="8.5" r="1.4"/>',
+  heat:'<path d="M8 4c-1.5 2 1.5 3 0 5M12 4c-1.5 2 1.5 3 0 5M16 4c-1.5 2 1.5 3 0 5"/><path d="M4 13h16l-1.5 6.5h-13L4 13Z"/>',
+  sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3 7 7M17 17l1.7 1.7M5.3 18.7 7 17M17 7l1.7-1.7"/>',
+  coin:'<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="5.5"/>',
+  home:'<path d="M3.5 11 12 4l8.5 7"/><path d="M6 9.5V20h12V9.5"/><path d="M10 20v-5h4v5"/>',
+  drop:'<path d="M12 3.5S6 10 6 14a6 6 0 0 0 12 0c0-4-6-10.5-6-10.5Z"/>',
+  star:'<path d="M12 2.5 14.6 9.4 21.5 12l-6.9 2.6L12 21.5l-2.6-6.9L2.5 12l6.9-2.6L12 2.5Z"/>',
+  magnet:'<path d="M6 4v8a6 6 0 0 0 12 0V4h-4v8a2 2 0 0 1-4 0V4H6Z"/><path d="M6 8h4M14 8h4"/>',
+  check:'<rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="m8 12 3 3 5-6"/>',
+  box:'<path d="M3.5 7.5 12 3l8.5 4.5v9L12 21l-8.5-4.5v-9Z"/><path d="m3.5 7.5 8.5 4.5 8.5-4.5M12 12v9"/>',
+  shield:'<path d="M12 3 4.5 6v6c0 4.5 3.3 7.8 7.5 9 4.2-1.2 7.5-4.5 7.5-9V6L12 3Z"/><path d="m8.5 12 2.5 2.5 4.5-5"/>',
+  dk:'<path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/>',
+  clock:'<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+};
+const ico = (k, cls='') => `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[k]||IC.check}</svg>`;
+/* three short selling points per product: shown as icon row under the description and as features further down */
+const POINTS = {
+  tilham:[['gift','3 gaver samlet i én æske'],['pen','Hans navn i guld'],['tag','Spar 78 kr mod enkeltvis']],
+  qahwa:[['grid','4 brikker Ø 10 cm med holder'],['pen','Navn eller initialer på holderen'],['heat','Tåler varme glas']],
+  safar:[['ar','بسم الله i guld på forsiden'],['pen','Navn på bagsiden, hvis du vil'],['sun','Tåler en solrig forrude']],
+  ism:[['coin','Passer i indkøbsvognen'],['pen','Navnet på arabisk og latin'],['tag','2 stk. for 99 kr']],
+  eidiyya:[['gift','Plads til penge, slik eller et brev'],['pen','Barnets navn i guld på låget'],['ruler','9 × 9 × 5 cm']],
+  mubarak:[['ar','Ramadan eller Eid Mubarak'],['ruler','18 × 12 cm med fod'],['home','Til iftar-bordet og hylden']],
+  bayt:[['pen','Familiens navn på arabisk og latin'],['sun','UV-bestandig, ude og inde'],['ruler','24 × 10 cm']],
+  usra:[['grid','4 rum med et navn ved hvert'],['drop','Løs drypbakke, der kan skylles'],['ruler','15 × 6 × 10 cm']],
+  entre:[['gift','4 dele til entréen'],['star','Nøgleringene danner en stjerne'],['tag','Spar 78 kr mod enkeltvis']],
+  zawj:[['star','Samles til khatam-stjernen'],['pen','Hans og hendes navn'],['magnet','Magnet i midten']],
+  bab:[['ar','Dua i guld øverst'],['pen','4 kroge med navne'],['ruler','16 × 24 cm']],
+  tabaq:[['star','Khatam-stjerne i guld'],['ruler','Ø 14 cm, 2 cm høj'],['home','Filtpuder under']],
+  maktaba:[['ar','Arabisk kalligrafi i guld'],['ruler','12 × 7,5 cm, står under bøgerne'],['grid','Vælg 4 af 8 kategorier']],
+};
+/* "passer godt sammen med": three products per product page */
+const FBT = {maktaba:['mubarak','qahwa','tabaq'], tilham:['safar','mubarak','ism'], qahwa:['maktaba','mubarak','safar'], safar:['ism','qahwa','mubarak'],
+  ism:['safar','zawj','eidiyya'], eidiyya:['mubarak','ism','usra'], mubarak:['qahwa','maktaba','eidiyya'], bayt:['tabaq','bab','mubarak'],
+  usra:['bayt','eidiyya','mubarak'], entre:['bayt','mubarak','maktaba'], zawj:['tabaq','bab','ism'], bab:['zawj','tabaq','bayt'], tabaq:['zawj','bab','bayt']};
+/* products that can go straight into the cart from another page (no name needed) */
+const quickAdd = p => p.personal==='none' || p.personal==='greeting' || p.personal==='shelf' || (p.personal==='name' && !p.req);
+const PAY = [['MobilePay','#5A78FF'],['Apple Pay','#111'],['G Pay','#3C4043'],['Visa','#1A1F71'],['Mastercard','#111']];
+function payIcons(){ return PAY.map(([n,c])=> n==='Mastercard' ? `<span class="pi" title="Mastercard"><i style="background:#EB001B"></i><i style="background:#F79E1B;margin-left:-5px;mix-blend-mode:multiply"></i></span>`
+  : `<span class="pi" title="${n}" style="color:${c}">${n==='Visa'?'<b style="font-style:italic;letter-spacing:.02em">VISA</b>':n==='G Pay'?'<b><span style="color:#4285F4">G</span> Pay</b>':`<b>${n}</b>`}</span>`).join(''); }
+function stars(n=5){ return `<span class="stars" aria-label="${n} ud af 5 stjerner">${[1,2,3,4,5].map(i=>`<i class="${i<=Math.round(n)?'on':''}"><svg viewBox="0 0 20 20"><path d="m10 3 2.1 4.6 5 .5-3.8 3.4 1.1 4.9L10 13.9 5.6 16.4l1.1-4.9L2.9 8.1l5-.5L10 3Z" fill="currentColor"/></svg></i>`).join('')}</span>`; }
+function revStats(list){ if(!list.length) return null; const avg = list.reduce((a,r)=>a+(r.rating||5),0)/list.length; return {avg:Math.round(avg*10)/10, n:list.length}; }
+function countdownParts(){ const ms = RAMADAN_DEADLINE - Date.now(); if(ms<=0) return null; const m=Math.floor(ms/6e4); return {d:Math.floor(m/1440), h:Math.floor(m/60)%24, m:m%60}; }
+function countdownHtml(){ const c=countdownParts(); if(!c) return '';
+  const two = n => String(n).padStart(2,'0');
+  return `<div class="cd"><span>Bestil til Ramadan inden</span><div class="cd-n" id="cdN"><div><b>${c.d}</b><small>dage</small></div><div><b>${two(c.h)}</b><small>timer</small></div><div><b>${two(c.m)}</b><small>min</small></div></div></div>`; }
+function steps(p){
+  const s = [['Vælg farve','Sort eller smaragd, begge med præget guld.']];
+  if(p.personal==='name'||p.personal==='family') s.push(['Skriv navnet','Med danske bogstaver. Vi foreslår den arabiske stavning.']);
+  else if(p.personal==='names') s.push(['Skriv navnene','Ét navn pr. felt. Vi foreslår den arabiske stavning.']);
+  else if(p.personal==='shelf') s.push(['Vælg kategorierne','4 af 8 kategorier til din bogreol.']);
+  else if(p.personal==='greeting') s.push(['Vælg teksten','Ramadan Mubarak eller Eid Mubarak.']);
+  if(p.personal!=='none' && p.personal!=='greeting'){ s.push(['Få et udkast','Inden for 24 timer på mail og SMS.']); s.push(['Godkend eller ret','Vi går først i gang, når du har godkendt.']); }
+  s.push(['Vi laver og sender','Inden for 3–5 hverdage, pakket som gave.']);
+  return s;
+}
+/* section image: uses the real photo img/foto/<id>-<n>.webp when it exists, otherwise the product render */
+function mediaImg(p, cls='', n=1){ const alt=esc(nice(p.name)+' – '+p.type);
+  if(p.imgs.length>1) return `<div class="pmedia ${cls}">${productImg(p)}</div>`;
+  return `<div class="pmedia ${cls}"><img class="lf" src="img/foto/${p.id}-${n}.webp" alt="${alt}" loading="lazy" onerror="this.onerror=null;this.classList.remove('lf');this.src='img/${p.imgs[0]}.webp'"></div>`; }
+function fbtRow(x){
+  const can = quickAdd(x);
+  return `<div class="fbt-row"><a href="#/p/${x.id}" class="fbt-img">${x.imgs.length>1?productImg(x):`<img src="img/${x.imgs[0]}.webp" alt="" loading="lazy">`}</a>
+    <div class="fbt-t"><a href="#/p/${x.id}">${nice(x.name)}</a><div class="fbt-p">${kr(x.price)}${x.was?`<s>${kr(x.was)}</s>`:''}</div></div>
+    ${can?`<button class="btn btn-beige btn-sm" data-quick="${x.id}">+ Tilføj</button>`:`<a class="btn btn-beige btn-sm" href="#/p/${x.id}">Vælg navn</a>`}</div>`;
+}
+function reviewsSlider(list, title='Det siger kunderne'){
+  const st = revStats(list); if(!st) return '';
+  return `<section class="psec"><div class="wrap"><div class="sec-row"><h2>${title}</h2><div class="arrows"><button class="arr" data-slide="-1" aria-label="Forrige">${chev(-1)}</button><button class="arr" data-slide="1" aria-label="Næste">${chev(1)}</button></div></div>
+    <div class="rv-wrap"><div class="rv-sum">${stars(st.avg)}<b>${String(st.avg).replace('.',',')}/5</b><span>Baseret på ${st.n} ${st.n===1?'anmeldelse':'anmeldelser'}</span></div>
+    <div class="rv-track" id="rvTrack">${list.map(r=>{const p=byId(r.product); return `<figure class="rv-card">${stars(r.rating||5)}${r.img?`<img src="${esc(r.img)}" alt="" loading="lazy">`:''}<blockquote>${esc(r.text)}</blockquote><figcaption><b>${esc(r.name)}</b>${r.city?', '+esc(r.city):''}${p?` · <a href="#/p/${p.id}">${nice(p.name)}</a>`:''}</figcaption></figure>`;}).join('')}</div></div></div></section>`;
+}
+const chev = d => `<svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="${d<0?'M12.5 4.5 7 10l5.5 5.5':'M7.5 4.5 13 10l-5.5 5.5'}"/></svg>`;
+const plus = '<svg class="pm" viewBox="0 0 20 20" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path class="v" d="M10 4v12"/><path d="M4 10h12"/></svg>';
+const acc = (t, body, open=false) => `<details class="pacc"${open?' open':''}><summary>${t}${plus}</summary><div class="pacc-b">${body}</div></details>`;
+
 let pv = {};
 function viewProduct(id, editKey){
   const p = byId(id); if(!p) return viewHome('alle');
@@ -1051,16 +1436,15 @@ function viewProduct(id, editKey){
       <div class="field"><input class="input" id="nm" maxlength="${p.id==='ism'?10:16}" placeholder="${fam?'Efternavn, fx Hassan':'Med danske bogstaver, fx Yusuf'}" value="${esc(pv.name)}" autocomplete="off" aria-label="Navn"></div>
       <div id="sugg"></div>
       <div class="field" id="arWrap" style="display:${pv.arManual?'block':'none'};margin-top:12px"><label for="arIn">Arabisk stavning</label>
-        <input class="input rtl" id="arIn" dir="rtl" lang="ar" placeholder="اكتب الاسم" value="${esc(pv.ar)}" autocomplete="off"></div>
-      <p class="hint">Du får altid et udkast til godkendelse, før vi printer.</p></div>`;
+        <input class="input rtl" id="arIn" dir="rtl" lang="ar" placeholder="اكتب الاسم" value="${esc(pv.ar)}" autocomplete="off"></div></div>`;
   }
   if(p.personal==='names'){
-    const NC=p.nameCount||4; opts += `<div class="opt">${H(NC===2?'Jeres navne:':'Familiens navne:', NC===2?'':'op til '+NC)}${[...Array(NC).keys()].map(i=>`<label class="field nmrow"><span class="nml">${p.nameLabels?p.nameLabels[i]:'Navn '+(i+1)}</span><span style="display:flex;gap:10px;align-items:center"><input class="input nmi" data-i="${i}" maxlength="10" placeholder="${i===0?'fx Yusuf':(i===1&&NC===2?'fx Maryam':'')}" value="${esc((pv.names||[])[i]||'')}" autocomplete="off"><span class="ar nmar" lang="ar" id="nmar${i}" style="min-width:70px;text-align:left;font-size:20px"></span></span></label>`).join('')}<p class="hint">Vi foreslår arabisk stavning og sender et udkast til godkendelse. Tomme felter bliver til rum uden navn.</p></div>`;
+    const NC=p.nameCount||4; opts += `<div class="opt">${H(NC===2?'Jeres navne:':'Familiens navne:', NC===2?'':'op til '+NC)}${[...Array(NC).keys()].map(i=>`<label class="field nmrow"><span class="nml">${p.nameLabels?p.nameLabels[i]:'Navn '+(i+1)}</span><span style="display:flex;gap:10px;align-items:center"><input class="input nmi" data-i="${i}" maxlength="10" placeholder="${i===0?'fx Yusuf':(i===1&&NC===2?'fx Maryam':'')}" value="${esc((pv.names||[])[i]||'')}" autocomplete="off"><span class="ar nmar" lang="ar" id="nmar${i}" style="min-width:70px;text-align:left;font-size:20px"></span></span></label>`).join('')}<p class="hint">Tomme felter bliver til rum uden navn.</p></div>`;
   }
   if(p.id==='ism'){
     opts += `<div class="opt">${H('Mønt:',`<span id="coinLbl">${pv.coin==='10'?'10-krone-størrelse':'20-krone-størrelse'}</span>`)}<div class="chips">
       <button class="chip ${pv.coin!=='10'?'on':''}" data-coin="20">Som en 20-krone, Ø 27 mm</button>
-      <button class="chip ${pv.coin==='10'?'on':''}" data-coin="10">Som en 10-krone, Ø 23,3 mm</button></div><p class="hint">Passer i indkøbsvogne, der tager den valgte mønt.</p></div>`;
+      <button class="chip ${pv.coin==='10'?'on':''}" data-coin="10">Som en 10-krone, Ø 23,3 mm</button></div></div>`;
   }
   if(p.personal==='greeting'){
     opts += `<div class="opt">${H('Tekst:')}<div class="chips">
@@ -1070,52 +1454,97 @@ function viewProduct(id, editKey){
   if(p.personal==='shelf' || p.shelf){
     opts += `<div class="opt">${H('Kategorier:',`<span id="shelfCount">${pv.shelf.length} af 4 valgt</span>`)}<div class="chips">${SHELF.map(([k,l,a])=>`<button class="chip ${pv.shelf.includes(k)?'on':''}" data-shelf="${k}">${l} <span class="ar" lang="ar">${a}</span></button>`).join('')}</div></div>`;
   }
-  opts += `<div class="opt">${H('Antal')}<div class="add-row">
-      <div class="qty"><button data-q="-1" aria-label="Færre"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 10h10"/></svg></button><span id="qv">${pv.qty}</span><button data-q="1" aria-label="Flere"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 10h10M10 5v10"/></svg></button></div>
-      <button class="btn btn-dark" id="addBtn">${editKey?'Gem ændringer':'Læg i kurven'}, <span class="addPrice">${kr(p.price*pv.qty)}</span></button></div>
-      <div id="shipHint"></div>${deadlineHtml()}
-      <button class="textbtn sharebtn" id="shareBtn" type="button"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M10 3v10M6 7l4-4 4 4M4 12v4h12v-4"/></svg>Del dit design</button></div>`;
-  const thumbs = [`<button data-view="design" class="on" aria-label="Vis dit design" aria-pressed="true"><span class="dz"><b>${p.ar}</b>Dit design</span></button>`,
-    `<button data-view="foto" aria-label="Vis produktbillede" aria-pressed="false">${p.imgs.length>1?productImg(p):`<img src="img/${p.imgs[0]}.webp" alt="">`}</button>`,
+  const views = [{k:'design', label:'Dit design', thumb:`<span class="dz"><b>${p.ar}</b>Dit design</span>`},
+    {k:'foto', label:'Produktbillede', thumb:p.imgs.length>1?productImg(p):`<img src="img/${p.imgs[0]}.webp" alt="">`}];
+  const thumbs = views.map((v,i)=>`<button data-view="${v.k}" class="${i?'':'on'}" aria-label="Vis ${v.label.toLowerCase()}" aria-pressed="${!i}">${v.thumb}</button>`).join('')
     // real photos: drop img/foto/<id>-1.webp, -2.webp, -3.webp in the folder and they appear here automatically
-    ...[1,2,3].map(n=>`<button data-view="r${n}" aria-label="Foto ${n} af ${nice(p.name)}" aria-pressed="false" hidden><img class="photo" src="img/foto/${p.id}-${n}.webp" alt="" onload="this.parentNode.hidden=false" onerror="this.parentNode.remove()"></button>`)]
-    .join('');
-  const others = P.filter(x=>x.id!==id && x.cats.some(c=>p.cats.includes(c))).slice(0,4);
+    + [1,2,3].map(n=>`<button data-view="r${n}" aria-label="Foto ${n} af ${nice(p.name)}" aria-pressed="false" hidden><img class="photo" src="img/foto/${p.id}-${n}.webp" alt="" onload="this.parentNode.hidden=false;window._dots&&_dots()" onerror="this.parentNode.remove();window._dots&&_dots()"></button>`).join('');
+  const pts = POINTS[p.id] || [];
+  const saving = p.was ? p.was - p.price : 0, pct = p.was ? Math.round(saving/p.was*100) : 0;
+  const st = revStats(REVIEWS.filter(r=>r.product===p.id)) || revStats(REVIEWS);
+  const badge = p.badge || (p.cats.includes('ramadan') ? 'Ramadan & Eid' : '');
+  const fbt = (FBT[id]||[]).map(byId).filter(Boolean);
+  const others = P.filter(x=>x.id!==id && !(FBT[id]||[]).includes(x.id) && x.cats.some(c=>p.cats.includes(c))).slice(0,4);
+  const accs = acc('Produktbeskrivelse', `<p>${p.desc}</p>`)
+    + acc('Mål og materiale', `<p>${p.details}</p>`)
+    + acc('Levering &amp; forsendelse', `<ul class="ul"><li>Digitalt udkast inden for 24 timer på mail og SMS.</li><li>Laves og sendes 3–5 hverdage efter din godkendelse.</li><li>PostNord pakkeshop 45 kr, gratis ved køb over ${FREE} kr. Levering til døren 59 kr.</li><li>Bestil senest 25. januar, så når gaven frem til Ramadan.</li></ul>`)
+    + acc('Personlige varer og retur', `<p>Varer med navn er lavet specielt til dig og kan ikke returneres efter fortrydelsesretten. Varer uden navn kan returneres inden for 14 dage. Er der fejl i produktet, laver vi det om uden beregning.</p>`)
+    + acc('Har du brug for hjælp?', `<p>Skriv til <a class="link" href="mailto:hej@khatam.dk">hej@khatam.dk</a> eller send en besked på Instagram. Vi svarer inden for én hverdag.</p>`);
+  const feats = [...pts, ['dk','Designet og lavet i Danmark']].slice(0,4);
+  const featDesc = {pen:'Du godkender stavningen i et udkast, før vi printer.', ar:'Præget i guld, så skriften står skarpt.', ruler:'Mål, der passer til hjemmet.', grid:'Sammensæt det, så det passer til jer.', gift:'Pakket som gave og klar til at give.', tag:'Samme gaver, lavere pris i sæt.', heat:'Holdbart materiale til daglig brug.', sun:'Holder farven i sol og vejr.', coin:'Glider ind i vognlåsen som en mønt.', home:'Lavet til at stå fremme i hverdagen.', drop:'Nem at holde ren.', star:'Den ottetakkede stjerne fra vores logo.', magnet:'Holder delene samlet.', dk:'Laves efter bestilling, når du har godkendt udkastet.'};
   return `
   <div class="wrap">
-    <div class="crumbs"><a href="#/">Forside</a> &nbsp;/&nbsp; <a href="#/?c=${p.cats[0]}">${CATS[p.cats[0]]}</a> &nbsp;/&nbsp; ${nice(p.name)}</div>
+    <nav class="crumbs" aria-label="Brødkrummer"><a href="#/?c=alle">Shop</a>${chev(1)}<a href="#/?c=${p.cats[0]}">${CATS[p.cats[0]]}</a>${chev(1)}<span>${nice(p.name)}</span></nav>
     <div class="pdp">
       <div class="gallery">
-        <div class="thumbs">${thumbs}</div>
-        <div class="stage" id="stage"><div class="pv" id="pvBox"></div><div class="stage-note" id="stageNote"></div><button class="joinbtn" id="joinBtn" hidden aria-pressed="false">Saml til en stjerne</button></div>
+        <div class="thumbs" id="thumbs">${thumbs}</div>
+        <div class="stage" id="stage"><div class="pv" id="pvBox"></div><div class="stage-note" id="stageNote"></div><button class="joinbtn" id="joinBtn" hidden aria-pressed="false">Saml til en stjerne</button>
+          <button class="garr prev" data-step="-1" aria-label="Forrige billede">${chev(-1)}</button><button class="garr next" data-step="1" aria-label="Næste billede">${chev(1)}</button>
+          <div class="gdots" id="gdots"></div></div>
       </div>
       <div class="conf">
+        ${badge?`<span class="pbadge">${esc(badge)}</span>`:''}
+        ${st?`<a href="#rvTrack" class="prate">${stars(st.avg)}<span>${String(st.avg).replace('.',',')} ud af 5 | Baseret på ${st.n} ${st.n===1?'anmeldelse':'anmeldelser'}</span></a>`:''}
         <h1>${nice(p.name)} <span class="ar" lang="ar">${p.ar}</span></h1>
         <p class="ptype">${p.type}</p>
-        <div class="price">${kr(p.price)}${p.was?`<s>${kr(p.was)}</s>`:''}${p.id==='ism'?'<small>2 stk. for 99 kr</small>':''}</div>
-        <p class="tax">Inkl. moms. Fragt beregnes ved kassen.</p>
+        <div class="pbox">
+          <div class="price"><b>${kr(p.price)}</b>${p.was?`<s>${kr(p.was)}</s><span class="disc">−${pct}%</span>`:''}${p.id==='ism'?'<span class="disc">2 for 99 kr</span>':''}</div>
+          ${saving?`<p class="spar">Spar ${kr(saving)}</p>`:''}<p class="tax">Inkl. moms. Fragt beregnes ved kassen.</p>
+          ${countdownHtml()}
+        </div>
         <p class="desc">${p.desc}</p>
+        ${pts.length?`<div class="pts">${pts.map(([k,t])=>`<div>${ico(k)}<span>${t}</span></div>`).join('')}</div>`:''}
+        <div class="mini-acc">${acc('Levering og returret', `<p>Udkast inden for 24 timer. Sendes 3–5 hverdage efter godkendelse. Gratis fragt til pakkeshop over ${FREE} kr. Fejl laver vi om uden beregning.</p>`)}</div>
         ${opts}
-        <div class="buybar" id="buyBar" aria-hidden="true"><div><b>${nice(p.name)}</b><span id="barSum"></span></div><button class="btn btn-dark" id="barBtn" tabindex="-1">Læg i kurven, <span class="addPrice">${kr(p.price*pv.qty)}</span></button></div>
-        <div class="assure">
-          <div>${ICON_OK}<span>Digitalt udkast inden for 24 timer. Du kan rette, før vi printer.</span></div>
-          <div>${ICON_OK}<span>Sendes 3–5 hverdage efter godkendelse, pakket som gave.</span></div>
-          <div>${ICON_OK}<span>Betal med MobilePay, kort eller Apple Pay.</span></div>
-        </div>
-        <div class="acc">
-          <details><summary>Mål og materiale</summary><p>${p.details}</p></details>
-          <details><summary>Levering</summary><p>Pakkeshop 45 kr, gratis over 349 kr. Levering til døren 59 kr. Bestil senest 25. januar til Ramadan.</p></details>
-          <details><summary>Personlige varer og retur</summary><p>Varer med navn er lavet specielt til dig og kan ikke returneres efter fortrydelsesretten. Fejl laver vi om uden beregning.</p></details>
-        </div>
+        <p class="stock"><i></i>Laves til dig: udkast inden for 24 timer</p>
+        <div class="add-row">
+          <div class="qty"><button data-q="-1" aria-label="Færre"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 10h10"/></svg></button><span id="qv">${pv.qty}</span><button data-q="1" aria-label="Flere"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 10h10M10 5v10"/></svg></button></div>
+          <button class="btn btn-dark btn-xl" id="addBtn">${editKey?'Gem ændringer':'Læg i kurven'} · <span class="addPrice">${kr(p.price*pv.qty)}</span></button></div>
+        <div class="pay-icons center">${payIcons()}</div>
+        <div id="shipHint"></div>
+        <div class="trust3"><div>${ico('check')}<span>Du godkender et udkast, før vi printer</span></div><div>${ico('box')}<span>Gratis fragt på ordrer over ${FREE} kr.</span></div><div>${ico('shield')}<span>Fejl laver vi om uden beregning</span></div></div>
+        ${fbt.length?`<div class="fbt"><h3>Passer godt sammen med</h3>${fbt.map(fbtRow).join('')}</div>`:''}
+        <button class="textbtn sharebtn" id="shareBtn" type="button"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M10 3v10M6 7l4-4 4 4M4 12v4h12v-4"/></svg>Del dit design</button>
       </div>
+      <div class="paccs">${accs}</div>
     </div>
-    ${others.length?`<div style="padding-bottom:40px"><div class="sec-h"><h2>Passer godt sammen med</h2></div><div class="grid">${others.map(card).join('')}</div></div>`:''}
-  </div>`;
+  </div>
+
+  <div class="buybar" id="buyBar" aria-hidden="true"><div class="bb-img">${p.imgs.length>1?productImg(p):`<img src="img/${p.imgs[0]}.webp" alt="">`}</div><div class="bb-t"><b>${nice(p.name)} – ${p.type}</b><span><span class="addPrice">${kr(p.price*pv.qty)}</span>${p.was?` <s>${kr(p.was*pv.qty)}</s>`:''}</span><span id="barSum" class="bb-sum"></span></div><button class="btn btn-dark" id="barBtn" tabindex="-1">Læg i kurven</button></div>
+
+  <section class="psec"><div class="wrap"><div class="steps">
+    <div class="steps-t"><h2>Sådan bliver din gave til</h2><ol>${steps(p).map(([a,b],i)=>`<li class="${i?'':'on'}"><span class="n">${i+1}</span><div><b>${a}</b><p>${b}</p></div></li>`).join('')}</ol></div>
+    ${mediaImg(p,'steps-m',1)}
+  </div></div></section>
+
+  ${reviewsSlider(REVIEWS.filter(r=>r.product===p.id).length?REVIEWS.filter(r=>r.product===p.id):REVIEWS)}
+
+  <section class="psec"><div class="wrap"><div class="cmp-h"><h2>Hvorfor ${nice(p.name)} fra KHATAM</h2><p>En gave fra butikkens hylde kan være fin. En gave med modtagerens navn i arabisk kalligrafi bliver stående fremme i mange år.</p></div>
+    <div class="cmp"><div class="cmp-r cmp-head"><span></span><span class="us">KHATAM</span><span>Gave fra hylden</span></div>
+    ${[p.personal==='none'?'Khatam-stjernen i præget guld':p.personal==='greeting'?'Arabisk kalligrafi i præget guld':'Navn på arabisk og latin','Du ser et udkast, før vi laver den','Lavet efter bestilling i Danmark','Vælg mellem sort og smaragd','Pakket som gave'].map(t=>`<div class="cmp-r"><span>${t}</span><span class="us"><i class="yes">${ICON_OK}</i></span><span><i class="no"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 6 8 8M14 6l-8 8"/></svg></i></span></div>`).join('')}</div>
+  </div></section>
+
+  <section class="psec"><div class="wrap"><div class="rf">
+    <div class="rf-bg"><div class="rf-trio">${[p,...fbt].slice(0,3).map(x=>`<img src="img/${x.imgs[0]}.webp" alt="" loading="lazy">`).join('')}</div><img class="rf-photo" src="img/foto/${p.id}-3.webp" alt="" loading="lazy" onload="this.parentNode.classList.add('has-photo')" onerror="this.remove()"></div>
+    <div class="rf-card"><h2>Du ser den, før vi laver den</h2><p>Når du har bestilt, får du et digitalt udkast inden for 24 timer. Ret stavning eller farve, til du er tilfreds. Vi går først i gang, når du har godkendt, og er der fejl i det færdige produkt, laver vi det om uden beregning.</p>
+      <a href="#top" class="btn btn-beige btn-block" data-totop>Tilpas din ${nice(p.name)}</a><small>Udkast inden for 24 timer · Lavet i Danmark · Gratis fragt over ${FREE} kr.</small></div>
+  </div></div></section>
+
+  <section class="psec"><div class="wrap"><h2 class="ctr">Alt, du skal vide om ${nice(p.name)}</h2>
+    <div class="cf"><div class="cf-col">${feats.slice(0,2).map(([k,t])=>`<div class="cf-i"><span class="cf-ic">${ico(k)}</span><b>${t}</b><p>${featDesc[k]||''}</p></div>`).join('')}</div>
+      ${mediaImg(p,'cf-m')}
+      <div class="cf-col">${feats.slice(2,4).map(([k,t])=>`<div class="cf-i"><span class="cf-ic">${ico(k)}</span><b>${t}</b><p>${featDesc[k]||''}</p></div>`).join('')}</div></div>
+  </div></section>
+
+  <section class="psec"><div class="wrap"><div class="faqi"><div><h2>Ofte stillede spørgsmål</h2><div class="faq2">${faq()}</div></div>${mediaImg(fbt[0]||p,'faqi-m',2)}</div></div></section>
+
+  ${others.length?`<section class="psec"><div class="wrap"><div class="sec-row"><h2>Du vil måske også kunne lide</h2></div><div class="grid">${others.map(card).join('')}</div></div></section>`:''}`;
 }
 
 /* header overlay on home hero, search, mobile nav, newsletter */
 function headerMode(){ const h=$('#header'); const home = !!$('.hero'); const ah=$('#announce').offsetHeight; h.classList.toggle('fixed', home); h.style.top = home ? Math.max(0, ah-scrollY)+'px' : ''; h.classList.toggle('over', home && scrollY < 40); }
 addEventListener('scroll', headerMode, {passive:true});
+addEventListener('scroll', () => $('#header').classList.toggle('scrolled', scrollY>10), {passive:true});
 $('#burger').onclick = () => $('#mnav').classList.add('on');
 $('#mnavX').onclick = () => $('#mnav').classList.remove('on');
 $('#mnav').addEventListener('click', e => { if(e.target.closest('a')) $('#mnav').classList.remove('on'); });
@@ -1156,7 +1585,7 @@ function bindProduct(){
   const bar = $('#buyBar'), add = $('#addBtn');
   if(bar && add && 'IntersectionObserver' in window){
     $('#barBtn').onclick = () => add.click();
-    const io = new IntersectionObserver(([e]) => { const show = !e.isIntersecting && e.boundingClientRect.top > 0; bar.classList.toggle('on', show); bar.setAttribute('aria-hidden', !show); $('#barBtn').tabIndex = show ? 0 : -1; });
+    const io = new IntersectionObserver(([e]) => { const show = !e.isIntersecting && e.boundingClientRect.top < 0; bar.classList.toggle('on', show); bar.setAttribute('aria-hidden', !show); $('#barBtn').tabIndex = show ? 0 : -1; });
     io.observe(add); window._pdpIO && window._pdpIO.disconnect(); window._pdpIO = io;
   }
   const render = () => {
@@ -1196,10 +1625,26 @@ function bindProduct(){
     else { pv.ar = ''; el.innerHTML = `<div class="suggest"><span>Vi skriver navnet på arabisk for dig og sender et udkast.</span></div><button class="textbtn" data-armode="manual">Eller skriv selv på arabisk</button>`; }
   };
   const app = $('#app');
+  // gallery: arrows, dots and swipe step through the visible thumbnails
+  const gviews = () => $$('#thumbs [data-view]').filter(x=>!x.hidden);
+  const show = v => { stageView=v; $$('#thumbs [data-view]').forEach(x=>{x.classList.toggle('on',x.dataset.view===v); x.setAttribute('aria-pressed', x.dataset.view===v);}); render(); const pb=$('#pvBox'); pb.classList.remove('swap'); void pb.offsetWidth; pb.classList.add('swap'); dots(); };
+  const step = d => { const vs=gviews(); const i=vs.findIndex(x=>x.dataset.view===stageView); const n=vs[(i+d+vs.length)%vs.length]; if(n) show(n.dataset.view); };
+  const dots = window._dots = () => { const g=$('#gdots'); if(!g) return; const vs=gviews(); g.innerHTML = vs.length>1 ? vs.map((x,i)=>`<button data-dot="${x.dataset.view}" class="${x.dataset.view===stageView?'on':''}" aria-label="Gå til billede ${i+1}"></button>`).join('') : ''; $$('.garr').forEach(a=>a.hidden = vs.length<2); };
+  dots();
+  const stg = $('#stage'); let sx=null;
+  stg.addEventListener('touchstart', e => { if(!e.target.closest('canvas')) sx=e.touches[0].clientX; }, {passive:true});
+  stg.addEventListener('touchend', e => { if(sx===null) return; const dx=e.changedTouches[0].clientX-sx; sx=null; if(Math.abs(dx)>45) step(dx<0?1:-1); });
+  // Ramadan countdown ticks every 20 seconds
+  clearInterval(window._cdT); window._cdT = setInterval(() => { const c=countdownParts(), el=$('#cdN'); if(!el){ clearInterval(window._cdT); return; } if(!c){ el.closest('.cd').remove(); return; } const b=el.querySelectorAll('b'); b[0].textContent=c.d; b[1].textContent=String(c.h).padStart(2,'0'); b[2].textContent=String(c.m).padStart(2,'0'); }, 20000);
   app.onclick = e => {
+    const tt = e.target.closest('[data-totop]'); if(tt){ e.preventDefault(); scrollTo({top:0,behavior:'smooth'}); setTimeout(()=>{ const f=$('#nm')||$('.nmi')||$('.sw.on'); f && f.focus({preventScroll:true}); },500); return; }
     const b = e.target.closest('button'); if(!b) return;
-    if(b.dataset.view){ stageView=b.dataset.view; $$('.thumbs [data-view]').forEach(x=>{x.classList.toggle('on',x===b); x.setAttribute('aria-pressed', x===b);}); render(); const pb=$('#pvBox'); pb.classList.remove('swap'); void pb.offsetWidth; pb.classList.add('swap'); }
-    if(b.dataset.color){ pv.color=b.dataset.color; $$('.sw').forEach(x=>x.classList.toggle('on',x===b)); $('#colorLbl').textContent=COLORS[pv.color].label; stageView='design'; $$('.thumbs [data-view]').forEach(x=>x.classList.toggle('on',x.dataset.view==='design')); render(); }
+    if(b.dataset.step){ step(+b.dataset.step); return; }
+    if(b.dataset.dot){ show(b.dataset.dot); return; }
+    if(b.dataset.slide){ const t=$('#rvTrack'); t && t.scrollBy({left:+b.dataset.slide*t.clientWidth*0.8,behavior:'smooth'}); return; }
+    if(b.dataset.quick){ quickAddToCart(b.dataset.quick); return; }
+    if(b.dataset.view){ show(b.dataset.view); return; }
+    if(b.dataset.color){ pv.color=b.dataset.color; $$('.sw').forEach(x=>x.classList.toggle('on',x===b)); $('#colorLbl').textContent=COLORS[pv.color].label; stageView='design'; $$('.thumbs [data-view]').forEach(x=>x.classList.toggle('on',x.dataset.view==='design')); render(); dots(); }
     if(b.id==='joinBtn'){ const on=b.getAttribute('aria-pressed')!=='true'; b.setAttribute('aria-pressed',on); b.textContent = on?'Skil dem ad':'Saml til en stjerne'; window.K3D && K3D.join(on); return; }
     if(b.dataset.coin){ pv.coin=b.dataset.coin; $$('[data-coin]').forEach(x=>x.classList.toggle('on',x===b)); $('#coinLbl').textContent = pv.coin==='10'?'10-krone-størrelse':'20-krone-størrelse'; render(); }
     if(b.dataset.greet){ pv.greeting=b.dataset.greet; $$('[data-greet]').forEach(x=>x.classList.toggle('on',x===b)); render(); }
@@ -1210,8 +1655,8 @@ function bindProduct(){
     if(b.dataset.armode){ pv.arManual = b.dataset.armode==='manual'; $('#arWrap').style.display=pv.arManual?'block':'none'; if(pv.arManual){ const i=$('#arIn'); if(!i.value) i.value=pv.ar; pv.ar=i.value; i.focus(); } suggest(); render(); }
     if(b.id==='addBtn'||b.id==='addBtn2'){ addToCart(); }
   };
-  const nm = $('#nm'); if(nm) nm.oninput = e => { pv.name = e.target.value.replace(/[<>]/g,''); suggest(); stageView='design'; $$('.thumbs [data-view]').forEach(x=>x.classList.toggle('on',x.dataset.view==='design')); render(); };
-  $$('.nmi').forEach(inp => inp.oninput = e => { pv.names[+e.target.dataset.i] = e.target.value.replace(/[<>]/g,''); nmUpdate(); stageView='design'; $$('.thumbs [data-view]').forEach(x=>x.classList.toggle('on',x.dataset.view==='design')); render(); });
+  const nm = $('#nm'); if(nm) nm.oninput = e => { pv.name = e.target.value.replace(/[<>]/g,''); suggest(); stageView='design'; $$('.thumbs [data-view]').forEach(x=>x.classList.toggle('on',x.dataset.view==='design')); render(); dots(); };
+  $$('.nmi').forEach(inp => inp.oninput = e => { pv.names[+e.target.dataset.i] = e.target.value.replace(/[<>]/g,''); nmUpdate(); stageView='design'; $$('.thumbs [data-view]').forEach(x=>x.classList.toggle('on',x.dataset.view==='design')); render(); dots(); });
   function nmUpdate(){ (pv.names||[]).forEach((n,i)=>{ const el=$('#nmar'+i); if(el) el.textContent = n.trim() ? (toAr(n)||'…') : ''; }); }
   nmUpdate();
   const ai = $('#arIn'); if(ai) ai.oninput = e => { pv.ar = e.target.value.replace(/[<>]/g,''); render(); };
@@ -1219,6 +1664,16 @@ function bindProduct(){
   window.onresize = null; window._pdpRender = render;
 }
 
+function quickAddToCart(id){
+  const p = byId(id); if(!p || !quickAdd(p)) return;
+  const item = {id, color:(pv&&pv.color)||'sort', name:'', ar:'', arManual:false, qty:1};
+  if(p.personal==='greeting') item.greeting='ramadan';
+  if(p.personal==='shelf') item.shelf=['quran','tafsir','hadith','fiqh'];
+  item.key = cfgKey(item);
+  const same = cart.find(i=>i.key===item.key); if(same) same.qty++; else cart.push(item);
+  save(); updateBadge(true); track('Læg i kurven', {produkt:id, kilde:'passer-sammen'});
+  window._newKey = item.key; openDrawer(); setTimeout(()=>{ window._newKey=null; },1700);
+}
 function cfgKey(c){ return [c.id,(c.names||[]).join('/').toLowerCase(),c.coin||'',c.color,c.name.trim().toLowerCase(),c.ar,c.greeting,(c.shelf||[]).join(',')].join('|'); }
 function addToCart(){
   const p = byId(pv.id);
@@ -1282,7 +1737,7 @@ function renderDrawer(){
         <div class="tot"><span>I alt</span><span>${kr(t.goods+(t.free?0:SHIP_PS))}</span></div>
       </div>
       <a href="#/kasse" class="btn btn-dark btn-block" data-close-nav>Gå til kassen</a><p style="text-align:center;font-size:12px;color:var(--muted);margin-top:10px">Inkl. moms. Personlige varer laves efter godkendt udkast.</p>
-      <div class="pay-icons"><span>MobilePay</span><span>Visa</span><span>Mastercard</span><span>Apple Pay</span></div>
+      <div class="pay-icons">${payIcons()}</div>
     </div>`;
 }
 let lastFocus=null;
@@ -1345,7 +1800,7 @@ function viewCheckout(){
       <div class="review-row"><span>Levering</span><span>${c.ship==='home'?'Til døren':'PostNord pakkeshop'}, ${t.ship?kr(t.ship):'gratis'}</span></div></div>
       <div class="co-sec"><h3>Betaling</h3>
       <p class="muted" style="font-size:14.5px">Du sendes videre til Stripes sikre betalingsside. Her kan du betale med MobilePay, kort, Apple Pay eller Google Pay.</p>
-      <div class="pay-icons" style="justify-content:flex-start;margin:14px 0 4px"><span>MobilePay</span><span>Visa</span><span>Mastercard</span><span>Apple Pay</span><span>Google Pay</span></div>
+      <div class="pay-icons" style="justify-content:flex-start;margin:14px 0 4px">${payIcons()}</div>
       <label class="check"><input type="checkbox" id="terms"><span>Jeg har læst <a href="#/info#handel" class="link">handelsbetingelserne</a> og ved, at varer med navn ikke kan returneres efter fortrydelsesretten.</span></label>
       <div class="notice"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg><span>Vi går først i gang, når du har godkendt det digitale udkast. Du hører fra os inden for 24 timer.</span></div></div>
       <button class="btn btn-dark btn-block" id="payBtn" style="height:58px" disabled>Betal ${kr(t.total)}</button>`;
@@ -1444,7 +1899,7 @@ function heroMount(){ const st=$('#heroStage'); if(!st || !window.K3D) return; c
   st.querySelector('.h2fallback')?.remove(); if(!st.querySelector('canvas.k3d')) K3D.mount(st,'ism',cfg()); inp.oninput=()=>{ K3D.update(cfg()); $('#heroBuy').href='#/p/ism'; sessionStorage && (()=>{try{sessionStorage.setItem('khatam_hero_name', inp.value.trim())}catch(e){}})(); }; }
 function setMeta(title, desc){ document.title = title; const m=document.querySelector('meta[name=description]'); if(m && desc) m.content = desc; }
 function route(){
-  window._pdpRender = null; if(window.K3D) K3D.unmount(); window._pdpIO && window._pdpIO.disconnect();
+  window._pdpRender = null; clearInterval(window._cdT); window._dots = null; if(window.K3D) K3D.unmount(); window._pdpIO && window._pdpIO.disconnect();
   const h = location.hash.slice(1) || '/';
   const [path, qs] = h.split('?'); const params = new URLSearchParams(qs||'');
   if(!window._keepDrawer) closeDrawer(); window._keepDrawer = false;
@@ -1467,6 +1922,8 @@ function route(){
 }
 function setNav(k){ $$('.nav a').forEach(a=>a.classList.toggle('on', a.dataset.nav===k && k!=='alle')); }
 $$('.seal-svg').forEach(s=>s.innerHTML=SEAL);
+$$('[data-pay]').forEach(el=>el.innerHTML=payIcons());
+if(RAMADAN_DEADLINE - Date.now() <= 0){ const at=$('#annTop'); if(at) at.innerHTML='<b>KHATAM</b><span>Gaver med betydning</span>'; }
 document.addEventListener('click', e => { const a=e.target.closest('a[href^="#/?c="]'); if(a && !$('#shop')) window._scrollShop = true; });
 addEventListener('hashchange', route);
 updateBadge(); route();
