@@ -58,8 +58,14 @@ Fragtgrænse og fragtpriser: `const FREE = 349, SHIP_PS = 45, SHIP_HOME = 59, HO
 Produktsiden er bygget op efter en klassisk Shopify-produktside: galleri med pile og prikker til venstre, købsboks til højre, sticky "Læg i kurven" når man scroller forbi knappen, og faste sektioner nedenunder.
 
 Alt står i `index.html`:
-- `POINTS` – tre korte salgspunkter med ikon pr. produkt. Vises under beskrivelsen og i sektionen "Alt, du skal vide om …".
+- `POINTS` – tre korte salgspunkter med ikon pr. produkt. Vises som ikonrække under beskrivelsen.
 - `FBT` – hvilke tre produkter der vises i "Passer godt sammen med". Produkter uden navn (fx Tabaq og Mubarak) kan lægges direkte i kurven derfra. Resten får knappen "Vælg navn".
 - `REVIEWS` – når du tilføjer rigtige anmeldelser (gerne med `rating: 5`), vises stjerner under produktnavnet og en anmeldelses-karrusel på produktsiden. Uden anmeldelser vises ingen af delene.
 - `RAMADAN_DEADLINE` – styrer nedtællingen i prisboksen og den øverste linje i topbjælken. Begge forsvinder selv efter fristen.
-- Rigtige fotos: `img/foto/<id>-1.webp` bruges i "Sådan bliver din gave til", `-2.webp` i FAQ-sektionen (for det første produkt i "Passer godt sammen med") og `-3.webp` som baggrund i banneret "Du ser den, før vi laver den". Indtil fotos findes, vises produktbillederne.
+- `HERO_IMG` – stemningsfotoet øverst på forsiden og bag "Sådan bliver din gave til" på alle produktsider. Det er et gratis Unsplash-foto af Jasurbek Hasanov, som hentes direkte fra Unsplash. Vil du hoste det selv, så gem det som `img/hero.jpg` og skriv `'img/hero.jpg'` i `HERO_IMG`. Fotografen krediteres i footeren (`HERO_CREDIT`).
+- Rigtige produktfotos: `img/foto/<id>-1.webp` til `-3.webp` dukker op i produktgalleriet.
+
+## Mobil og stabilitet
+- På telefoner og tablets vises den lette 2D-forhåndsvisning. 3D-modellen hentes først, når kunden trykker "Se i 3D", og den lukkes igen, når man forlader produktet. Tidligere brugte 3D-visningen 4K-teksturer, som fik Safari på iPhone til at løbe tør for hukommelse og genindlæse siden.
+- Kan 3D ikke indlæses, eller mister telefonen grafikforbindelsen, skifter siden selv tilbage til 2D.
+- Inputfelter er 16 px på mobil, så iPhone ikke zoomer ind, når man skriver.
