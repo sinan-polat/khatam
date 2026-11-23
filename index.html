@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>KHATAM – personlige gaver med arabisk kalligrafi</title>
-<meta name="description" content="Personlige islamiske gaver med arabisk kalligrafi: hyldeskilte, nøgleringe, entré-sæt og gaveæsker. Designet og lavet i Danmark.">
+<meta name="description" content="Personlige islamiske gaver med arabisk kalligrafi: hyldeskilte, dørskilte, Eid-gaver og gaveæsker. Designet og lavet i Danmark.">
 <meta property="og:title" content="KHATAM – gaver med betydning">
 <meta property="og:description" content="Personlige gaver med arabisk kalligrafi, designet og lavet i Danmark.">
 <meta property="og:image" content="https://sinan-polat.github.io/khatam/img/maktaba.webp">
@@ -49,6 +49,9 @@ a{color:inherit;text-decoration:none}
 .btn-ghost-w:hover{background:#fff;color:var(--ink)}
 .btn-block{width:100%}
 .btn[disabled]{opacity:.35;pointer-events:none}
+.btn.wait{opacity:.6}
+.cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+.input.need{border-color:#b3472d;box-shadow:0 0 0 3px rgba(179,71,45,.15)}
 .btn-line{border:1px solid var(--line-2);min-height:36px;padding:0 16px;font-size:10.5px}
 .btn-line:hover{border-color:var(--ink)}
 .link{text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--line-2)}
@@ -262,7 +265,8 @@ textarea.input{height:auto;padding:14px 16px}
 /* live preview objects */
 .obj{position:relative;color:var(--guld-lys);display:grid;place-items:center;text-align:center;box-shadow:0 34px 44px -22px rgba(60,40,20,.5),inset 0 1px 0 rgba(255,255,255,.08);transition:background .35s var(--ease)}
 .obj .ln{font-family:var(--sans);font-weight:500;letter-spacing:.24em;text-transform:uppercase;line-height:1}
-.obj .an{font-family:var(--ar);font-weight:800;direction:rtl;line-height:1.1;white-space:nowrap}
+.obj .an{font-family:var(--ar);font-weight:800;direction:rtl;line-height:1;padding-bottom:.45em;white-space:nowrap} /* Cairo has a tall ascent; the bottom padding gives the tails and dots of ي etc. room, so they never touch the Latin line */
+.obj .an+.ln{margin-top:.2em!important}
 .obj .ph-txt{font-family:var(--sans);font-weight:300;color:rgba(216,178,90,.65)}
 .fr{position:absolute;pointer-events:none;border:1.5px solid currentColor;opacity:.9}
 .fr2{position:absolute;pointer-events:none;border:.8px solid currentColor;opacity:.55}
@@ -282,12 +286,14 @@ textarea.input{height:auto;padding:14px 16px}
 .o-mubarak .fr{inset:6%;border-radius:8px}.o-mubarak .fr2{inset:9.5%;border-radius:6px}
 .o-mubarak .foot{position:absolute;bottom:-14px;left:8%;right:8%;height:14px;background:inherit;border-radius:0 0 8px 8px;filter:brightness(.8)}
 .o-bayt{width:80%;aspect-ratio:2.4;border-radius:12px}
+.o-tabaq{aspect-ratio:1;clip-path:polygon(29% 0,71% 0,100% 29%,100% 71%,71% 100%,29% 100%,0 71%,0 29%)}
+.o-tabaq .fr{inset:8%;clip-path:inherit}
 .o-bayt .fr{inset:7%;border-radius:8px}.o-bayt .fr2{inset:11%;border-radius:6px}
 .o-bayt .screw{position:absolute;width:10px;height:10px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#e6c87e,#8b6c2e);top:50%;transform:translateY(-50%)}
 .o-maktaba{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:76%;background:none!important;box-shadow:none}
 .tile-s{width:100%;aspect-ratio:1.6;border-radius:10px;display:grid;place-items:center;position:relative;box-shadow:0 22px 30px -16px rgba(60,40,20,.5);transition:background .35s}
 .tile-s .fr{inset:7%;border-radius:6px}
-.tile-s .an{font-size:clamp(18px,2.2vw,28px)}
+.tile-s .an{font-size:clamp(18px,2.2vw,28px);font-family:var(--ar);font-weight:800;direction:rtl;line-height:1;padding-bottom:.45em;white-space:nowrap}
 .tile-s.empty{background:transparent!important;border:1.5px dashed var(--line-2);box-shadow:none;color:var(--muted)}
 .trio{display:flex;align-items:center;justify-content:center;gap:5%;width:92%}
 .trio .obj{flex:none}
@@ -770,7 +776,8 @@ h1,h2,h3,.sec-h h2,.iwt h2,.banner .box h2,.conf h1,.co h1,.thanks h1,.info h1,.
 .trust3 svg{width:30px;height:30px;color:var(--ink)}
 .fbt{border:1px solid var(--ink);border-radius:var(--r);padding:6px 20px 4px;margin-top:26px}
 .fbt h3{font-size:15px;font-weight:400;color:var(--ink);padding:14px 0;border-bottom:1px solid var(--bd)}
-.fbt-row{display:grid;grid-template-columns:64px 1fr auto;gap:16px;align-items:center;padding:14px 0}
+.fbt-row{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:16px;align-items:center;padding:14px 0}
+@media (max-width:380px){.fbt-row{grid-template-columns:52px minmax(0,1fr) auto;gap:10px}.fbt-img{width:52px}.fbt-row .btn-sm{padding-inline:12px}}
 .fbt-row+.fbt-row{border-top:1px solid var(--bd)}
 .fbt-img{width:64px;aspect-ratio:1;border-radius:var(--r-sm);background:var(--warm);display:grid;place-items:center;overflow:hidden;position:relative}
 .fbt-img img{width:86%}
@@ -901,12 +908,13 @@ footer :focus-visible{outline-color:var(--ink)}
   .stage{aspect-ratio:1/1}
   .thumbs{order:2;padding:0;flex-direction:row;overflow-x:auto;scrollbar-width:none}
   .thumbs button{width:23%;flex:none}
-  .garr{width:36px;height:36px}
+  .garr{width:34px;height:34px;top:auto;bottom:10px;transform:none}
+  .garr:hover{transform:none}
   .conf{padding-top:20px}
   .paccs{margin-top:20px}
-  .pts{gap:10px}
-  .pts div{font-size:11.5px;gap:7px}
-  .pts svg{width:24px;height:24px}
+  .pts{grid-template-columns:1fr;gap:10px}
+  .pts div{font-size:13.5px;gap:12px}
+  .pts svg{width:22px;height:22px}
   .trust3>div{padding:4px 8px;font-size:12px}
   .fbt{padding:4px 16px}
   .psec{padding-top:56px}
@@ -1125,7 +1133,7 @@ footer .pay-icons span.pi{background:#fff}
     <nav class="nav">
       <a href="#/?c=alle" data-nav="alle">Shop</a>
       <a href="#/p/maktaba" data-nav="maktaba">Hyldeskilte</a>
-      <a href="#/p/tilham" data-nav="tilham">Gaveæsken</a>
+      <a href="#/p/gaveaeske" data-nav="gaveaeske">Gaveæsken</a>
       <a href="#/?c=ramadan" data-nav="ramadan">Ramadan &amp; Eid</a>
       <a href="#/info" data-nav="info">Levering &amp; FAQ</a>
     </nav>
@@ -1143,7 +1151,7 @@ footer .pay-icons span.pi{background:#fff}
         <a class="mnav-pill" href="#/?c=ramadan">Ramadan &amp; Eid</a>
         <button class="mnav-l" data-sub type="button">Shop <span class="mnav-chev" aria-hidden="true">›</span></button>
         <a class="mnav-l" href="#/p/maktaba">Hyldeskilte</a>
-        <a class="mnav-l" href="#/p/tilham">Gaveæsken</a>
+        <a class="mnav-l" href="#/p/gaveaeske">Gaveæsken</a>
         <a class="mnav-l" href="#/?c=born">Til børnene</a>
         <a class="mnav-l" href="#/info">Levering &amp; FAQ</a>
         <a class="mnav-l" href="#/info#kontakt">Kontakt</a>
@@ -1175,7 +1183,7 @@ footer .pay-icons span.pi{background:#fff}
       <div><a href="#/" class="logo"><svg viewBox="0 0 100 100" class="seal-svg"></svg><span>KHATAM</span></a>
         <p class="about">Personlige gaver med arabisk kalligrafi. Designet og lavet efter bestilling i Danmark.</p>
         <div class="soc"><a href="#/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"/></svg></a><a href="#/" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.8A4.3 4.3 0 0 1 15.5 3h-3.1v12.4a2.6 2.6 0 1 1-2.6-2.6c.3 0 .5 0 .8.1V9.7a5.7 5.7 0 1 0 4.9 5.7V9.1a7.3 7.3 0 0 0 4.3 1.4V7.4a4.3 4.3 0 0 1-3.2-1.6Z"/></svg></a></div></div>
-      <div><h4>Shop</h4><a href="#/?c=alle">Alle gaver</a><a href="#/p/maktaba">Hyldeskilte</a><a href="#/p/tilham">Gaveæsken til ham</a><a href="#/p/entre">Entré-sættet</a><a href="#/p/ism">Nøglering</a></div>
+      <div><h4>Shop</h4><a href="#/?c=alle">Alle gaver</a><a href="#/p/maktaba">Hyldeskilte</a><a href="#/p/gaveaeske">Gaveæsken</a><a href="#/?c=ramadan">Ramadan &amp; Eid</a><a href="#/?c=born">Til børnene</a></div>
       <div><h4>Hjælp</h4><a href="#/info">Levering &amp; FAQ</a><a href="#/info#retur">Returret</a><a href="#/info#kontakt">Kontakt</a></div>
       <div><h4>Info</h4><a href="#/info#handel">Handelsbetingelser</a><a href="#/info#handel">Privatlivspolitik</a></div>
     </div>
@@ -1202,22 +1210,13 @@ const HAS_GL = (() => { try { const c=document.createElement('canvas'); const ok
 const SEAL = '<g fill="none" stroke="currentColor" stroke-linejoin="miter" stroke-width="2.42"><polygon points="81.11,81.11 18.89,81.11 18.89,18.89 81.11,18.89"/><polygon points="94.00,50.00 50.00,94.00 6.00,50.00 50.00,6.00"/><polygon points="76.76,76.76 23.24,76.76 23.24,23.24 76.76,23.24" stroke-width="1.09"/><polygon points="87.84,50.00 50.00,87.84 12.16,50.00 50.00,12.16" stroke-width="1.09"/><polygon points="69.11,57.91 57.91,69.11 42.09,69.11 30.89,57.91 30.89,42.09 42.09,30.89 57.91,30.89 69.11,42.09" stroke-width="1.45"/></g><polygon points="50.00,42.52 51.43,46.54 55.29,44.71 53.46,48.57 57.48,50.00 53.46,51.43 55.29,55.29 51.43,53.46 50.00,57.48 48.57,53.46 44.71,55.29 46.54,51.43 42.52,50.00 46.54,48.57 44.71,44.71 48.57,46.54" fill="currentColor"/>';
 const FREE = 349, SHIP_PS = 45, SHIP_HOME = 59, HOME_UPGRADE = 15;
 const COLORS = {sort:{label:'Sort & guld',hex:'#161513'}, smaragd:{label:'Smaragd & guld',hex:'#1E3A2F'}};
-const CATS = {alle:'Alle gaver', ham:'Til ham', born:'Til børnene', hjem:'Til hjemmet', ramadan:'Ramadan & Eid'};
+const CATS = {alle:'Alle gaver', hjem:'Til hjemmet', ramadan:'Ramadan & Eid', born:'Til børnene'};
 const SHELF = [['quran','Quran','القرآن'],['tafsir','Tafsir','التفسير'],['hadith','Hadith','الحديث'],['aqidah','Aqidah','العقيدة'],['fiqh','Fiqh','الفقه'],['seerah','Seerah','السيرة'],['tazkiyah','Tazkiyah','التزكية'],['historie','Historie','التاريخ']];
 
 const P = [
- {id:'tilham', name:'TIL HAM', ar:'هدية', type:'Gaveæske med 3 dele', price:449, was:527, cats:['ham','ramadan'], badge:'Gaveæske', personal:'name', shelf:true, req:true, imgs:['qahwa','maktaba','ism'],
-  desc:'Hyldeskiltene MAKTABA, kaffesættet QAHWA og nøgleringen ISM, der også er indkøbsvognsmønt, samlet i én gaveæske. Hans navn står på nøgleringen og kaffesættets holder.',
-  details:'4 hyldeskilte ca. 12 × 7,5 cm, 4 glasbrikker Ø 10 cm med holder og en nøglering Ø 27 mm. Præget i guld på sort eller smaragd.'},
- {id:'qahwa', name:'QAHWA', ar:'قهوة', type:'4 glasbrikker med holder', price:219, cats:['ham','hjem','ramadan'], personal:'name', req:false, imgs:['qahwa'],
-  desc:'Fire glasbrikker til te og qahwa med geometrisk khatam-mønster og en holder med navn eller initialer.',
-  details:'4 brikker Ø 10 cm, holder 11 × 6 cm. Tåler varme glas. Aftørres med fugtig klud.'},
- {id:'safar', name:'SAFAR', ar:'سفر', type:'Bilophæng', price:89, cats:['ham','ramadan'], personal:'name', req:false, imgs:['safar'],
-  desc:'Et bilophæng med بسم الله i guld på forsiden og navnet indgraveret på bagsiden, hvis du ønsker det. En stille påmindelse på hver tur.',
-  details:'Ca. 4,8 × 7 cm, 3 mm tyk, med øje til snor. Varmebestandigt PETG, der tåler en solrig forrude.'},
- {id:'ism', name:'ISM', ar:'اسم', type:'Nøglering og vognmønt', price:59, cats:['ham','born'], badge:'2 for 99 kr', personal:'name', req:true, imgs:['ism'],
-  desc:'Nøglering og indkøbsvognsmønt i én. Navnet står i guld på arabisk på forsiden og med latinske bogstaver på bagsiden. Guldet ligger i samme plan som mønten, så den glider ind i vognlåsen. Køb to, og betal 99 kr.',
-  details:'20-krone-størrelse: Ø 27 mm og 2,3 mm tyk. 10-krone-størrelse: Ø 23,3 mm. Ring i rustfrit stål. Navne op til 10 bogstaver.'},
+ {id:'gaveaeske', name:'GAVEÆSKEN', ar:'هدية', type:'Gaveæske til hjemmet med 3 dele', price:499, was:607, cats:['hjem','ramadan'], badge:'Gaveæske', personal:'family', shelf:true, req:true, imgs:['maktaba','bayt','tabaq'],
+  desc:'Hyldeskiltene MAKTABA, dørskiltet BAYT med familiens navn og nøglebakken TABAQ samlet i én gaveæske. En gave til et nyt hjem, et bryllup eller til Eid.',
+  details:'4 hyldeskilte ca. 12 × 7,5 cm, dørskilt ca. 24 × 10 cm og nøglebakke Ø 14 cm. Præget i guld på sort eller smaragd. Til brug inde.'},
  {id:'eidiyya', name:'EIDIYYA', ar:'عيدية', type:'Æske med navn', price:129, cats:['born','ramadan'], badge:'Til Eid', personal:'name', req:true, imgs:['eidiyya'],
   desc:'Den lille æske til eidiyya: penge, slik eller et brev. Barnets navn står i guld på låget.',
   details:'Ca. 9 × 9 × 5 cm, låg med pasform. Plads til foldede sedler og småting.'},
@@ -1226,19 +1225,10 @@ const P = [
   details:'Ca. 18 × 12 cm med fod. Står stabilt på bord og hylde.'},
  {id:'bayt', name:'BAYT', ar:'بيت', type:'Navneskilt til døren', price:179, cats:['hjem'], personal:'family', req:true, imgs:['bayt'],
   desc:'Et dørskilt med familiens navn på arabisk og latin. Monteres med to skruer eller dobbeltklæbende tape.',
-  details:'Ca. 24 × 10 cm. UV-bestandigt til brug ude og inde.'},
+  details:'Ca. 24 × 10 cm, 3,5 mm tykt. Til indendørs brug, fx på hoveddøren inde fra opgangen eller ved entréen. Skal ikke sidde i direkte sol eller regn, da materialet kan blege og slå sig.'},
  {id:'usra', name:'USRA', ar:'أسرة', type:'Tandbørsteholder til familien', price:249, cats:['hjem','born'], badge:'Nyhed', personal:'names', imgs:['usra'],
   desc:'En tandbørsteholder formet som en arkade med spidsbuer. Fire rum holder familiens tandbørster adskilt, og hvert navn står i guld ved sit hul. Buerne lader luften komme til, så børsterne tørrer, og en løs bakke opsamler vandet.',
-  details:'Ca. 15 × 6 × 10 cm. 4 rum, huller Ø 16 mm. Løs drypbakke, der kan skylles. Vandafvisende PETG. Tåles ikke i opvaskemaskine.'},
- {id:'entre', name:'MADKHAL', ar:'مدخل', type:'Entré-sæt med 4 dele', price:549, was:627, cats:['hjem'], badge:'Sæt', personal:'names', nameCount:4, imgs:['bab','tabaq','zawj'],
-  desc:'Hele entréen i ét sæt: nøgleholderen BAB med dua og familiens navne, parnøgleringene ZAWJ og nøglebakken TABAQ. Når I begge er hjemme, samles jeres nøgleringe til én stjerne på væggen.',
-  details:'BAB 16 × 24 cm, ZAWJ 2 nøgleringe 4 × 4 cm med magnet og TABAQ Ø 14 cm. 4 messingkroge medfølger. Skruer til væggen medfølger ikke.'},
- {id:'zawj', name:'ZAWJ', ar:'زوج', type:'2 parnøgleringe', price:149, cats:['hjem','ham'], badge:'Til par', personal:'names', nameCount:2, nameLabels:['Hans navn','Hendes navn'], imgs:['zawj'],
-  desc:'To nøgleringe, en til ham og en til hende. Lægger I dem oven på hinanden, drejet en ottendedel, danner de khatam-stjernen. En magnet i midten holder dem samlet, også på nøgleholderen BAB.',
-  details:'4 × 4 cm, 4 mm tykke, magnet indstøbt i midten. Navn på arabisk og latin i guld i samme plan. Den ene i sort, den anden i smaragd.'},
- {id:'bab', name:'BAB', ar:'باب', type:'Nøgleholder til entréen', price:299, cats:['hjem'], personal:'names', nameCount:4, imgs:['bab'],
-  desc:'En nøgleholder formet som en mihrab, med duaen “Bismillah, tawakkaltu ʿala Allah” øverst. I midten er der plads til parnøgleringene ZAWJ, som sidder fast med magnet og danner stjernen. Fire kroge med navne til resten af familien.',
-  details:'16 × 24 cm, 7 mm tyk. Nøglehulsophæng på bagsiden. 4 messingkroge medfølger. Magnet i stjernen.'},
+  details:'Ca. 15 × 6 × 10 cm. 4 rum, huller Ø 16 mm. Løs drypbakke, der kan skylles. Tåler vandstænk og tørres af med en klud. Tåles ikke i opvaskemaskine.'},
  {id:'tabaq', name:'TABAQ', ar:'طبق', type:'Nøglebakke', price:179, cats:['hjem'], personal:'none', imgs:['tabaq'],
   desc:'En ottekantet bakke til nøgler, pung og solbriller ved døren, med en khatam-stjerne i guld i bunden og guldkant.',
   details:'Ø 14 cm, 2 cm høj. Mat finish, filtpuder under.'},
@@ -1338,7 +1328,7 @@ const store = {
   get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},
   set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 };
-let cart = store.get('khatam_cart_v1', []);
+let cart = store.get('khatam_cart_v1', []).filter(i => byId(i.id));   // drop items for products that are no longer sold
 let checkout = store.get('khatam_co_v1', {email:'',phone:'',fname:'',lname:'',addr:'',zip:'',city:'',ship:'pakkeshop',note:''});
 const save = () => { store.set('khatam_cart_v1', cart); store.set('khatam_co_v1', checkout); };
 
@@ -1393,11 +1383,11 @@ function preview(p, cfg, scale=1){
     case 'maktaba': { const sel=(cfg.shelf||[]); let t='';
       for(let i=0;i<4;i++){ const c=SHELF.find(x=>x[0]===sel[i]); t += c?`<div class="tile-s" style="${st};color:var(--guld-lys)"><i class="fr"></i><div class="an" lang="ar">${c[2]}</div></div>`:`<div class="tile-s empty"><span style="font-size:13px">Vælg</span></div>`; }
       return `<div class="obj o-maktaba">${t}</div>`;}
-    case 'tilham': { const c=SHELF.find(x=>x[0]===(cfg.shelf||[])[0]);
+    case 'gaveaeske': { const c=SHELF.find(x=>x[0]===(cfg.shelf||[])[0]);
       return `<div class="trio" style="flex-wrap:wrap;row-gap:6%">
         <div class="tile-s" style="${st};color:var(--guld-lys);width:30%"><i class="fr"></i><div class="an" lang="ar" style="font-size:${22*s}px">${c?c[2]:'القرآن'}</div></div>
-        <div class="obj o-qahwa" style="${st};width:38%">${frame()}${nameBlock(cfg,30*s)}</div>
-        <div class="obj o-coin" style="${st};width:30%"><i class="fr"></i>${nameBlock(cfg,22*s)}</div></div>`;}
+        <div class="obj o-tabaq" style="${st};width:26%"><i class="fr"></i><svg viewBox="0 0 100 100" style="width:58%;color:var(--guld-lys)">${SEAL}</svg></div>
+        <div class="obj o-bayt" style="${st};width:72%"><i class="fr"></i><div>${cfg.ar?`<div class="an" lang="ar" style="font-size:${fit('بيت '+cfg.ar,30*s,7)}px">بيت ${esc(cfg.ar)}</div>`:''}<div class="${cfg.name?'ln':'ph-txt'}" style="font-size:${(cfg.name?9:12)*s}px">${cfg.name?'FAMILIEN '+esc(cfg.name):'Skriv familiens navn'}</div></div></div></div>`;}
   }
 }
 
@@ -1413,30 +1403,20 @@ function faq(){
     ['Hvornår skal jeg bestille, hvis gaven skal nå frem til Ramadan?','Bestil senest 25. januar 2027. Ramadan ventes at begynde omkring 8. februar, og så har vi tid til udkast, produktion og levering.'],
     ['Hvor meget koster fragt?','Levering til pakkeshop koster 45 kr og er gratis, når du handler for 349 kr eller mere. Levering til døren koster 59 kr, eller 15 kr når du har fri fragt.'],
     ['Kan jeg returnere en personlig gave?','Varer med navn er lavet til dig og kan derfor ikke returneres efter fortrydelsesretten. Er der fejl i produktet, laver vi det om uden beregning.'],
-    ['Hvad er gaverne lavet af?','Et holdbart, matteret materiale med præget guld. Det tåler daglig brug, sol i bilen og varme glas. Det må ikke i opvaskemaskinen.'],
-  ];
-  return q.map(([a,b])=>`<details><summary>${a}</summary><p>${b}</p></details>`).join('');
-}
-
-function faq(){
-  const q = [
-    ['Hvad hvis jeg ikke ved, hvordan navnet staves på arabisk?','Skriv navnet med danske bogstaver. Siden foreslår den arabiske stavning for de mest almindelige navne, og ellers skriver vi det for dig. Du godkender altid et udkast, før vi printer.'],
-    ['Hvornår skal jeg bestille, hvis gaven skal nå frem til Ramadan?','Bestil senest 25. januar 2027. Ramadan ventes at begynde omkring 8. februar, og så har vi tid til udkast, produktion og levering.'],
-    ['Hvor meget koster fragt?','Levering til pakkeshop koster 45 kr og er gratis, når du handler for 349 kr eller mere. Levering til døren koster 59 kr, eller 15 kr når du har fri fragt.'],
-    ['Kan jeg returnere en personlig gave?','Varer med navn er lavet til dig og kan derfor ikke returneres efter fortrydelsesretten. Er der fejl i produktet, laver vi det om uden beregning.'],
-    ['Hvad er gaverne lavet af?','Et holdbart, matteret materiale med præget guld. Det tåler daglig brug, sol i bilen og varme glas. Det må ikke i opvaskemaskinen.'],
+    ['Hvad er gaverne lavet af?','PLA med mat overflade og præget guld. Gaverne er lavet til brug inde. De tåler daglig brug, men ikke direkte sol, regn eller varme over ca. 50 °C, fx i en bil eller i en vindueskarm mod syd. Aftørres med en fugtig klud og må ikke i opvaskemaskinen.'],
+    ['Kan dørskiltet sidde udenfor?','Vi anbefaler at sætte det inde, fx på hoveddøren ud mod opgangen eller ved entréen. I direkte sol og regn kan farven blege, og skiltet kan slå sig.'],
   ];
   return q.map(([a,b])=>`<details><summary>${a}</summary><p>${b}</p></details>`).join('');
 }
 
 const nice = n => n.charAt(0)+n.slice(1).toLowerCase();
 function card(p){
-  const photo = p.photo && p.id!=='tilham';
+  const photo = p.photo && p.id!=='gaveaeske';
   const main = photo ? `<img class="main photo has-alt" src="img/${p.photo}.webp" alt="${esc(nice(p.name))}" loading="lazy">` : (p.imgs.length>1 ? productImg(p) : `<img class="main" src="img/${p.imgs[0]}.webp" alt="${esc(nice(p.name))}" loading="lazy">`);
   const alt = photo ? `<img class="alt" src="img/${p.imgs[0]}.webp" alt="" loading="lazy">` : '';
   const pct = p.was ? Math.round((p.was-p.price)/p.was*100) : 0;
   return `<div class="card"><a class="card-a" href="#/p/${p.id}">
-    <div class="ph">${p.badge?`<span class="badge ${p.id==='tilham'?'dark':''}">${p.badge}</span>`:''}${main}${alt}</div>
+    <div class="ph">${p.badge?`<span class="badge ${p.id==='gaveaeske'?'dark':''}">${p.badge}</span>`:''}${main}${alt}</div>
     <div class="card-t"><div class="nm">${nice(p.name)}<span class="ar" lang="ar">${p.ar}</span></div><div class="ty">${p.type}</div>
     <div class="pr"><b>${kr(p.price)}</b>${p.was?`<s>${kr(p.was)}</s>`:''}</div>${pct?`<span class="disc">−${pct}%</span>`:''}</div></a>
     <button class="card-add" data-add="${p.id}" type="button" aria-label="${quickAdd(p)?'Læg '+esc(nice(p.name))+' i kurven':'Tilpas '+esc(nice(p.name))}"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M10 4v12M4 10h12"/></svg></button></div>`;
@@ -1456,8 +1436,8 @@ function viewHome(cat){
       <svg class="h3seal" viewBox="0 0 100 100">${SEAL}</svg>
       <h1>Gaver med betydning</h1>
       <p>Personlige gaver med arabisk kalligrafi, designet og lavet i Danmark. Skriv et navn, og se det i guld.</p>
-      <label class="h2field"><span>Skriv et navn</span><input id="heroName" maxlength="10" placeholder="fx Yusuf" autocomplete="off"></label>
-      <div class="h2cta"><a href="#/p/ism" class="btn btn-sand" id="heroBuy">Lav nøgleringen</a><a href="#/?c=alle" class="btn btn-ghost-w">Se alle gaver</a></div>
+      <label class="h2field"><span>Skriv jeres efternavn</span><input id="heroName" maxlength="16" placeholder="fx Hassan" autocomplete="off"></label>
+      <div class="h2cta"><a href="#/p/bayt" class="btn btn-sand" id="heroBuy">Se det på et dørskilt</a><a href="#/?c=alle" class="btn btn-ghost-w">Se alle gaver</a></div>
     </div></div>
     <div class="h3img"><img src="${heroSrc(1000)}" srcset="${heroSet()}" sizes="(max-width:860px) 100vw, 50vw" alt="Mihrab med guldornamenter og hvide buer" fetchpriority="high"></div>
   </section>
@@ -1466,7 +1446,7 @@ function viewHome(cat){
     <div class="sec-h"><h2>Find den rette gave</h2></div>
     <div class="colls">
       <a class="coll prod" href="#/?c=hjem"><img src="img/maktaba.webp" alt="" loading="lazy"><div class="lab"><h3>Til hjemmet</h3><span class="up">Se gaverne</span></div></a>
-      <a class="coll prod" href="#/?c=ham"><img src="img/qahwa.webp" alt="" loading="lazy"><div class="lab"><h3>Til ham</h3><span class="up">Se gaverne</span></div></a>
+      <a class="coll prod" href="#/?c=ramadan"><img src="img/mubarak.webp" alt="" loading="lazy"><div class="lab"><h3>Ramadan &amp; Eid</h3><span class="up">Se gaverne</span></div></a>
       <a class="coll prod" href="#/?c=born"><img src="img/eidiyya.webp" alt="" loading="lazy"><div class="lab"><h3>Til børnene</h3><span class="up">Se gaverne</span></div></a>
     </div>
   </div></section>
@@ -1483,28 +1463,28 @@ function viewHome(cat){
       <h2>Giv hver bog sin plads</h2>
       <p>Fire skilte til bogreolen, så Quran, tafsir og hadith står samlet. Tungen ligger under bøgerne, så skiltene står fast uden lim eller skruer.</p>
       <div class="chips-ro">${SHELF.map(([k,l,a])=>`<span><b class="ar" lang="ar">${a}</b>${l}</span>`).join('')}</div>
-      <a href="#/p/maktaba" class="btn btn-dark">Vælg dine 4 skilte</a> <span class="muted" style="margin-left:14px">249 kr for sættet</span>
+      <div class="cta-row"><a href="#/p/maktaba" class="btn btn-dark">Vælg dine 4 skilte</a><span class="muted">249 kr for sættet</span></div>
     </div>
   </div></section>
 
   <section class="sec"><div class="iwt rev">
-    <div class="media" style="display:grid;place-items:center;background:var(--panel-2)"><img src="img/zawj.webp" alt="Parnøgleringe der danner en stjerne" loading="lazy" style="width:88%;height:auto;object-fit:contain;filter:drop-shadow(0 18px 20px rgba(60,40,20,.25))"></div>
+    <div class="media prodmedia"><img src="img/mubarak.webp" alt="Bordskiltet Mubarak i sort og guld" loading="lazy"></div>
     <div class="txt">
-      <h2>To nøgler. Én stjerne.</h2>
-      <p>Hans og hendes nøglering er hver et kvadrat. Når I begge er hjemme, lægges de oven på hinanden på nøgleholderen BAB, og så danner de khatam-stjernen. En magnet holder dem samlet.</p>
-      <p>Saml hele entréen med nøgleholder, parnøgleringe og nøglebakke.</p>
-      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:26px"><a href="#/p/entre" class="btn btn-dark">Se entré-sættet (549 kr)</a><a href="#/p/zawj" class="btn btn-outline">Kun nøgleringene (149 kr)</a></div>
+      <h2>Klar til Ramadan og Eid</h2>
+      <p>Bordskiltet MUBARAK til iftar-bordet og EIDIYYA-æsken med barnets navn til Eid-morgenen. Skiltet findes med Ramadan Mubarak eller Eid Mubarak.</p>
+      <p>Bestil senest 25. januar, så når gaverne frem, før Ramadan begynder.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:26px"><a href="#/?c=ramadan" class="btn btn-dark">Se Ramadan &amp; Eid</a><a href="#/p/eidiyya" class="btn btn-outline">Lav en Eidiyya-æske (129 kr)</a></div>
     </div>
   </div></section>
 
   <section class="sec"><div class="banner">
-    <div class="banner-prod"><img src="img/qahwa.webp" alt="" loading="lazy"><img src="img/maktaba.webp" alt="" loading="lazy"><img src="img/ism.webp" alt="" loading="lazy"></div>
+    <div class="banner-prod"><img src="img/maktaba.webp" alt="" loading="lazy"><img src="img/bayt.webp" alt="" loading="lazy"><img src="img/tabaq.webp" alt="" loading="lazy"></div>
     <div class="box">
-      <h2>Gaveæsken til ham</h2>
-      <p>Tre gaver samlet i én æske, med hans navn.</p>
-      <ul><li><span>Maktaba, 4 hyldeskilte</span><span>249 kr</span></li><li><span>Qahwa, glasbrikker med holder</span><span>219 kr</span></li><li><span>Ism, nøglering og vognmønt</span><span>59 kr</span></li></ul>
-      <div class="price">449 kr <s>527 kr</s></div>
-      <a href="#/p/tilham" class="btn btn-dark">Tilpas gaveæsken</a>
+      <h2>Gaveæsken til hjemmet</h2>
+      <p>Tre gaver samlet i én æske, med familiens navn. Til et nyt hjem, et bryllup eller Eid.</p>
+      <ul><li><span>Maktaba, 4 hyldeskilte</span><span>249 kr</span></li><li><span>Bayt, dørskilt med navn</span><span>179 kr</span></li><li><span>Tabaq, nøglebakke</span><span>179 kr</span></li></ul>
+      <div class="price">499 kr <s>607 kr</s></div>
+      <a href="#/p/gaveaeske" class="btn btn-dark">Tilpas gaveæsken</a>
     </div>
   </div></section>
 
@@ -1551,24 +1531,17 @@ const IC = {
 const ico = (k, cls='') => `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[k]||IC.check}</svg>`;
 /* three short selling points per product: shown as icon row under the description and as features further down */
 const POINTS = {
-  tilham:[['gift','3 gaver samlet i én æske'],['pen','Hans navn i guld'],['tag','Spar 78 kr mod enkeltvis']],
-  qahwa:[['grid','4 brikker Ø 10 cm med holder'],['pen','Navn eller initialer på holderen'],['heat','Tåler varme glas']],
-  safar:[['ar','بسم الله i guld på forsiden'],['pen','Navn på bagsiden, hvis du vil'],['sun','Tåler en solrig forrude']],
-  ism:[['coin','Passer i indkøbsvognen'],['pen','Navnet på arabisk og latin'],['tag','2 stk. for 99 kr']],
+  gaveaeske:[['gift','3 gaver samlet i én æske'],['pen','Familiens navn i guld'],['tag','Spar 108 kr mod enkeltvis']],
   eidiyya:[['gift','Plads til penge, slik eller et brev'],['pen','Barnets navn i guld på låget'],['ruler','9 × 9 × 5 cm']],
   mubarak:[['ar','Ramadan eller Eid Mubarak'],['ruler','18 × 12 cm med fod'],['home','Til iftar-bordet og hylden']],
-  bayt:[['pen','Familiens navn på arabisk og latin'],['sun','UV-bestandig, ude og inde'],['ruler','24 × 10 cm']],
+  bayt:[['pen','Familiens navn på arabisk og latin'],['home','Til døren inde eller i opgangen'],['ruler','24 × 10 cm']],
   usra:[['grid','4 rum med et navn ved hvert'],['drop','Løs drypbakke, der kan skylles'],['ruler','15 × 6 × 10 cm']],
-  entre:[['gift','4 dele til entréen'],['star','Nøgleringene danner en stjerne'],['tag','Spar 78 kr mod enkeltvis']],
-  zawj:[['star','Samles til khatam-stjernen'],['pen','Hans og hendes navn'],['magnet','Magnet i midten']],
-  bab:[['ar','Dua i guld øverst'],['pen','4 kroge med navne'],['ruler','16 × 24 cm']],
   tabaq:[['star','Khatam-stjerne i guld'],['ruler','Ø 14 cm, 2 cm høj'],['home','Filtpuder under']],
   maktaba:[['ar','Arabisk kalligrafi i guld'],['ruler','12 × 7,5 cm, står under bøgerne'],['grid','Vælg 4 af 8 kategorier']],
 };
 /* "passer godt sammen med": three products per product page */
-const FBT = {maktaba:['mubarak','qahwa','tabaq'], tilham:['safar','mubarak','ism'], qahwa:['maktaba','mubarak','safar'], safar:['ism','qahwa','mubarak'],
-  ism:['safar','zawj','eidiyya'], eidiyya:['mubarak','ism','usra'], mubarak:['qahwa','maktaba','eidiyya'], bayt:['tabaq','bab','mubarak'],
-  usra:['bayt','eidiyya','mubarak'], entre:['bayt','mubarak','maktaba'], zawj:['tabaq','bab','ism'], bab:['zawj','tabaq','bayt'], tabaq:['zawj','bab','bayt']};
+const FBT = {maktaba:['mubarak','gaveaeske','tabaq'], gaveaeske:['mubarak','eidiyya','usra'], eidiyya:['mubarak','usra','maktaba'],
+  mubarak:['maktaba','eidiyya','bayt'], bayt:['tabaq','mubarak','maktaba'], usra:['bayt','eidiyya','mubarak'], tabaq:['bayt','maktaba','mubarak']};
 /* products that can go straight into the cart from another page (no name needed) */
 const quickAdd = p => p.personal==='none' || p.personal==='greeting' || p.personal==='shelf' || (p.personal==='name' && !p.req);
 const PAY = [['MobilePay','#5A78FF'],['Apple Pay','#111'],['G Pay','#3C4043'],['Visa','#1A1F71'],['Mastercard','#111']];
@@ -1616,7 +1589,7 @@ function viewProduct(id, editKey){
   const existing = editKey ? cart.find(i=>i.key===editKey) : null;
   pv = existing ? JSON.parse(JSON.stringify(existing)) : {id, color:'sort', coin:'20', names:['','','',''], name:'', ar:'', arManual:false, greeting:'ramadan', shelf:['quran','tafsir','hadith','fiqh'], qty:1};
   pv.editKey = editKey||null;
-  if(id==='ism' && !editKey){ try{ const hn=sessionStorage.getItem('khatam_hero_name'); if(hn){ pv.name=hn; } }catch(e){} }
+  if(p.personal==='family' && !editKey){ try{ const hn=sessionStorage.getItem('khatam_hero_name'); if(hn){ pv.name=hn.charAt(0).toUpperCase()+hn.slice(1); pv.ar=toAr(hn); } }catch(e){} }
   // a shared design link (#/p/ism?n=Yusuf&c=smaragd) opens with the same choices
   if(!editKey){ const cl=(v,n)=>(v||'').replace(/[<>]/g,'').slice(0,n);
     if(shared.get('c') && COLORS[shared.get('c')]) pv.color=shared.get('c');
@@ -1670,7 +1643,7 @@ function viewProduct(id, editKey){
     + acc('Personlige varer og retur', `<p>Varer med navn er lavet specielt til dig og kan ikke returneres efter fortrydelsesretten. Varer uden navn kan returneres inden for 14 dage. Er der fejl i produktet, laver vi det om uden beregning.</p>`)
     + acc('Har du brug for hjælp?', `<p>Skriv til <a class="link" href="mailto:hej@khatam.dk">hej@khatam.dk</a> eller send en besked på Instagram. Vi svarer inden for én hverdag.</p>`);
   const feats = [...pts, ['dk','Designet og lavet i Danmark']].slice(0,4);
-  const featDesc = {pen:'Du godkender stavningen i et udkast, før vi printer.', ar:'Præget i guld, så skriften står skarpt.', ruler:'Mål, der passer til hjemmet.', grid:'Sammensæt det, så det passer til jer.', gift:'Pakket som gave og klar til at give.', tag:'Samme gaver, lavere pris i sæt.', heat:'Holdbart materiale til daglig brug.', sun:'Holder farven i sol og vejr.', coin:'Glider ind i vognlåsen som en mønt.', home:'Lavet til at stå fremme i hverdagen.', drop:'Nem at holde ren.', star:'Den ottetakkede stjerne fra vores logo.', magnet:'Holder delene samlet.', dk:'Laves efter bestilling, når du har godkendt udkastet.'};
+  const featDesc = {pen:'Du godkender stavningen i et udkast, før vi printer.', ar:'Præget i guld, så skriften står skarpt.', ruler:'Mål, der passer til hjemmet.', grid:'Sammensæt det, så det passer til jer.', gift:'Pakket som gave og klar til at give.', tag:'Samme gaver, lavere pris i sæt.', heat:'Holdbart materiale til daglig brug.', sun:'Til brug inde, væk fra direkte sol.', coin:'Glider ind i vognlåsen som en mønt.', home:'Lavet til at stå fremme i hverdagen.', drop:'Nem at holde ren.', star:'Den ottetakkede stjerne fra vores logo.', magnet:'Holder delene samlet.', dk:'Laves efter bestilling, når du har godkendt udkastet.'};
   return `
   <div class="wrap">
     <nav class="crumbs" aria-label="Brødkrummer"><a href="#/?c=alle">Shop</a>${chev(1)}<a href="#/?c=${p.cats[0]}">${CATS[p.cats[0]]}</a>${chev(1)}<span>${nice(p.name)}</span></nav>
@@ -1805,7 +1778,13 @@ function bindProduct(){
     if((p.personal==='shelf'||p.shelf) && pv.shelf.length!==4) ok = false;
     if(p.personal==='names' && !(pv.names||[]).some(n=>n.trim())) ok = false;
     if(p.nameCount===2 && (pv.names||[]).slice(0,2).filter(n=>n.trim()).length<2) ok = false;
-    $$('#addBtn,#addBtn2').forEach(b=>b.toggleAttribute('disabled', !ok));
+    // the button stays clickable; a click shows what is missing instead of a greyed-out button with no explanation
+    const fam = p.personal==='family';
+    window._need = ok ? null
+      : ((p.personal==='name'||p.personal==='family') && p.req && !pv.name.trim()) ? {sel:'#nm', msg: fam ? 'Skriv familiens navn først.' : 'Skriv navnet først.'}
+      : ((p.personal==='shelf'||p.shelf) && pv.shelf.length!==4) ? {sel:'[data-shelf]', msg:'Vælg 4 kategorier til hyldeskiltene.'}
+      : {sel:'.nmi', msg: p.nameCount===2 ? 'Skriv begge navne først.' : 'Skriv mindst ét navn først.'};
+    $$('#addBtn,#addBtn2').forEach(b=>{ b.classList.toggle('wait', !ok); });
   };
   const suggest = () => {
     const el = $('#sugg'); if(!el) return;
@@ -1847,7 +1826,12 @@ function bindProduct(){
       $$('[data-shelf]').forEach(x=>x.classList.toggle('on',pv.shelf.includes(x.dataset.shelf))); $('#shelfCount').textContent=pv.shelf.length+' af 4 valgt'; render(); }
     if(b.dataset.q){ pv.qty=Math.max(1,Math.min(20,pv.qty+ +b.dataset.q)); $('#qv').textContent=pv.qty; render(); }
     if(b.dataset.armode){ pv.arManual = b.dataset.armode==='manual'; $('#arWrap').style.display=pv.arManual?'block':'none'; if(pv.arManual){ const i=$('#arIn'); if(!i.value) i.value=pv.ar; pv.ar=i.value; i.focus(); } suggest(); render(); }
-    if(b.id==='addBtn'||b.id==='addBtn2'){ addToCart(); }
+    if(b.id==='addBtn'||b.id==='addBtn2'){
+      const need = window._need;
+      if(need){ const el=$(need.sel); if(el){ el.scrollIntoView({block:'center', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
+          setTimeout(()=>{ el.focus({preventScroll:true}); if(el.classList.contains('input')){ el.classList.add('need'); setTimeout(()=>el.classList.remove('need'), 2400); } }, 350); }
+        toast(need.msg); return; }
+      addToCart(); }
   };
   const nm = $('#nm'); if(nm) nm.oninput = e => { pv.name = e.target.value.replace(/[<>]/g,''); suggest(); stageView='design'; $$('.thumbs [data-view]').forEach(x=>x.classList.toggle('on',x.dataset.view==='design')); render(); dots(); };
   $$('.nmi').forEach(inp => inp.oninput = e => { pv.names[+e.target.dataset.i] = e.target.value.replace(/[<>]/g,''); nmUpdate(); stageView='design'; $$('.thumbs [data-view]').forEach(x=>x.classList.toggle('on',x.dataset.view==='design')); render(); dots(); });
@@ -2095,9 +2079,14 @@ addEventListener('k3d-wanted', () => { clearTimeout(window._k3dT); window._k3dT 
 addEventListener('k3d-lost', () => { window._k3dFailed = true; window._want3d = false; try{ window.K3D && K3D.unmount(); }catch(e){} if(window._pdpRender) window._pdpRender(); toast('3D-visningen er slået fra på denne enhed. Du ser stadig dit design.'); });
 addEventListener('k3d-ready', () => { if(window._pdpRender && $('#pvBox')) window._pdpRender(); heroMount(); });
 document.addEventListener('focusin', e => { if (e.target && e.target.id === 'heroName') dispatchEvent(new Event('k3d-wanted')); });
-function heroMount(){ const hi=$('#heroName'); if(hi && !hi.oninput) hi.oninput=()=>{ try{ sessionStorage.setItem('khatam_hero_name', hi.value.trim()); }catch(e){} };
-  const st=$('#heroStage'); if(!st || !window.K3D) return; const inp=$('#heroName'); const cfg=()=>{ const n=(inp.value||'').trim()||'Yusuf'; return {color:'sort', name:n, ar:toAr(n), coin:'20'}; };
-  st.querySelector('.h2fallback')?.remove(); if(!st.querySelector('canvas.k3d')) K3D.mount(st,'ism',cfg()); inp.oninput=()=>{ K3D.update(cfg()); $('#heroBuy').href='#/p/ism'; sessionStorage && (()=>{try{sessionStorage.setItem('khatam_hero_name', inp.value.trim())}catch(e){}})(); }; }
+function heroMount(){ const hi=$('#heroName');
+  if(hi && !hi.oninput){
+    const sync=()=>{ const n=hi.value.replace(/[<>]/g,'').trim(); try{ sessionStorage.setItem('khatam_hero_name', n); }catch(e){}
+      const b=$('#heroBuy'); if(b) b.textContent = n ? `Se “Familien ${n.charAt(0).toUpperCase()+n.slice(1)}” på et dørskilt` : 'Se det på et dørskilt'; };
+    hi.oninput=sync; hi.onkeydown=e=>{ if(e.key==='Enter'){ sync(); location.hash='#/p/bayt'; } };
+    try{ const saved=sessionStorage.getItem('khatam_hero_name'); if(saved){ hi.value=saved; sync(); } }catch(e){} }
+  const st=$('#heroStage'); if(!st || !window.K3D) return; const inp=$('#heroName'); const cfg=()=>{ const n=(inp.value||'').trim()||'Hassan'; return {color:'sort', name:n, ar:toAr(n)}; };
+  st.querySelector('.h2fallback')?.remove(); if(!st.querySelector('canvas.k3d')) K3D.mount(st,'bayt',cfg()); inp.oninput=()=>{ K3D.update(cfg()); $('#heroBuy').href='#/p/bayt'; sessionStorage && (()=>{try{sessionStorage.setItem('khatam_hero_name', inp.value.trim())}catch(e){}})(); }; }
 function setMeta(title, desc){ document.title = title; const m=document.querySelector('meta[name=description]'); if(m && desc) m.content = desc; }
 function route(){
   window._pdpRender = null; clearInterval(window._cdT); if(LITE) window._want3d = false; window._dots = null; if(window.K3D) K3D.unmount(); window._pdpIO && window._pdpIO.disconnect();
@@ -2111,7 +2100,7 @@ function route(){
   else if(path==='/tak'){ app.innerHTML = viewThanks(); paintPatterns(); scrollTo(0,0); }
   else if(path.startsWith('/info')){ app.innerHTML = viewInfo(); paintPatterns(); const a = h.split('#')[1]; a?setTimeout(()=>document.getElementById(a)?.scrollIntoView({behavior:'smooth'}),50):scrollTo(0,0); }
   else {
-    cat = params.get('c') || 'alle'; setMeta('KHATAM – personlige gaver med arabisk kalligrafi', 'Personlige islamiske gaver med arabisk kalligrafi: hyldeskilte, nøgleringe, entré-sæt og gaveæsker. Designet og lavet i Danmark.');
+    cat = params.get('c') || 'alle'; setMeta('KHATAM – personlige gaver med arabisk kalligrafi', 'Personlige islamiske gaver med arabisk kalligrafi: hyldeskilte, dørskilte, Eid-gaver og gaveæsker. Designet og lavet i Danmark.');
     const prevShop = $('#shop');
     app.innerHTML = viewHome(cat); paintPatterns(); setTimeout(heroMount, 0);
     if(params.get('c') && (prevShop || window._scrollShop)) { $('#shop').scrollIntoView({behavior: prevShop?'smooth':'auto'}); }
@@ -2226,8 +2215,15 @@ class Face {
     const fam = ar ? 'Cairo' : 'Poppins';
     c.direction = ar ? 'rtl' : 'ltr'; c.textAlign = 'center'; c.textBaseline = 'middle';
     if ('letterSpacing' in c) c.letterSpacing = track ? `${fs * track}px` : '0px';
-    for (let i = 0; i < 40; i++) { c.font = `${weight} ${fs}px ${fam}`; const m = c.measureText(t); if (m.width <= this.L(maxW)) break; fs *= 0.94; }
-    c.fillText(t, this.X(cx), this.Y(cy) + (ar ? fs * 0.08 : 0));
+    if (ar) {                             // Arabic: fit the real ink (dots and tails included) inside maxW x maxH and centre it on cy
+      c.textBaseline = 'alphabetic';
+      for (let i = 0; i < 40; i++) { c.font = `${weight} ${fs}px ${fam}`; const m = c.measureText(t), h = m.actualBoundingBoxAscent + m.actualBoundingBoxDescent;
+        const k = Math.min(this.L(maxW) / m.width, this.L(maxH) / (h || 1)); if (k >= 1) break; fs *= Math.max(0.5, k * 0.99); }
+      const m = c.measureText(t); c.fillText(t, this.X(cx), this.Y(cy) + (m.actualBoundingBoxAscent - m.actualBoundingBoxDescent) / 2);
+    } else {
+      for (let i = 0; i < 40; i++) { c.font = `${weight} ${fs}px ${fam}`; const m = c.measureText(t); if (m.width <= this.L(maxW)) break; fs *= 0.94; }
+      c.fillText(t, this.X(cx), this.Y(cy));
+    }
     const wmm = c.measureText(t).width / this.s;
     if ('letterSpacing' in c) c.letterSpacing = '0px';
     return wmm;
@@ -2483,12 +2479,12 @@ const BUILD = {
     const tray = new THREE.Mesh(new THREE.BoxGeometry(L + 8, 9, D + 8), plateMat(COL.sort)); tray.position.y = -4.5; tray.castShadow = true; g.add(tray);
     g.position.y = -50; g.userData = { pieces: [top] }; return g;
   },
-  tilham(cfg) {
+  gaveaeske(cfg) {
     const g = new THREE.Group();
-    const coin = BUILD.ism({ ...cfg }); coin.position.set(-70, -10, 30); coin.scale.setScalar(1.6);
-    const q = BUILD.qahwa(cfg); q.scale.setScalar(.75); q.position.set(30, -30, 0);
     const m = BUILD.maktaba(cfg); m.scale.setScalar(.6); m.position.set(0, 40, -60);
-    g.add(m, q, coin); g.userData = { pieces: [...coin.userData.pieces, ...q.userData.pieces, ...m.userData.pieces] }; return g;
+    const b = BUILD.bayt(cfg); b.scale.setScalar(.7); b.position.set(-38, -18, 34); b.rotation.y = .18;
+    const t = BUILD.tabaq(cfg); t.scale.setScalar(.62); t.position.set(62, -6, 24);
+    g.add(m, b, t); g.userData = { pieces: [...m.userData.pieces, ...b.userData.pieces, ...t.userData.pieces] }; return g;
   },
 };
 
