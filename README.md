@@ -51,7 +51,9 @@ Fragtgrænse og fragtpriser: `const FREE = 349, SHIP_PS = 45, SHIP_HOME = 59, HO
 - **Anmeldelser:** Tilføj rigtige anmeldelser i `const REVIEWS = []` øverst i `index.html`. Sektionen vises først, når der er mindst én.
 - **Ramadan-frist:** Datoen står i `RAMADAN_DEADLINE`. Nedtællingen forsvinder selv efter fristen.
 - **Statistik:** Opret en konto på plausible.io og skriv domænet i `ANALYTICS_DOMAIN`. Siden måler så "Læg i kurven", "Til kassen", "Ordre" og "Del design" uden cookies.
-- **Google og deling:** `p/<id>.html`, `sitemap.xml` og `robots.txt` laves af `node tools/seo.mjs`. Kør den igen, når du ændrer produkter, eller når `SITE_URL` skifter til dit eget domæne.
+- **Google og deling:** `node tools/seo.mjs` laver rigtige sider, som Google kan finde: `p/<id>.html` (produkter), `c/<kategori>.html` (Til hjemmet, Ramadan & Eid, Til børnene) og `levering-og-faq.html`, plus `sitemap.xml` og `robots.txt`. Hver side er en kopi af butikken med egen titel, beskrivelse og strukturerede data. **Kør den efter hver ændring i `index.html`**, og når `SITE_URL` skifter til dit eget domæne.
+- **Nyhedsbrev:** Opret en gratis Brevo-konto, lav en tilmeldingsformular og indsæt formularens adresse i `NEWSLETTER_URL`. Indtil da gemmes ingen e-mails, og formularen skriver ærligt, at tilmeldingen åbner snart.
+- **Sociale medier og kontakt:** Skriv Instagram- og TikTok-adresser i `SOCIAL` (tomme ikoner skjules) og kontaktmailen i `CONTACT_EMAIL`.
 
 ## Produktsidens opbygning (opdateret november 2026)
 

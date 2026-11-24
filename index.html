@@ -3,11 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--seo-->
 <title>KHATAM – personlige gaver med arabisk kalligrafi</title>
 <meta name="description" content="Personlige islamiske gaver med arabisk kalligrafi: hyldeskilte, dørskilte, Eid-gaver og gaveæsker. Designet og lavet i Danmark.">
+<link rel="canonical" href="https://sinan-polat.github.io/khatam/">
+<meta property="og:site_name" content="KHATAM">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sinan-polat.github.io/khatam/">
 <meta property="og:title" content="KHATAM – gaver med betydning">
 <meta property="og:description" content="Personlige gaver med arabisk kalligrafi, designet og lavet i Danmark.">
 <meta property="og:image" content="https://sinan-polat.github.io/khatam/img/maktaba.webp">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://sinan-polat.github.io/khatam/#website","name":"KHATAM","alternateName":"KHATAM – personlige islamiske gaver","url":"https://sinan-polat.github.io/khatam/","inLanguage":"da"},{"@type":"Organization","@id":"https://sinan-polat.github.io/khatam/#org","name":"KHATAM","url":"https://sinan-polat.github.io/khatam/","logo":"https://sinan-polat.github.io/khatam/favicon.svg","description":"Personlige islamiske gaver med arabisk kalligrafi, designet og lavet i Danmark."}]}</script>
+<!--/seo-->
 <meta name="theme-color" content="#1E3A2F">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
@@ -50,6 +57,7 @@ a{color:inherit;text-decoration:none}
 .btn-block{width:100%}
 .btn[disabled]{opacity:.35;pointer-events:none}
 .btn.wait{opacity:.6}
+body.co-mode .nav,body.co-mode #searchBtn,body.co-mode .burger,body.co-mode .news-g,body.co-mode .ann-usp{display:none!important}
 .cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
 .input.need{border-color:#b3472d;box-shadow:0 0 0 3px rgba(179,71,45,.15)}
 .btn-line{border:1px solid var(--line-2);min-height:36px;padding:0 16px;font-size:10.5px}
@@ -667,6 +675,7 @@ h1,h2,h3,.sec-h h2,.iwt h2,.banner .box h2,.conf h1,.co h1,.thanks h1,.info h1,.
 .announce b{font-weight:600;color:#fff;letter-spacing:.04em;text-transform:uppercase}
 .ann-top{display:none}
 .ann-usp{display:flex;justify-content:center;max-width:var(--max);margin:0 auto}
+@media (max-width:600px){.ann-usp{display:none!important}}
 .ann-usp span,.ann-top{padding:9px 28px}
 .ann-usp span+span{border-left:1px solid rgba(255,255,255,.22)}
 @media (min-width:861px){
@@ -716,7 +725,8 @@ h1,h2,h3,.sec-h h2,.iwt h2,.banner .box h2,.conf h1,.co h1,.thanks h1,.info h1,.
 .garr.prev{left:14px}.garr.next{right:14px}
 .garr:hover{transform:translateY(-50%) scale(1.06)}
 .gdots{position:absolute;left:0;right:0;bottom:16px;display:flex;justify-content:center;gap:7px;z-index:4}
-.gdots button{width:8px;height:8px;border-radius:50%;background:rgba(22,21,19,.25);padding:0}
+.gdots button{width:8px;height:8px;border-radius:50%;background:rgba(22,21,19,.25);padding:0;position:relative}
+.gdots button::after{content:'';position:absolute;inset:-14px -8px}
 .gdots button.on{background:var(--ink);width:20px;border-radius:5px}
 .stage-note{bottom:38px}
 
@@ -761,6 +771,7 @@ h1,h2,h3,.sec-h h2,.iwt h2,.banner .box h2,.conf h1,.co h1,.thanks h1,.info h1,.
 .opt-h{font-size:14px;font-weight:600;color:var(--ink)}
 .stock{display:flex;align-items:center;gap:10px;font-size:15px;color:var(--ink);margin:24px 0 12px}
 .stock i{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(31,157,85,.15)}
+.eta{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--muted);margin:-4px 0 14px}.eta svg{flex:none;width:18px;height:18px;margin-top:1px}.eta b{color:var(--ink);font-weight:500}
 .add-row{gap:10px}
 .add-row .qty{height:58px}
 .add-row .btn{flex:1}
@@ -908,7 +919,7 @@ footer :focus-visible{outline-color:var(--ink)}
   .stage{aspect-ratio:1/1}
   .thumbs{order:2;padding:0;flex-direction:row;overflow-x:auto;scrollbar-width:none}
   .thumbs button{width:23%;flex:none}
-  .garr{width:34px;height:34px;top:auto;bottom:10px;transform:none}
+  .garr{width:42px;height:42px;top:auto;bottom:6px;transform:none}
   .garr:hover{transform:none}
   .conf{padding-top:20px}
   .paccs{margin-top:20px}
@@ -1015,11 +1026,12 @@ footer :focus-visible{outline-color:#fff}
 }
 @media (max-width:860px){
   .hero3{grid-template-columns:minmax(0,1fr);min-height:0}
-  .h3img{order:-1;min-height:0;aspect-ratio:4/3.3}
+  .h3img{order:0;min-height:0;aspect-ratio:16/9}
   .h3img img{object-position:50% 30%}
-  .h3in{padding:34px 20px 44px;max-width:none}
+  .h3in{padding:28px 20px 32px;max-width:none}
   .h3seal{width:32px;height:32px;margin-bottom:18px}
-  .hero3 h1{font-size:44px}
+  .hero3 h1{font-size:40px;margin-bottom:14px}
+  .hero3 p{margin-bottom:20px}
   .story{min-height:0;padding:0;flex-direction:column;align-items:stretch}
   .story-bg{position:relative;height:260px}
   .story-card{margin:-40px 12px 12px;max-width:none;padding:26px 20px}
@@ -1067,6 +1079,11 @@ img{-webkit-user-drag:none}
 .dr-body{padding:6px 20px 0}
 .line-item{background:var(--warm);border-radius:var(--r);border:0;padding:14px;margin-top:12px;grid-template-columns:64px 1fr auto;gap:14px}
 .line-item .li-img{width:64px;background:#fff}
+.li-clip{position:absolute;inset:0;overflow:hidden;border-radius:inherit}
+.li-pv-in{position:absolute;left:50%;top:50%;width:300px;height:300px;margin:-150px 0 0 -150px;display:grid;place-items:center;transform:scale(.21)}
+.line-item .li-img,.mini .li-img{position:relative}
+.line-item .li-pv-in{transform:scale(.213)}.mini .li-pv-in{transform:scale(.187)}
+
 .li-n{font-size:15px;font-weight:500;color:var(--ink)}
 .li-m{font-size:12.5px}
 .li-p{font-weight:600;color:var(--ink)}
@@ -1106,7 +1123,7 @@ img{-webkit-user-drag:none}
   .card .ty{font-size:12px}
   .card .pr{font-size:14px}
   .card .pr s{display:inline;font-size:12px}
-  .card-add{width:32px;height:32px;right:8px;top:8px}
+  .card-add{width:40px;height:40px;right:6px;top:6px}
   .badge{top:8px;left:8px;font-size:10.5px;padding:4px 7px}
   .colls{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:0 -20px;padding:0 20px;scrollbar-width:none}
   .colls::-webkit-scrollbar{display:none}
@@ -1132,10 +1149,10 @@ footer .pay-icons span.pi{background:#fff}
     <a href="#/" class="logo" aria-label="KHATAM forside"><svg viewBox="0 0 100 100" class="seal-svg"></svg><span>KHATAM</span></a>
     <nav class="nav">
       <a href="#/?c=alle" data-nav="alle">Shop</a>
-      <a href="#/p/maktaba" data-nav="maktaba">Hyldeskilte</a>
-      <a href="#/p/gaveaeske" data-nav="gaveaeske">Gaveæsken</a>
-      <a href="#/?c=ramadan" data-nav="ramadan">Ramadan &amp; Eid</a>
-      <a href="#/info" data-nav="info">Levering &amp; FAQ</a>
+      <a href="p/maktaba.html" data-nav="maktaba">Hyldeskilte</a>
+      <a href="p/gaveaeske.html" data-nav="gaveaeske">Gaveæsken</a>
+      <a href="c/ramadan.html" data-nav="ramadan">Ramadan &amp; Eid</a>
+      <a href="levering-og-faq.html" data-nav="info">Levering &amp; FAQ</a>
     </nav>
     <div class="icons">
       <button class="icon" id="searchBtn" aria-label="Søg"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8.5" cy="8.5" r="6"/><path d="m13 13 5 5"/></svg></button>
@@ -1148,12 +1165,12 @@ footer .pay-icons span.pi{background:#fff}
   <div class="mnav-sheet" id="mnavSheet" role="dialog" aria-label="Menu">
     <div class="mnav-track">
       <div class="mnav-p">
-        <a class="mnav-pill" href="#/?c=ramadan">Ramadan &amp; Eid</a>
+        <a class="mnav-pill" href="c/ramadan.html">Ramadan &amp; Eid</a>
         <button class="mnav-l" data-sub type="button">Shop <span class="mnav-chev" aria-hidden="true">›</span></button>
-        <a class="mnav-l" href="#/p/maktaba">Hyldeskilte</a>
-        <a class="mnav-l" href="#/p/gaveaeske">Gaveæsken</a>
-        <a class="mnav-l" href="#/?c=born">Til børnene</a>
-        <a class="mnav-l" href="#/info">Levering &amp; FAQ</a>
+        <a class="mnav-l" href="p/maktaba.html">Hyldeskilte</a>
+        <a class="mnav-l" href="p/gaveaeske.html">Gaveæsken</a>
+        <a class="mnav-l" href="c/born.html">Til børnene</a>
+        <a class="mnav-l" href="levering-og-faq.html">Levering &amp; FAQ</a>
         <a class="mnav-l" href="#/info#kontakt">Kontakt</a>
         <button class="mnav-s" id="mnavSearch" type="button"><svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="8.5" cy="8.5" r="6"/><path d="m13 13 5 5"/></svg>Søg</button>
         <div class="mnav-soc"><a href="#/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"/></svg></a><a href="#/" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.8A4.3 4.3 0 0 1 15.5 3h-3.1v12.4a2.6 2.6 0 1 1-2.6-2.6c.3 0 .5 0 .8.1V9.7a5.7 5.7 0 1 0 4.9 5.7V9.1a7.3 7.3 0 0 0 4.3 1.4V7.4a4.3 4.3 0 0 1-3.2-1.6Z"/></svg></a></div>
@@ -1175,7 +1192,7 @@ footer .pay-icons span.pi{background:#fff}
 
 <section class="news-g" aria-label="Nyhedsbrev"><div class="wrap"><div class="news-card">
   <div><h2>Tilmeld dig nyhedsbrevet</h2><p>Hør først om nye designs, Ramadan- og Eid-kollektionen og bestillingsfrister.</p></div>
-  <form id="newsForm"><input type="email" class="input" placeholder="Skriv din e-mail" aria-label="E-mail" required><button class="btn btn-beige btn-block">Tilmeld dig</button><small>Vi skriver kun, når der er noget nyt. Ingen spam.</small></form>
+  <form id="newsForm" novalidate><input type="email" name="EMAIL" class="input" placeholder="Skriv din e-mail" aria-label="E-mail" autocomplete="email" required><input type="text" name="email_address_check" value="" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px"><button class="btn btn-beige btn-block">Tilmeld dig</button><small id="newsMsg" role="status">Vi skriver kun, når der er noget nyt. Du kan altid afmelde dig. Se <a class="link" href="#/info#privat">privatlivspolitik</a>.</small></form>
 </div></div></section>
 <footer>
   <div class="wrap">
@@ -1183,9 +1200,9 @@ footer .pay-icons span.pi{background:#fff}
       <div><a href="#/" class="logo"><svg viewBox="0 0 100 100" class="seal-svg"></svg><span>KHATAM</span></a>
         <p class="about">Personlige gaver med arabisk kalligrafi. Designet og lavet efter bestilling i Danmark.</p>
         <div class="soc"><a href="#/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"/></svg></a><a href="#/" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.8A4.3 4.3 0 0 1 15.5 3h-3.1v12.4a2.6 2.6 0 1 1-2.6-2.6c.3 0 .5 0 .8.1V9.7a5.7 5.7 0 1 0 4.9 5.7V9.1a7.3 7.3 0 0 0 4.3 1.4V7.4a4.3 4.3 0 0 1-3.2-1.6Z"/></svg></a></div></div>
-      <div><h4>Shop</h4><a href="#/?c=alle">Alle gaver</a><a href="#/p/maktaba">Hyldeskilte</a><a href="#/p/gaveaeske">Gaveæsken</a><a href="#/?c=ramadan">Ramadan &amp; Eid</a><a href="#/?c=born">Til børnene</a></div>
-      <div><h4>Hjælp</h4><a href="#/info">Levering &amp; FAQ</a><a href="#/info#retur">Returret</a><a href="#/info#kontakt">Kontakt</a></div>
-      <div><h4>Info</h4><a href="#/info#handel">Handelsbetingelser</a><a href="#/info#handel">Privatlivspolitik</a></div>
+      <div><h4>Shop</h4><a href="#/?c=alle">Alle gaver</a><a href="p/maktaba.html">Hyldeskilte</a><a href="p/gaveaeske.html">Gaveæsken</a><a href="c/ramadan.html">Ramadan &amp; Eid</a><a href="c/born.html">Til børnene</a></div>
+      <div><h4>Hjælp</h4><a href="levering-og-faq.html">Levering &amp; FAQ</a><a href="#/info#retur">Returret</a><a href="#/info#kontakt">Kontakt</a></div>
+      <div><h4>Info</h4><a href="#/info#handel">Handelsbetingelser</a><a href="#/info#privat">Privatlivspolitik</a></div>
     </div>
     <div class="bottom"><span>© 2026 KHATAM · CVR [UDFYLD] · Produktbillederne er visualiseringer · Foto: <a id="photoCredit" href="#" target="_blank" rel="noopener">Unsplash</a></span><div class="pay-icons" data-pay></div></div>
   </div>
@@ -1240,6 +1257,14 @@ const byId = id => P.find(p => p.id === id);
 
 /* ---------- shop settings ---------- */
 const SITE_URL = 'https://sinan-polat.github.io/khatam/';     // change to https://khatam.dk/ when the domain is ready
+/* Newsletter: create a free Brevo account (brevo.com) -> Contacts -> Forms -> create a subscription form -> "Share" -> "Embed".
+   Copy the address in the form's action="..." (looks like https://xxxx.sibforms.com/serve/MUIF...) and paste it here.
+   Empty = the form tells visitors honestly that sign-up opens soon, and nothing is stored. */
+const NEWSLETTER_URL = '';
+/* Social profiles. Empty = the icon is hidden, so there are no dead links. */
+const SOCIAL = {instagram:'', tiktok:''};
+/* Contact e-mail shown on the site. Create it with the domain (fx hej@khatam.dk) or use another address until then. */
+const CONTACT_EMAIL = 'hej@khatam.dk';
 const ANALYTICS_DOMAIN = '';                                   // e.g. 'khatam.dk' once a Plausible account exists; empty = off
 /* Hero photo (Unsplash, free licence). To host it yourself: save it as img/hero.jpg and write 'img/hero.jpg' here. */
 const HERO_IMG = 'https://images.unsplash.com/photo-1758696642918-68bfea092855?w=1800&q=75&auto=format&fit=crop';
@@ -1415,7 +1440,7 @@ function card(p){
   const main = photo ? `<img class="main photo has-alt" src="img/${p.photo}.webp" alt="${esc(nice(p.name))}" loading="lazy">` : (p.imgs.length>1 ? productImg(p) : `<img class="main" src="img/${p.imgs[0]}.webp" alt="${esc(nice(p.name))}" loading="lazy">`);
   const alt = photo ? `<img class="alt" src="img/${p.imgs[0]}.webp" alt="" loading="lazy">` : '';
   const pct = p.was ? Math.round((p.was-p.price)/p.was*100) : 0;
-  return `<div class="card"><a class="card-a" href="#/p/${p.id}">
+  return `<div class="card"><a class="card-a" href="p/${p.id}.html">
     <div class="ph">${p.badge?`<span class="badge ${p.id==='gaveaeske'?'dark':''}">${p.badge}</span>`:''}${main}${alt}</div>
     <div class="card-t"><div class="nm">${nice(p.name)}<span class="ar" lang="ar">${p.ar}</span></div><div class="ty">${p.type}</div>
     <div class="pr"><b>${kr(p.price)}</b>${p.was?`<s>${kr(p.was)}</s>`:''}</div>${pct?`<span class="disc">−${pct}%</span>`:''}</div></a>
@@ -1425,7 +1450,7 @@ function card(p){
 function reviewsHtml(list){
   if(!list.length) return '';
   return `<section class="reviews"><div class="wrap"><h2>Det siger kunderne</h2><div class="rv-grid">${list.map(r=>{const p=byId(r.product);
-    return `<figure class="rv">${r.img?`<img src="${esc(r.img)}" alt="" loading="lazy">`:''}<blockquote>${esc(r.text)}</blockquote><figcaption><b>${esc(r.name)}</b>${r.city?', '+esc(r.city):''}${p?`<a href="#/p/${p.id}">${nice(p.name)}</a>`:''}</figcaption></figure>`;}).join('')}</div></div></section>`;
+    return `<figure class="rv">${r.img?`<img src="${esc(r.img)}" alt="" loading="lazy">`:''}<blockquote>${esc(r.text)}</blockquote><figcaption><b>${esc(r.name)}</b>${r.city?', '+esc(r.city):''}${p?`<a href="p/${p.id}.html">${nice(p.name)}</a>`:''}</figcaption></figure>`;}).join('')}</div></div></section>`;
 }
 function viewHome(cat){
   cat = CATS[cat] ? cat : 'alle';
@@ -1437,7 +1462,7 @@ function viewHome(cat){
       <h1>Gaver med betydning</h1>
       <p>Personlige gaver med arabisk kalligrafi, designet og lavet i Danmark. Skriv et navn, og se det i guld.</p>
       <label class="h2field"><span>Skriv jeres efternavn</span><input id="heroName" maxlength="16" placeholder="fx Hassan" autocomplete="off"></label>
-      <div class="h2cta"><a href="#/p/bayt" class="btn btn-sand" id="heroBuy">Se det på et dørskilt</a><a href="#/?c=alle" class="btn btn-ghost-w">Se alle gaver</a></div>
+      <div class="h2cta"><a href="p/bayt.html" class="btn btn-sand" id="heroBuy">Se det på et dørskilt</a><a href="#/?c=alle" class="btn btn-ghost-w">Se alle gaver</a></div>
     </div></div>
     <div class="h3img"><img src="${heroSrc(1000)}" srcset="${heroSet()}" sizes="(max-width:860px) 100vw, 50vw" alt="Mihrab med guldornamenter og hvide buer" fetchpriority="high"></div>
   </section>
@@ -1445,9 +1470,9 @@ function viewHome(cat){
   <section class="sec"><div class="wrap">
     <div class="sec-h"><h2>Find den rette gave</h2></div>
     <div class="colls">
-      <a class="coll prod" href="#/?c=hjem"><img src="img/maktaba.webp" alt="" loading="lazy"><div class="lab"><h3>Til hjemmet</h3><span class="up">Se gaverne</span></div></a>
-      <a class="coll prod" href="#/?c=ramadan"><img src="img/mubarak.webp" alt="" loading="lazy"><div class="lab"><h3>Ramadan &amp; Eid</h3><span class="up">Se gaverne</span></div></a>
-      <a class="coll prod" href="#/?c=born"><img src="img/eidiyya.webp" alt="" loading="lazy"><div class="lab"><h3>Til børnene</h3><span class="up">Se gaverne</span></div></a>
+      <a class="coll prod" href="c/hjem.html"><img src="img/maktaba.webp" alt="" loading="lazy"><div class="lab"><h3>Til hjemmet</h3><span class="up">Se gaverne</span></div></a>
+      <a class="coll prod" href="c/ramadan.html"><img src="img/mubarak.webp" alt="" loading="lazy"><div class="lab"><h3>Ramadan &amp; Eid</h3><span class="up">Se gaverne</span></div></a>
+      <a class="coll prod" href="c/born.html"><img src="img/eidiyya.webp" alt="" loading="lazy"><div class="lab"><h3>Til børnene</h3><span class="up">Se gaverne</span></div></a>
     </div>
   </div></section>
 
@@ -1463,7 +1488,7 @@ function viewHome(cat){
       <h2>Giv hver bog sin plads</h2>
       <p>Fire skilte til bogreolen, så Quran, tafsir og hadith står samlet. Tungen ligger under bøgerne, så skiltene står fast uden lim eller skruer.</p>
       <div class="chips-ro">${SHELF.map(([k,l,a])=>`<span><b class="ar" lang="ar">${a}</b>${l}</span>`).join('')}</div>
-      <div class="cta-row"><a href="#/p/maktaba" class="btn btn-dark">Vælg dine 4 skilte</a><span class="muted">249 kr for sættet</span></div>
+      <div class="cta-row"><a href="p/maktaba.html" class="btn btn-dark">Vælg dine 4 skilte</a><span class="muted">249 kr for sættet</span></div>
     </div>
   </div></section>
 
@@ -1473,7 +1498,7 @@ function viewHome(cat){
       <h2>Klar til Ramadan og Eid</h2>
       <p>Bordskiltet MUBARAK til iftar-bordet og EIDIYYA-æsken med barnets navn til Eid-morgenen. Skiltet findes med Ramadan Mubarak eller Eid Mubarak.</p>
       <p>Bestil senest 25. januar, så når gaverne frem, før Ramadan begynder.</p>
-      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:26px"><a href="#/?c=ramadan" class="btn btn-dark">Se Ramadan &amp; Eid</a><a href="#/p/eidiyya" class="btn btn-outline">Lav en Eidiyya-æske (129 kr)</a></div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:26px"><a href="c/ramadan.html" class="btn btn-dark">Se Ramadan &amp; Eid</a><a href="p/eidiyya.html" class="btn btn-outline">Lav en Eidiyya-æske (129 kr)</a></div>
     </div>
   </div></section>
 
@@ -1484,7 +1509,7 @@ function viewHome(cat){
       <p>Tre gaver samlet i én æske, med familiens navn. Til et nyt hjem, et bryllup eller Eid.</p>
       <ul><li><span>Maktaba, 4 hyldeskilte</span><span>249 kr</span></li><li><span>Bayt, dørskilt med navn</span><span>179 kr</span></li><li><span>Tabaq, nøglebakke</span><span>179 kr</span></li></ul>
       <div class="price">499 kr <s>607 kr</s></div>
-      <a href="#/p/gaveaeske" class="btn btn-dark">Tilpas gaveæsken</a>
+      <a href="p/gaveaeske.html" class="btn btn-dark">Tilpas gaveæsken</a>
     </div>
   </div></section>
 
@@ -1553,6 +1578,16 @@ function countdownParts(){ const ms = RAMADAN_DEADLINE - Date.now(); if(ms<=0) r
 function countdownHtml(){ const c=countdownParts(); if(!c) return '';
   const two = n => String(n).padStart(2,'0');
   return `<div class="cd"><span>Bestil til Ramadan inden</span><div class="cd-n" id="cdN"><div><b>${c.d}</b><small>dage</small></div><div><b>${two(c.h)}</b><small>timer</small></div><div><b>${two(c.m)}</b><small>min</small></div></div></div>`; }
+/* expected delivery: draft the next working day (personal items), 3–5 working days to make, PostNord 1–3 working days */
+function addWorkdays(d, n){ const x=new Date(d); while(n>0){ x.setDate(x.getDate()+1); const w=x.getDay(); if(w!==0 && w!==6) n--; } return x; }
+function etaText(p){
+  const draft = ['none','greeting'].includes(p.personal) ? 0 : 1, now = new Date();
+  const a = addWorkdays(now, draft+3+1), b = addWorkdays(now, draft+5+3);
+  const D=['søn','man','tir','ons','tor','fre','lør'], M=['jan','feb','mar','apr','maj','jun','jul','aug','sep','okt','nov','dec'];
+  const day = d => `${D[d.getDay()]}. ${d.getDate()}.`, mon = d => ` ${M[d.getMonth()]}.`;
+  return `${day(a)}${a.getMonth()===b.getMonth()?'':mon(a)} – ${day(b)}${mon(b)}`;
+}
+const cartEta = () => etaText({personal: cart.some(i=>!['none','greeting'].includes(byId(i.id).personal)) ? 'name' : 'none'});
 function steps(p){
   const first = {name:['Tilpas gaven','Vælg farve, og skriv navnet med danske bogstaver.'], family:['Tilpas gaven','Vælg farve, og skriv familiens navn.'],
     names:['Tilpas gaven','Vælg farve, og skriv navnene. Vi foreslår arabisk stavning.'], shelf:['Vælg dine skilte','Vælg farve og 4 af 8 kategorier.'],
@@ -1568,15 +1603,15 @@ function mediaImg(p, cls='', n=1){ const alt=esc(nice(p.name)+' – '+p.type);
   return `<div class="pmedia ${cls}"><img class="lf" src="img/foto/${p.id}-${n}.webp" alt="${alt}" loading="lazy" onerror="this.onerror=null;this.classList.remove('lf');this.src='img/${p.imgs[0]}.webp'"></div>`; }
 function fbtRow(x){
   const can = quickAdd(x);
-  return `<div class="fbt-row"><a href="#/p/${x.id}" class="fbt-img">${x.imgs.length>1?productImg(x):`<img src="img/${x.imgs[0]}.webp" alt="" loading="lazy">`}</a>
-    <div class="fbt-t"><a href="#/p/${x.id}">${nice(x.name)}</a><div class="fbt-p">${kr(x.price)}${x.was?`<s>${kr(x.was)}</s>`:''}</div></div>
-    ${can?`<button class="btn btn-beige btn-sm" data-quick="${x.id}">+ Tilføj</button>`:`<a class="btn btn-beige btn-sm" href="#/p/${x.id}">Vælg navn</a>`}</div>`;
+  return `<div class="fbt-row"><a href="p/${x.id}.html" class="fbt-img">${x.imgs.length>1?productImg(x):`<img src="img/${x.imgs[0]}.webp" alt="" loading="lazy">`}</a>
+    <div class="fbt-t"><a href="p/${x.id}.html">${nice(x.name)}</a><div class="fbt-p">${kr(x.price)}${x.was?`<s>${kr(x.was)}</s>`:''}</div></div>
+    ${can?`<button class="btn btn-beige btn-sm" data-quick="${x.id}">+ Tilføj</button>`:`<a class="btn btn-beige btn-sm" href="p/${x.id}.html">Vælg navn</a>`}</div>`;
 }
 function reviewsSlider(list, title='Det siger kunderne'){
   const st = revStats(list); if(!st) return '';
   return `<section class="psec"><div class="wrap"><div class="sec-row"><h2>${title}</h2><div class="arrows"><button class="arr" data-slide="-1" aria-label="Forrige">${chev(-1)}</button><button class="arr" data-slide="1" aria-label="Næste">${chev(1)}</button></div></div>
     <div class="rv-wrap"><div class="rv-sum">${stars(st.avg)}<b>${String(st.avg).replace('.',',')}/5</b><span>Baseret på ${st.n} ${st.n===1?'anmeldelse':'anmeldelser'}</span></div>
-    <div class="rv-track" id="rvTrack">${list.map(r=>{const p=byId(r.product); return `<figure class="rv-card">${stars(r.rating||5)}${r.img?`<img src="${esc(r.img)}" alt="" loading="lazy">`:''}<blockquote>${esc(r.text)}</blockquote><figcaption><b>${esc(r.name)}</b>${r.city?', '+esc(r.city):''}${p?` · <a href="#/p/${p.id}">${nice(p.name)}</a>`:''}</figcaption></figure>`;}).join('')}</div></div></div></section>`;
+    <div class="rv-track" id="rvTrack">${list.map(r=>{const p=byId(r.product); return `<figure class="rv-card">${stars(r.rating||5)}${r.img?`<img src="${esc(r.img)}" alt="" loading="lazy">`:''}<blockquote>${esc(r.text)}</blockquote><figcaption><b>${esc(r.name)}</b>${r.city?', '+esc(r.city):''}${p?` · <a href="p/${p.id}.html">${nice(p.name)}</a>`:''}</figcaption></figure>`;}).join('')}</div></div></div></section>`;
 }
 const chev = d => `<svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="${d<0?'M12.5 4.5 7 10l5.5 5.5':'M7.5 4.5 13 10l-5.5 5.5'}"/></svg>`;
 const plus = '<svg class="pm" viewBox="0 0 20 20" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path class="v" d="M10 4v12"/><path d="M4 10h12"/></svg>';
@@ -1641,12 +1676,12 @@ function viewProduct(id, editKey){
     + acc('Mål og materiale', `<p>${p.details}</p>`)
     + acc('Levering &amp; forsendelse', `<ul class="ul"><li>Digitalt udkast inden for 24 timer på mail og SMS.</li><li>Laves og sendes 3–5 hverdage efter din godkendelse.</li><li>PostNord pakkeshop 45 kr, gratis ved køb over ${FREE} kr. Levering til døren 59 kr.</li><li>Bestil senest 25. januar, så når gaven frem til Ramadan.</li></ul>`)
     + acc('Personlige varer og retur', `<p>Varer med navn er lavet specielt til dig og kan ikke returneres efter fortrydelsesretten. Varer uden navn kan returneres inden for 14 dage. Er der fejl i produktet, laver vi det om uden beregning.</p>`)
-    + acc('Har du brug for hjælp?', `<p>Skriv til <a class="link" href="mailto:hej@khatam.dk">hej@khatam.dk</a> eller send en besked på Instagram. Vi svarer inden for én hverdag.</p>`);
+    + acc('Har du brug for hjælp?', `<p>Skriv til <a class="link" href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a> eller send en besked på Instagram. Vi svarer inden for én hverdag.</p>`);
   const feats = [...pts, ['dk','Designet og lavet i Danmark']].slice(0,4);
   const featDesc = {pen:'Du godkender stavningen i et udkast, før vi printer.', ar:'Præget i guld, så skriften står skarpt.', ruler:'Mål, der passer til hjemmet.', grid:'Sammensæt det, så det passer til jer.', gift:'Pakket som gave og klar til at give.', tag:'Samme gaver, lavere pris i sæt.', heat:'Holdbart materiale til daglig brug.', sun:'Til brug inde, væk fra direkte sol.', coin:'Glider ind i vognlåsen som en mønt.', home:'Lavet til at stå fremme i hverdagen.', drop:'Nem at holde ren.', star:'Den ottetakkede stjerne fra vores logo.', magnet:'Holder delene samlet.', dk:'Laves efter bestilling, når du har godkendt udkastet.'};
   return `
   <div class="wrap">
-    <nav class="crumbs" aria-label="Brødkrummer"><a href="#/?c=alle">Shop</a>${chev(1)}<a href="#/?c=${p.cats[0]}">${CATS[p.cats[0]]}</a>${chev(1)}<span>${nice(p.name)}</span></nav>
+    <nav class="crumbs" aria-label="Brødkrummer"><a href="#/?c=alle">Shop</a>${chev(1)}<a href="c/${p.cats[0]}.html">${CATS[p.cats[0]]}</a>${chev(1)}<span>${nice(p.name)}</span></nav>
     <div class="pdp">
       <div class="gallery">
         <div class="thumbs" id="thumbs">${thumbs}</div>
@@ -1667,7 +1702,8 @@ function viewProduct(id, editKey){
         <p class="desc">${p.desc}</p>
         ${pts.length?`<div class="pts">${pts.map(([k,t])=>`<div>${ico(k)}<span>${t}</span></div>`).join('')}</div>`:''}
         ${opts}
-        <p class="stock"><i></i>Laves til dig: udkast inden for 24 timer</p>
+        <p class="stock"><i></i>${['none','greeting'].includes(p.personal)?'Laves til dig efter bestilling':'Laves til dig: udkast inden for 24 timer'}</p>
+        <p class="eta">${ico('box')}<span>Forventet levering <b>${etaText(p)}</b>${['none','greeting'].includes(p.personal)?'':', hvis du godkender udkastet samme dag.'}</span></p>
         <div class="add-row">
           <div class="qty"><button data-q="-1" aria-label="Færre"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 10h10"/></svg></button><span id="qv">${pv.qty}</span><button data-q="1" aria-label="Flere"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 10h10M10 5v10"/></svg></button></div>
           <button class="btn btn-dark btn-xl" id="addBtn">${editKey?'Gem ændringer':'Læg i kurven'} · <span class="addPrice">${kr(p.price*pv.qty)}</span></button></div>
@@ -1699,7 +1735,7 @@ function viewProduct(id, editKey){
 function headerMode(){ const h=$('#header'); const home = !!$('.hero'); const ah=$('#announce').offsetHeight; h.classList.toggle('fixed', home); h.style.top = home ? Math.max(0, ah-scrollY)+'px' : ''; h.classList.toggle('over', home && scrollY < 40); }
 addEventListener('scroll', headerMode, {passive:true});
 addEventListener('scroll', () => $('#header').classList.toggle('scrolled', scrollY>10), {passive:true});
-$('#mnavProducts').innerHTML = P.map(p=>`<a class="mnav-pr" href="#/p/${p.id}"><span>${nice(p.name)} <span class="ar" lang="ar">${p.ar}</span></span><small>${p.type}</small></a>`).join('');
+$('#mnavProducts').innerHTML = P.map(p=>`<a class="mnav-pr" href="p/${p.id}.html"><span>${nice(p.name)} <span class="ar" lang="ar">${p.ar}</span></span><small>${p.type}</small></a>`).join('');
 function openMenu(){ const m=$('#mnav'); m.classList.add('on'); m.classList.remove('sub'); m.setAttribute('aria-hidden','false'); document.documentElement.classList.add('locked'); setTimeout(()=>$('#mnavX').focus(),50); }
 function closeMenu(){ const m=$('#mnav'); if(!m.classList.contains('on')) return; m.classList.remove('on'); m.setAttribute('aria-hidden','true'); document.documentElement.classList.remove('locked'); }
 $('#burger').onclick = openMenu;
@@ -1712,12 +1748,44 @@ $('#mnav').addEventListener('click', e => {
   if(e.target.closest('a')) closeMenu();
 });
 function doSearch(){ const q=norm($('#searchIn').value); const res = q ? P.filter(p=>norm(p.name+p.type+p.desc).includes(q)) : P.slice(0,4);
-  $('#searchRes').innerHTML = res.length ? res.map(p=>`<a href="#/p/${p.id}">${liImg(p)}<span><b class="li-n">${nice(p.name)}</b><br><span class="muted">${kr(p.price)}</span></span></a>`).join('') : '<p class="muted">Ingen resultater.</p>'; }
+  $('#searchRes').innerHTML = res.length ? res.map(p=>`<a href="p/${p.id}.html">${liImg(p)}<span><b class="li-n">${nice(p.name)}</b><br><span class="muted">${kr(p.price)}</span></span></a>`).join('') : '<p class="muted">Ingen resultater.</p>'; }
 $('#searchBtn').onclick = () => { $('#search').classList.add('on'); doSearch(); setTimeout(()=>$('#searchIn').focus(),300); };
 $('#searchX').onclick = () => $('#search').classList.remove('on');
 $('#searchIn').oninput = doSearch;
 $('#search').addEventListener('click', e => { if(e.target.closest('a')) $('#search').classList.remove('on'); });
-document.addEventListener('submit', e => { if(e.target.id==='newsForm'){ e.preventDefault(); e.target.reset(); toast('Tak. Du hører fra os, når nye designs er klar.'); } });
+document.addEventListener('submit', async e => {
+  if(e.target.id!=='newsForm') return; e.preventDefault();
+  const f=e.target, inp=f.querySelector('input[type=email]'), btn=f.querySelector('button'), msg=$('#newsMsg'), mail=inp.value.trim();
+  const say=(t,bad)=>{ msg.textContent=t; msg.style.color = bad ? '#b3472d' : ''; };
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail)){ inp.classList.add('need'); inp.focus(); say('Skriv en gyldig e-mailadresse, fx navn@mail.dk.', true); return; }
+  inp.classList.remove('need');
+  if(f.email_address_check.value) return;                         // honeypot: bots fill the hidden field
+  if(!NEWSLETTER_URL){ say('Tilmeldingen åbner snart. Indtil da kan du skrive til os, så giver vi besked.'); return; }
+  btn.disabled=true; btn.textContent='Tilmelder …';
+  try{
+    const fd=new FormData(); fd.append('EMAIL', mail); fd.append('email_address_check',''); fd.append('locale','da');
+    await fetch(NEWSLETTER_URL, {method:'POST', body:fd, mode:'no-cors'});
+    f.reset(); say('Tak! Tjek din indbakke og bekræft tilmeldingen.'); track('Nyhedsbrev');
+  }catch(err){ say('Det lykkedes ikke at tilmelde dig. Prøv igen om lidt.', true); }
+  btn.disabled=false; btn.textContent='Tilmeld dig';
+});
+document.querySelector('#newsForm input[type=email]')?.addEventListener('input', e => e.target.classList.remove('need'));
+/* hide social icons that have no address yet, and point the rest at the real profiles */
+$$('[aria-label="Instagram"],[aria-label="TikTok"]').forEach(a=>{ const url=SOCIAL[a.getAttribute('aria-label').toLowerCase()]; if(url){ a.href=url; a.target='_blank'; a.rel='noopener'; } else a.remove(); });
+
+/* Links use real addresses (p/bayt.html, c/ramadan.html, levering-og-faq.html) so Google can follow them.
+   For visitors a click is turned into the usual in-page route, so nothing reloads. */
+function realToRoute(href){ let m;
+  if((m=href.match(/^(?:\.\.\/)?p\/([a-z0-9-]+)\.html$/))) return '/p/'+m[1];
+  if((m=href.match(/^(?:\.\.\/)?c\/([a-z]+)\.html$/))) return '/?c='+m[1];
+  if(/^(?:\.\.\/)?levering-og-faq\.html$/.test(href)) return '/info';
+  return null; }
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[href]'); if(!a || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || a.target) return;
+  if(window.KHATAM_BOOT) return;           // on a generated page (p/…, c/…) links load normally, so the address always matches the page
+  const r = realToRoute(a.getAttribute('href'));
+  if(r){ e.preventDefault(); if(location.hash==='#'+r) route(); else location.hash = '#'+r; }
+});
 
 let stageView = 'design';
 function shareUrl(p){
@@ -1880,6 +1948,11 @@ function itemMeta(i){
   if(i.shelf) m.push(i.shelf.map(k=>SHELF.find(s=>s[0]===k)[1]).join(', '));
   return m.join('<br>');
 }
+function pvThumb(p, i){                  // the customer's own design as a small thumbnail; falls back to the product render
+  const named = ['name','family','names'].includes(p.personal) && (i.name || (i.names||[]).some(n=>n && n.trim()));
+  if(!named) return p.imgs.length>1 ? productImg(p) : `<img src="img/${p.imgs[0]}.webp" alt="">`;
+  return `<span class="li-clip" aria-hidden="true"><span class="li-pv-in">${preview(p, i, 0.68)}</span></span>`;
+}
 function liImg(p){ return `<div class="li-img">${p.imgs.length>1?productImg(p):`<img src="img/${p.imgs[0]}.webp" alt="">`}</div>`; }
 function upsell(t){
   if(!cart.length) return '';
@@ -1903,7 +1976,7 @@ function renderDrawer(){
     ${RAMADAN_DEADLINE - Date.now() > 0 ? `<div class="dr-promo"><b>Ramadan 2027</b><span>Bestil senest 25. januar</span></div>` : ''}
     <div class="fs ${t.free?'done':''}"><div class="fs-t">${t.free?'Du har <b>gratis fragt</b> til pakkeshop.':`Du mangler <b>${kr(t.missing)}</b> for at få gratis fragt`}</div><div class="bar"><i style="width:${pct}%"></i></div></div>
     <div class="dr-body">
-      ${cart.map(i=>{const p=byId(i.id); return `<div class="line-item ${i.key===window._newKey?'new':''}">${liImg(p)}
+      ${cart.map(i=>{const p=byId(i.id); return `<div class="line-item ${i.key===window._newKey?'new':''}"><div class="li-img">${pvThumb(p,i)}</div>
         <div><div class="li-n">${nice(p.name)}</div><div class="li-m">${p.type}<br>${itemMeta(i)}</div>
         <div class="li-a"><div class="qty sm"><button data-dq="-1" data-k="${esc(i.key)}" aria-label="Færre"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 10h10"/></svg></button><span>${i.qty}</span><button data-dq="1" data-k="${esc(i.key)}" aria-label="Flere"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 10h10M10 5v10"/></svg></button></div>
         <a href="#/p/${p.id}?edit=${encodeURIComponent(i.key)}" class="link" data-close-nav>Ret</a><button class="li-rm" data-rm="${esc(i.key)}" aria-label="Fjern ${nice(p.name)}"><svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3.5 5.5h13M8 5.5V3.5h4v2M5.5 5.5l.8 11h7.4l.8-11M8.5 8.5v5M11.5 8.5v5"/></svg></button></div></div>
@@ -1943,7 +2016,7 @@ let toastT; function toast(msg){ const t=$('#toast'); t.innerHTML=msg; t.classLi
 /* ---------- checkout ---------- */
 let coStep = 1;
 function summaryList(){
-  return cart.map(i=>{const p=byId(i.id); return `<div class="mini"><div class="li-img">${p.imgs.length>1?productImg(p):`<img src="img/${p.imgs[0]}.webp" alt="">`}<span class="q">${i.qty}</span></div><div><b>${nice(p.name)}</b><small>${itemMeta(i)}</small></div><div><b>${kr(p.price*i.qty)}</b></div></div>`}).join('');
+  return cart.map(i=>{const p=byId(i.id); return `<div class="mini"><div class="li-img">${pvThumb(p,i)}<span class="q">${i.qty}</span></div><div><b>${nice(p.name)}</b><small>${itemMeta(i)}</small></div><div><b>${kr(p.price*i.qty)}</b></div></div>`}).join('');
 }
 function summaryTotals(t){
   return `<div class="sum" style="margin-top:16px">
@@ -1969,8 +2042,8 @@ function viewCheckout(){
   } else if(coStep===2){
     body = `<div class="co-sec"><h3>Kontakt <a href="#/kasse" class="link" data-goto="1">Ret</a></h3><div class="review-row"><span>E-mail</span><span>${esc(c.email)}</span></div><div class="review-row"><span>Adresse</span><span>${esc(c.addr)}, ${esc(c.zip)} ${esc(c.city)}</span></div></div>
       <div class="co-sec"><h3>Levering</h3>
-      <div class="radio ${c.ship==='pakkeshop'?'on':''}" data-ship="pakkeshop"><span class="dot"></span><span><b>PostNord pakkeshop</b><small>Vælg den nærmeste ved betaling. 1–3 hverdage efter afsendelse.</small></span><span class="r ${t.free?'free':''}">${t.free?'Gratis':kr(SHIP_PS)}</span></div>
-      <div class="radio ${c.ship==='home'?'on':''}" data-ship="home"><span class="dot"></span><span><b>Levering til døren</b><small>PostNord. 1–3 hverdage efter afsendelse.</small></span><span class="r">${t.free?'+ '+kr(HOME_UPGRADE):kr(SHIP_HOME)}</span></div>
+      <div class="radio ${c.ship==='pakkeshop'?'on':''}" data-ship="pakkeshop"><span class="dot"></span><span><b>PostNord pakkeshop</b><small>Vælg den nærmeste ved betaling. Forventet levering ${cartEta()}</small></span><span class="r ${t.free?'free':''}">${t.free?'Gratis':kr(SHIP_PS)}</span></div>
+      <div class="radio ${c.ship==='home'?'on':''}" data-ship="home"><span class="dot"></span><span><b>Levering til døren</b><small>PostNord. Forventet levering ${cartEta()}</small></span><span class="r">${t.free?'+ '+kr(HOME_UPGRADE):kr(SHIP_HOME)}</span></div>
       ${t.free?'':`<p class="hint">Handl for ${kr(t.missing)} mere, så er levering til pakkeshop gratis. <a href="#/" class="link">Fortsæt med at handle</a></p>`}
       <div class="field" style="margin-top:16px"><label for="note">Besked til os <span class="muted" style="font-weight:400">(valgfrit, fx stavning eller gavehilsen)</span></label><textarea class="input" id="note" rows="3" style="height:auto;padding:14px 16px">${esc(c.note)}</textarea></div></div>
       <button class="btn btn-dark btn-block" data-next="3" style="height:56px">Fortsæt til betaling</button>`;
@@ -2045,7 +2118,7 @@ function viewThanks(){
       <div><span class="n">2</span><span><b>Du godkender eller retter</b><p>Svar blot "godkendt" eller skriv, hvad vi skal ændre. Vi går først i gang, når du har godkendt.</p></span></div>
       <div><span class="n">3</span><span><b>Produktion og afsendelse</b><p>Gaven laves og pakkes inden for 3–5 hverdage. Du får et track-and-trace-nummer.</p></span></div>
     </div>
-    ${o?`<div class="co-sec" style="text-align:left">${o.items.map(i=>{const p=byId(i.id);return `<div class="mini" style="border-color:var(--line)"><div class="li-img" style="background:var(--surface-2)">${p.imgs.length>1?productImg(p):`<img src="img/${p.imgs[0]}.webp" alt="">`}<span class="q">${i.qty}</span></div><div><b>${nice(p.name)}</b><small>${itemMeta(i)}</small></div><div><b>${kr(p.price*i.qty)}</b></div></div>`}).join('')}<div class="sum" style="margin-top:14px"><div class="tot"><span>Betalt</span><span>${kr(o.t.total)}</span></div></div></div>`:''}
+    ${o?`<div class="co-sec" style="text-align:left">${o.items.map(i=>{const p=byId(i.id);return `<div class="mini" style="border-color:var(--line)"><div class="li-img" style="background:var(--surface-2)">${pvThumb(p,i)}<span class="q">${i.qty}</span></div><div><b>${nice(p.name)}</b><small>${itemMeta(i)}</small></div><div><b>${kr(p.price*i.qty)}</b></div></div>`}).join('')}<div class="sum" style="margin-top:14px"><div class="tot"><span>Betalt</span><span>${kr(o.t.total)}</span></div></div></div>`:''}
     <a href="#/" class="btn btn-dark" style="margin-top:20px">Tilbage til forsiden</a>
   </div>`;
 }
@@ -2061,7 +2134,14 @@ function viewInfo(){
     <h2 id="retur">Returret</h2><p>Varer med navn eller anden personlig tilpasning er lavet efter dine ønsker og er derfor undtaget fra fortrydelsesretten. Varer uden tilpasning kan returneres inden for 14 dage. Er der fejl i en vare, laver vi den om uden beregning.</p>
     <h2>Spørgsmål</h2>${faq()}
     <h2 id="handel">Handelsbetingelser</h2><p class="muted">[UDFYLD: virksomhedsnavn, CVR, adresse, betalingsbetingelser, reklamationsret (2 år), klageadgang.]</p>
-    <h2 id="kontakt">Kontakt</h2><p>Skriv til <a class="link" href="mailto:hej@khatam.dk">hej@khatam.dk</a> eller send en besked på Instagram. Vi svarer inden for én hverdag.</p>
+    <h2 id="privat">Privatlivspolitik</h2>
+    <p><b>Dataansvarlig:</b> KHATAM [UDFYLD: navn, CVR og adresse], ${CONTACT_EMAIL}.</p>
+    <p><b>Når du handler</b> bruger vi dit navn, din adresse, e-mail og telefonnummer til at sende dig udkastet, lave og levere gaven og svare på spørgsmål. Navne og tekster til gaven bruger vi kun til din ordre. Grundlaget er aftalen med dig, og regnskabsoplysninger gemmer vi i 5 år, som bogføringsloven kræver.</p>
+    <p><b>Nyhedsbrev:</b> Tilmelder du dig, gemmer vi din e-mail hos vores nyhedsbrevsudbyder, indtil du afmelder dig. Du kan afmelde dig i hver mail.</p>
+    <p><b>Hvem ser dine data:</b> Kun dem, der skal bruge dem for at levere: betalingsudbyderen, fragtfirmaet og nyhedsbrevsudbyderen. Vi sælger aldrig dine oplysninger.</p>
+    <p><b>Cookies:</b> Siden bruger ingen cookies til reklame eller sporing. Din kurv gemmes kun i din egen browser.</p>
+    <p><b>Dine rettigheder:</b> Du kan få indsigt i, rettet eller slettet dine oplysninger ved at skrive til os. Du kan klage til Datatilsynet (datatilsynet.dk).</p>
+    <h2 id="kontakt">Kontakt</h2><p>Skriv til <a class="link" href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a> eller send en besked på Instagram. Vi svarer inden for én hverdag.</p>
   </div></div>`;
 }
 
@@ -2087,10 +2167,12 @@ function heroMount(){ const hi=$('#heroName');
     try{ const saved=sessionStorage.getItem('khatam_hero_name'); if(saved){ hi.value=saved; sync(); } }catch(e){} }
   const st=$('#heroStage'); if(!st || !window.K3D) return; const inp=$('#heroName'); const cfg=()=>{ const n=(inp.value||'').trim()||'Hassan'; return {color:'sort', name:n, ar:toAr(n)}; };
   st.querySelector('.h2fallback')?.remove(); if(!st.querySelector('canvas.k3d')) K3D.mount(st,'bayt',cfg()); inp.oninput=()=>{ K3D.update(cfg()); $('#heroBuy').href='#/p/bayt'; sessionStorage && (()=>{try{sessionStorage.setItem('khatam_hero_name', inp.value.trim())}catch(e){}})(); }; }
-function setMeta(title, desc){ document.title = title; const m=document.querySelector('meta[name=description]'); if(m && desc) m.content = desc; }
+function setMeta(title, desc){ if(window.KHATAM_BOOT && !location.hash) return;   // generated pages keep their own title for Google
+  document.title = title; const m=document.querySelector('meta[name=description]'); if(m && desc) m.content = desc; }
 function route(){
   window._pdpRender = null; clearInterval(window._cdT); if(LITE) window._want3d = false; window._dots = null; if(window.K3D) K3D.unmount(); window._pdpIO && window._pdpIO.disconnect();
-  const h = location.hash.slice(1) || '/';
+  const h = location.hash.slice(1) || window.KHATAM_BOOT || '/';
+  document.body.classList.toggle('co-mode', h.split('?')[0]==='/kasse');   // checkout without menu, search and newsletter, as in Shopify
   const [path, qs] = h.split('?'); const params = new URLSearchParams(qs||'');
   if(!window._keepDrawer) closeDrawer(); window._keepDrawer = false;
   const app = $('#app'); app.onclick = null; app.oninput = null; app.onchange = null; window.onresize = null;
@@ -2514,7 +2596,7 @@ function makeViewer(el) {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   v.visible = true;
   v.io = new IntersectionObserver(([e]) => { v.visible = e.isIntersecting; }); v.io.observe(el);
-  renderer.domElement.addEventListener('webglcontextlost', e => { e.preventDefault(); window.dispatchEvent(new Event('k3d-lost')); });
+  renderer.domElement.addEventListener('webglcontextlost', e => { e.preventDefault(); if (renderer.domElement.dataset.disposing) return; window.dispatchEvent(new Event('k3d-lost')); });   // our own unmount also loses the context: that is not a failure
   const loop = () => {
     v.raf = requestAnimationFrame(loop);
     if (!v.visible || document.hidden) return;
@@ -2583,7 +2665,7 @@ window.K3D = {
     if (!V) return; const v = V; V = null;
     cancelAnimationFrame(v.raf); v.ro.disconnect(); v.io && v.io.disconnect(); clearTimeout(v.turnT);
     try { v.controls.dispose(); freeTree(v.root); if (v.scene.environment) v.scene.environment.dispose(); v.ground.geometry.dispose(); v.ground.material.dispose(); v.key.shadow.map && v.key.shadow.map.dispose(); } catch (e) {}
-    v.renderer.dispose(); try { v.renderer.forceContextLoss(); } catch (e) {} v.renderer.domElement.remove();
+    v.renderer.domElement.dataset.disposing = '1'; v.renderer.dispose(); try { v.renderer.forceContextLoss(); } catch (e) {} v.renderer.domElement.remove();
   },
 };
 document.fonts && Promise.all([document.fonts.load('800 100px Cairo'), document.fonts.load('600 100px Poppins')]).then(() => { if (V && V.root) redrawAll(V, V.lastCfg || {}); });
