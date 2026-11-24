@@ -57,7 +57,7 @@ a{color:inherit;text-decoration:none}
 .btn-ghost-w:hover{background:#fff;color:var(--ink)}
 .btn-block{width:100%}
 .btn[disabled]{opacity:.35;pointer-events:none}
-.btn.wait{opacity:.6}
+.btn.wait{opacity:1}
 body.co-mode .nav,body.co-mode #searchBtn,body.co-mode .burger,body.co-mode .news-g,body.co-mode .ann-usp{display:none!important}
 .cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
 .input.need{border-color:#b3472d;box-shadow:0 0 0 3px rgba(179,71,45,.15)}
@@ -714,10 +714,10 @@ h1,h2,h3,.sec-h h2,.iwt h2,.banner .box h2,.conf h1,.co h1,.thanks h1,.info h1,.
 .crumbs span{color:var(--ink)}
 
 /* product: two columns, accordions under the gallery on desktop */
-.pdp{grid-template-columns:minmax(0,1.12fr) minmax(0,1fr);grid-template-areas:"g c" "a c";gap:0 56px;padding-bottom:30px}
+.pdp{grid-template-columns:minmax(0,1.12fr) minmax(0,1fr);grid-template-areas:"g c" "a c";grid-template-rows:auto 1fr;gap:0 56px;padding-bottom:30px}
 .gallery{grid-area:g;position:relative;top:0;grid-template-columns:76px minmax(0,1fr);gap:14px}
 .conf{grid-area:c;position:relative}
-.paccs{grid-area:a;margin-top:26px;padding-left:90px}
+.paccs{grid-area:a;align-self:start;margin-top:26px;padding-left:90px}
 .thumbs{gap:10px}
 .thumbs button{width:76px;border-radius:var(--r-sm);background:var(--warm);border:1px solid transparent}
 .thumbs button.on{border-color:var(--ink)}
@@ -1135,6 +1135,19 @@ img{-webkit-user-drag:none}
 
 footer .pay-icons span.pi{background:#fff}
 @media (max-width:860px){ .stage-note{display:none} .sec-row{align-items:flex-end} .sec-row .link{white-space:nowrap} }
+
+/* hero live preview + proof (conversion pass) */
+.h3img::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 55%,rgba(22,21,19,.15),rgba(22,21,19,.55));pointer-events:none}
+.h3live{position:absolute;inset:0;z-index:2;display:grid;place-items:center;padding:8%}
+.h3live .pv{width:min(100%,560px);height:auto}
+.h3live .o-bayt{width:100%;box-shadow:0 40px 60px -20px rgba(0,0,0,.6)}
+.h3tag{position:absolute;z-index:3;left:20px;bottom:18px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:rgba(22,21,19,.55);padding:6px 12px;border-radius:99px;backdrop-filter:blur(6px)}
+.h3proof{list-style:none;display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:22px;font-size:13.5px;color:#E4DCCB}
+.h3proof li::before{content:"✓";color:var(--guld-lys);margin-right:7px;font-weight:600}
+.trust-sec{padding-top:0!important;padding-bottom:0!important}
+.trust-sec .trust{border-top:0;padding:30px 0}
+@media (max-width:860px){.h3img{order:-1!important;aspect-ratio:16/10!important}.h3live{padding:10%}.h3proof{font-size:13px;gap:6px 14px}
+  .trust-sec .trust{grid-template-columns:repeat(2,1fr);gap:22px 12px;padding:26px 0}}
 </style>
 </head>
 <body>
@@ -1453,6 +1466,9 @@ function reviewsHtml(list){
   return `<section class="reviews"><div class="wrap"><h2>Det siger kunderne</h2><div class="rv-grid">${list.map(r=>{const p=byId(r.product);
     return `<figure class="rv">${r.img?`<img src="${esc(r.img)}" alt="" loading="lazy">`:''}<blockquote>${esc(r.text)}</blockquote><figcaption><b>${esc(r.name)}</b>${r.city?', '+esc(r.city):''}${p?`<a href="p/${p.id}.html">${nice(p.name)}</a>`:''}</figcaption></figure>`;}).join('')}</div></div></section>`;
 }
+function heroPreview(){ let n=''; try{ n=(document.getElementById('heroName')?.value ?? sessionStorage.getItem('khatam_hero_name') ?? '').replace(/[<>]/g,'').trim(); }catch(e){}
+  if(!n) n='Hassan'; n=n.charAt(0).toUpperCase()+n.slice(1);
+  return `<div class="pv">${preview(byId('bayt'), {color:'smaragd', name:n.toUpperCase(), ar:toAr(n)}, 1)}</div>`; }
 function viewHome(cat){
   cat = CATS[cat] ? cat : 'alle';
   const list = P.filter(p => cat==='alle' || p.cats.includes(cat));
@@ -1460,14 +1476,23 @@ function viewHome(cat){
   <section class="hero3">
     <div class="h3txt"><div class="h3in">
       <svg class="h3seal" viewBox="0 0 100 100">${SEAL}</svg>
-      <h1>Gaver med betydning</h1>
-      <p>Personlige gaver med arabisk kalligrafi, designet og lavet i Danmark. Skriv et navn, og se det i guld.</p>
+      <h1>Jeres navn i guld&shy;kalligrafi</h1>
+      <p>Skriv jeres efternavn, og se det på arabisk med det samme. Vi sender et gratis udkast, før vi laver noget.</p>
       <label class="h2field"><span>Skriv jeres efternavn</span><input id="heroName" maxlength="16" placeholder="fx Hassan" autocomplete="off"></label>
-      <div class="h2cta"><a href="p/bayt.html" class="btn btn-sand" id="heroBuy">Se det på et dørskilt</a><a href="#/?c=alle" class="btn btn-ghost-w">Se alle gaver</a></div>
+      <div class="h2cta"><a href="p/bayt.html" class="btn btn-sand" id="heroBuy">Lav jeres dørskilt · 179 kr</a><a href="#/?c=alle" class="btn btn-ghost-w">Se alle gaver</a></div>
+      <ul class="h3proof"><li>Udkast inden for 24 timer</li><li>Du godkender, før vi printer</li><li>Fejl laver vi om</li></ul>
     </div></div>
-    <div class="h3img"><img src="${heroSrc(1000)}" srcset="${heroSet()}" sizes="(max-width:860px) 100vw, 50vw" alt="Mihrab med guldornamenter og hvide buer" fetchpriority="high"></div>
+    <div class="h3img"><img src="${heroSrc(1000)}" srcset="${heroSet()}" sizes="(max-width:860px) 100vw, 50vw" alt="" fetchpriority="high"><div class="h3live" id="heroLive" aria-live="polite">${heroPreview()}</div><span class="h3tag">Live forhåndsvisning</span></div>
   </section>
 
+  <section class="sec trust-sec"><div class="wrap">
+    <div class="trust">
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M4 4h16v16H4z"/><path d="m8 12 3 3 5-6"/></svg><h4>Udkast før print</h4><p>Du godkender designet, før vi går i gang.</p></div>
+      <div><svg viewBox="0 0 100 100" fill="none">${SEAL}</svg><h4>Lavet i Danmark</h4><p>Designet og lavet efter bestilling.</p></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.5"/><circle cx="17" cy="17.5" r="1.5"/></svg><h4>Gratis fragt</h4><p>Til pakkeshop ved køb over 349 kr.</p></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="6" width="18" height="13" rx="1.5"/><path d="M3 10h18"/></svg><h4>Sikker betaling</h4><p>MobilePay, kort og Apple Pay.</p></div>
+    </div>
+  </div></section>
   <section class="sec"><div class="wrap">
     <div class="sec-h"><h2>Find den rette gave</h2></div>
     <div class="colls">
@@ -1514,14 +1539,6 @@ function viewHome(cat){
     </div>
   </div></section>
 
-  <section class="sec"><div class="wrap">
-    <div class="trust">
-      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M4 4h16v16H4z"/><path d="m8 12 3 3 5-6"/></svg><h4>Udkast før print</h4><p>Du godkender designet, før vi går i gang.</p></div>
-      <div><svg viewBox="0 0 100 100" fill="none">${SEAL}</svg><h4>Lavet i Danmark</h4><p>Designet og lavet efter bestilling.</p></div>
-      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.5"/><circle cx="17" cy="17.5" r="1.5"/></svg><h4>Gratis fragt</h4><p>Til pakkeshop ved køb over 349 kr.</p></div>
-      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="6" width="18" height="13" rx="1.5"/><path d="M3 10h18"/></svg><h4>Sikker betaling</h4><p>MobilePay, kort og Apple Pay.</p></div>
-    </div>
-  </div></section>
 
   <section class="sec"><div class="wrap">
     <div class="sec-h"><h2>Ofte stillede spørgsmål</h2></div>
@@ -2163,7 +2180,8 @@ document.addEventListener('focusin', e => { if (e.target && e.target.id === 'her
 function heroMount(){ const hi=$('#heroName');
   if(hi && !hi.oninput){
     const sync=()=>{ const n=hi.value.replace(/[<>]/g,'').trim(); try{ sessionStorage.setItem('khatam_hero_name', n); }catch(e){}
-      const b=$('#heroBuy'); if(b) b.textContent = n ? `Se “Familien ${n.charAt(0).toUpperCase()+n.slice(1)}” på et dørskilt` : 'Se det på et dørskilt'; };
+      const b=$('#heroBuy'); if(b) b.textContent = n ? `Lav “Familien ${n.charAt(0).toUpperCase()+n.slice(1)}” · 179 kr` : 'Lav jeres dørskilt · 179 kr';
+      const lv=$('#heroLive'); if(lv) lv.innerHTML=heroPreview(); };
     hi.oninput=sync; hi.onkeydown=e=>{ if(e.key==='Enter'){ sync(); location.hash='#/p/bayt'; } };
     try{ const saved=sessionStorage.getItem('khatam_hero_name'); if(saved){ hi.value=saved; sync(); } }catch(e){} }
   const st=$('#heroStage'); if(!st || !window.K3D) return; const inp=$('#heroName'); const cfg=()=>{ const n=(inp.value||'').trim()||'Hassan'; return {color:'sort', name:n, ar:toAr(n)}; };
