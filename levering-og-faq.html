@@ -2240,9 +2240,9 @@ const mods = await Promise.all([
   .catch(() => { console.info('KHATAM: 3D unavailable, showing the 2D preview'); window.dispatchEvent(new Event('k3d-failed')); return new Promise(() => {}); });   // offline: stay on the 2D preview
 const [THREE, { OrbitControls }, { RoomEnvironment }] = mods;
 
-const GOLD = '#b8862a';          // reads as the printed silk gold under the studio light
+const GOLD = '#dcad55';          // reads as the printed silk gold under the studio light
 const TEX = window.KHATAM_LITE ? 1024 : 2048;   // gold layer resolution; 4096 used ~64 MB per face and crashed phones
-const COL = { sort: '#0b0b0a', smaragd: '#173326' };
+const COL = { sort: '#121211', smaragd: '#173626' };
 const SHELF = { quran: 'القرآن', tafsir: 'التفسير', hadith: 'الحديث', aqidah: 'العقيدة', fiqh: 'الفقه', seerah: 'السيرة', tazkiyah: 'التزكية', historie: 'التاريخ' };
 
 /* ------------------------------------------------------------------ shapes (mm) */
@@ -2359,10 +2359,12 @@ function capUV(geo, b) {                 // map shape coordinates to 0..1 over t
 }
 
 /* ------------------------------------------------------------------ materials */
-const plateMat = hex => new THREE.MeshPhysicalMaterial({ color: hex, roughness: 0.82, metalness: 0, envMapIntensity: 0.18, specularIntensity: 0.35 });   // matte PLA
+// Matte PLA with a soft sheen, so it reads as a printed object, not glossy CG plastic
+const plateMat = hex => new THREE.MeshPhysicalMaterial({ color: hex, roughness: 0.58, metalness: 0, envMapIntensity: 0.38, specularIntensity: 0.4,
+  sheen: 0.18, sheenRoughness: 0.75, sheenColor: new THREE.Color('#ffffff') });   // matte PLA
 function goldMat(face) {
-  return new THREE.MeshPhysicalMaterial({ color: GOLD, metalness: 0.3, roughness: 0.5, envMapIntensity: 0.7, alphaMap: face.tex, transparent: true, alphaTest: 0.35,
-    bumpMap: face.tex, bumpScale: 0.25, emissive: new THREE.Color('#ffcf6a'), emissiveIntensity: 0, polygonOffset: true, polygonOffsetFactor: -2 });
+  return new THREE.MeshPhysicalMaterial({ color: GOLD, metalness: 0.9, roughness: 0.28, envMapIntensity: 1.4, alphaMap: face.tex, transparent: true, alphaTest: 0.35,
+    bumpMap: face.tex, bumpScale: 0.6, emissive: new THREE.Color('#ffcf6a'), emissiveIntensity: 0, polygonOffset: true, polygonOffsetFactor: -2 });
 }
 const steel = () => new THREE.MeshPhysicalMaterial({ color: '#cfccc6', metalness: 1, roughness: 0.22 });
 const brass = () => new THREE.MeshPhysicalMaterial({ color: '#c99a45', metalness: 1, roughness: 0.3 });
@@ -2389,9 +2391,9 @@ function shelfFoot(hex) {
   g.traverse(o => { if (o.isMesh) o.castShadow = o.receiveShadow = true; });
   return g;
 }
-function piece(shape, depth, colorHex, draw, bevel = 0.35) {
+function piece(shape, depth, colorHex, draw, bevel = 0.6) {
   const g = new THREE.Group();
-  const geo = new THREE.ExtrudeGeometry(shape, { depth, bevelEnabled: true, bevelThickness: bevel, bevelSize: bevel, bevelSegments: 3, curveSegments: 64 });
+  const geo = new THREE.ExtrudeGeometry(shape, { depth, bevelEnabled: true, bevelThickness: bevel, bevelSize: bevel, bevelSegments: 4, curveSegments: 64 });
   geo.translate(0, 0, -depth / 2);
   const mat = plateMat(colorHex); const body = new THREE.Mesh(geo, mat); body.castShadow = body.receiveShadow = true; g.add(body);
   const face = new Face(shape);
@@ -2595,21 +2597,28 @@ function makeViewer(el) {
   const lite = window.KHATAM_LITE;
   const renderer = new THREE.WebGLRenderer({ antialias: !lite, alpha: true, powerPreference: lite ? 'default' : 'high-performance' });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, lite ? 1.5 : 2));
-  renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
+  renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.0;
   renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.domElement.className = 'k3d'; el.appendChild(renderer.domElement);
   const scene = new THREE.Scene();
   const pm = new THREE.PMREMGenerator(renderer); const room = new RoomEnvironment(); scene.environment = pm.fromScene(room, 0.04).texture; pm.dispose(); room.traverse(o => { o.geometry && o.geometry.dispose(); o.material && o.material.dispose && o.material.dispose(); });
   const cam = new THREE.PerspectiveCamera(28, 1, 1, 5000);
   const key = new THREE.DirectionalLight('#fff3df', 1.6); key.position.set(-180, 260, 320); key.castShadow = true;
-  key.shadow.mapSize.set(lite ? 512 : 1024, lite ? 512 : 1024); key.shadow.radius = 6; Object.assign(key.shadow.camera, { left: -300, right: 300, top: 300, bottom: -300, near: 10, far: 1500 });
-  scene.add(key, key.target, new THREE.HemisphereLight('#ffffff', '#b9ab95', 0.5));
-  const ground = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.ShadowMaterial({ opacity: 0.16 })); ground.receiveShadow = true; scene.add(ground);
+  key.shadow.mapSize.set(lite ? 512 : 1024, lite ? 512 : 1024); key.shadow.radius = 14; key.shadow.blurSamples = 20; key.shadow.bias = -0.0004; key.intensity = 1.25; Object.assign(key.shadow.camera, { left: -300, right: 300, top: 300, bottom: -300, near: 10, far: 1500 });
+  const rim = new THREE.DirectionalLight('#ffe9c4', 0.9); rim.position.set(260, 180, -320);
+  const fill = new THREE.DirectionalLight('#eef2ff', 0.35); fill.position.set(300, 60, 200);
+  scene.add(key, key.target, rim, fill, new THREE.HemisphereLight('#ffffff', '#cbbfa9', 0.35));
+  // contact shadow: a soft dark pool right under the object, like on a real table
+  const cs = document.createElement('canvas'); cs.width = cs.height = 128; { const x = cs.getContext('2d'), g = x.createRadialGradient(64, 64, 0, 64, 64, 64);
+    g.addColorStop(0, 'rgba(0,0,0,.55)'); g.addColorStop(.45, 'rgba(0,0,0,.22)'); g.addColorStop(1, 'rgba(0,0,0,0)'); x.fillStyle = g; x.fillRect(0, 0, 128, 128); }
+  const contact = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(cs), transparent: true, depthWrite: false, toneMapped: false }));
+  contact.rotation.x = -Math.PI / 2; contact.renderOrder = -1; scene.add(contact);
+  const ground = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.ShadowMaterial({ opacity: 0.11 })); ground.receiveShadow = true; scene.add(ground);
   const controls = new OrbitControls(cam, renderer.domElement);
   controls.enablePan = false; controls.enableDamping = true; controls.dampingFactor = 0.08; controls.minPolarAngle = 0.35; controls.maxPolarAngle = 1.65;
   controls.enableZoom = true; controls.zoomSpeed = 0.6;
   renderer.domElement.style.touchAction = 'pan-y';
-  const v = { el, renderer, scene, cam, key, ground, controls, root: null, id: null, t0: performance.now(), touched: false, glow: 0, raf: 0 };
+  const v = { el, renderer, scene, cam, key, ground, contact, controls, root: null, id: null, t0: performance.now(), touched: false, glow: 0, raf: 0 };
   controls.addEventListener('start', () => { v.touched = true; });
   const ro = new ResizeObserver(() => resize(v)); ro.observe(el); v.ro = ro;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -2634,7 +2643,8 @@ function fit(v) {
   const r = size.length() / 2, d = r / Math.sin(THREE.MathUtils.degToRad(v.cam.fov / 2)) * (v.cam.aspect < 1 ? 1.25 / v.cam.aspect * 0.9 : 1.02);
   v.controls.target.copy(c); v.cam.position.set(c.x + d * 0.08, c.y + d * 0.2, c.z + d * 0.97); v.cam.near = d / 50; v.cam.far = d * 10; v.cam.updateProjectionMatrix();
   v.ground.position.set(c.x, box.min.y - 0.2, c.z); v.ground.rotation.x = -Math.PI / 2; v.ground.scale.setScalar(r * 8);
-  const L = v.key, dir = new THREE.Vector3(-0.45, 0.65, 0.6).normalize();
+  v.contact.position.set(c.x, box.min.y + 0.05, c.z); v.contact.scale.set(size.x * 1.25, size.z * 1.6 + 1, 1);
+  const L = v.key, dir = new THREE.Vector3(-0.35, 0.85, 0.55).normalize();
   L.position.copy(c).addScaledVector(dir, r * 6); L.target.position.copy(c); L.target.updateMatrixWorld();
   Object.assign(L.shadow.camera, { left: -r * 3, right: r * 3, top: r * 3, bottom: -r * 3, near: r, far: r * 14 }); L.shadow.camera.updateProjectionMatrix();
   v.controls.minDistance = d * 0.45; v.controls.maxDistance = d * 1.6;
@@ -2653,6 +2663,7 @@ function redrawAll(v, cfg) { v.root && v.root.userData.pieces.forEach(p => p.use
 
 window.K3D = {
   ready: true,
+  get root() { return V && V.root; },   // used by the product-photo renderer (kildekode/blender_render.py)
   supports: id => !!BUILD[id],
   mount(el, id, cfg) {
     if (V && V.el !== el) this.unmount();
@@ -2683,7 +2694,7 @@ window.K3D = {
   unmount() {
     if (!V) return; const v = V; V = null;
     cancelAnimationFrame(v.raf); v.ro.disconnect(); v.io && v.io.disconnect(); clearTimeout(v.turnT);
-    try { v.controls.dispose(); freeTree(v.root); if (v.scene.environment) v.scene.environment.dispose(); v.ground.geometry.dispose(); v.ground.material.dispose(); v.key.shadow.map && v.key.shadow.map.dispose(); } catch (e) {}
+    try { v.controls.dispose(); freeTree(v.root); if (v.scene.environment) v.scene.environment.dispose(); v.ground.geometry.dispose(); v.ground.material.dispose(); v.contact.geometry.dispose(); v.contact.material.map.dispose(); v.contact.material.dispose(); v.key.shadow.map && v.key.shadow.map.dispose(); } catch (e) {}
     v.renderer.domElement.dataset.disposing = '1'; v.renderer.dispose(); try { v.renderer.forceContextLoss(); } catch (e) {} v.renderer.domElement.remove();
   },
 };
