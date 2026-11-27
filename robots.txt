@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
+
 Sitemap: https://qalam.dk/sitemap.xml

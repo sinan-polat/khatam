@@ -11,41 +11,36 @@
 //   POST /checkout          body: { items:[...], checkout:{...} }   → { url }
 //   GET  /session?id=cs_... → { paid, order, email, total }
 
-// ---- keep in step with index.html (const P and const FREE / SHIP_*) ----
+// ---- keep in step with index.html (const P, SUBJECTS and FREE / SHIP_*) ----
 const PRODUCTS = {
-  gaveaeske: { name: 'Gaveæsken', type: 'Gaveæske til hjemmet med 3 dele', price: 499 },
-  eidiyya:   { name: 'Eidiyya',   type: 'Æske med navn',                   price: 129 },
-  mubarak:   { name: 'Mubarak',   type: 'Bordskilt',                       price: 129 },
-  bayt:      { name: 'Bayt',      type: 'Navneskilt til døren',            price: 179 },
-  usra:      { name: 'Usra',      type: 'Tandbørsteholder til familien',   price: 249 },
-  tabaq:     { name: 'Tabaq',     type: 'Nøglebakke',                      price: 179 },
-  maktaba:   { name: 'Maktaba',   type: 'Sæt med 4 hyldeskilte',           price: 249 },
+  hyldeskilt: { name: 'Hyldeskilt', type: 'Ét skilt til bogreolen', price: 69, pick: 1 },
+  maktaba:    { name: 'Maktaba',    type: 'Sæt med 4 hyldeskilte',  price: 249, pick: 4 },
+  lanterne:   { name: 'Lanterne',   type: 'Lanterne med LED-lys',
+                sizes: { lille: ['Lille', 99], mellem: ['Mellem', 149], stor: ['Stor', 199], saet: ['Sæt med alle 3', 275] } },
 };
 const FREE = 349, SHIP_PS = 45, SHIP_HOME = 59, HOME_UPGRADE = 15;
-const COLORS = { sort: 'Sort & guld', smaragd: 'Smaragd & guld' };
-const SHELF = { quran: 'Quran', tafsir: 'Tafsir', hadith: 'Hadith', aqidah: 'Aqidah', fiqh: 'Fiqh', seerah: 'Seerah', tazkiyah: 'Tazkiyah', historie: 'Historie' };
+const SUBJECTS = { quran: 'Quran', tafsir: 'Tafsir', hadith: 'Hadith', aqidah: 'Aqidah', fiqh: 'Fiqh', seerah: 'Seerah', tazkiyah: 'Tazkiyah', adab: 'Adab', tarikh: 'Tarikh' };
 const ALLOWED_ORIGINS = ['https://qalam.dk', 'https://www.qalam.dk', 'https://sinan-polat.github.io', 'http://localhost:8765', 'http://127.0.0.1:8765'];
 
 const clean = (s, n = 40) => String(s ?? '').replace(/[<>\u0000-\u001f]/g, '').trim().slice(0, n);
-
+const price = it => { const p = PRODUCTS[it.id]; return p.sizes ? p.sizes[it.size][1] : p.price; };
+const title = it => { const p = PRODUCTS[it.id]; return p.sizes ? `${p.name} – ${p.sizes[it.size][0].toLowerCase()}` : `${p.name} – ${p.type}`; };
 function describe(it) {
-  const parts = [COLORS[it.color] || COLORS.sort];
-  if (it.name) parts.push((it.id === 'bayt' || it.id === 'gaveaeske' ? 'Familien ' : '') + it.name + (it.ar ? ` (${it.ar})` : ''));
-  if (it.greeting) parts.push(it.greeting === 'eid' ? 'Eid Mubarak' : 'Ramadan Mubarak');
-  if (it.names?.length) parts.push('Navne: ' + it.names.map((n, k) => n + (it.ars?.[k] ? ` (${it.ars[k]})` : '')).join(', '));
-  if (it.shelf?.length) parts.push('Skilte: ' + it.shelf.map(k => SHELF[k] || k).join(', '));
-  return parts.join(' · ');
+  if (it.subjects) return 'Emner: ' + it.subjects.map(k => SUBJECTS[k]).join(', ');
+  return it.size === 'saet' ? 'Lille, mellem og stor · 3 LED-lys med batteri' : 'Inkl. LED-lys med batteri';
 }
 
 function readItems(raw) {
   if (!Array.isArray(raw) || !raw.length || raw.length > 30) throw new Error('Kurven er tom eller ugyldig.');
   return raw.map(r => {
-    const p = PRODUCTS[r.id]; if (!p) throw new Error('Ukendt vare: ' + clean(r.id, 20));
-    const qty = Math.max(1, Math.min(20, parseInt(r.qty, 10) || 1));
-    const it = { id: r.id, qty, color: COLORS[r.color] ? r.color : 'sort', name: clean(r.name, 20), ar: clean(r.ar, 30) };
-    if (r.greeting) it.greeting = r.greeting === 'eid' ? 'eid' : 'ramadan';
-    if (Array.isArray(r.names)) { it.names = r.names.slice(0, 4).map(n => clean(n, 16)).filter(Boolean); it.ars = (r.ars || []).slice(0, 4).map(a => clean(a, 24)); }
-    if (Array.isArray(r.shelf)) it.shelf = r.shelf.slice(0, 4).map(k => clean(k, 12)).filter(k => SHELF[k]);
+    const p = PRODUCTS[r.id]; if (!p) throw new Error('Varen findes ikke længere. Tøm kurven og prøv igen.');
+    const it = { id: r.id, qty: Math.max(1, Math.min(20, parseInt(r.qty, 10) || 1)) };
+    if (p.sizes) { if (!p.sizes[r.size]) throw new Error('Vælg en størrelse.'); it.size = r.size; }
+    if (p.pick) {
+      const s = Array.isArray(r.subjects) ? r.subjects.filter(k => SUBJECTS[k]) : [];
+      if (s.length !== p.pick) throw new Error(p.pick === 1 ? 'Vælg et emne.' : 'Vælg 4 emner.');
+      it.subjects = s;
+    }
     return it;
   });
 }
@@ -72,7 +67,7 @@ async function stripe(env, method, path, body) {
 async function createCheckout(req, env) {
   const { items: raw, checkout: c = {} } = await req.json();
   const items = readItems(raw);
-  const goods = items.reduce((a, it) => a + PRODUCTS[it.id].price * it.qty, 0);
+  const goods = items.reduce((a, it) => a + price(it) * it.qty, 0);
   const free = goods >= FREE, home = c.ship === 'home';
   const ship = home ? (free ? HOME_UPGRADE : SHIP_HOME) : (free ? 0 : SHIP_PS);
   const site = (env.SITE_URL || 'https://qalam.dk').replace(/\/$/, '');
@@ -84,14 +79,14 @@ async function createCheckout(req, env) {
 
   const line_items = items.map(it => ({
     quantity: it.qty,
-    price_data: { currency: 'dkk', unit_amount: PRODUCTS[it.id].price * 100,
-      product_data: { name: `${PRODUCTS[it.id].name} – ${PRODUCTS[it.id].type}`, description: describe(it).slice(0, 480) } },
+    price_data: { currency: 'dkk', unit_amount: price(it) * 100,
+      product_data: { name: title(it), description: describe(it).slice(0, 480) } },
   }));
   if (ship) line_items.push({ quantity: 1, price_data: { currency: 'dkk', unit_amount: ship * 100,
     product_data: { name: home ? 'Levering til døren (PostNord)' : 'Levering til PostNord pakkeshop' } } });
 
   const metadata = { ordre: order, levering: home ? 'Til døren' : 'Pakkeshop', telefon: phone, besked: clean(c.note, 480) };
-  items.forEach((it, i) => { metadata[`vare_${i + 1}`] = `${it.qty} × ${PRODUCTS[it.id].name}: ${describe(it)}`.slice(0, 480); });
+  items.forEach((it, i) => { metadata[`vare_${i + 1}`] = `${it.qty} × ${title(it)}: ${describe(it)}`.slice(0, 480); });
 
   const session = await stripe(env, 'POST', 'checkout/sessions', {
     mode: 'payment', locale: 'da', client_reference_id: order,
