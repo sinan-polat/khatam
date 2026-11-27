@@ -30,7 +30,7 @@ ${depth ? '<base href="../">\n' : ''}<script>window.KHATAM_BOOT = ${JSON.stringi
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
 <link rel="canonical" href="${url}">
-<meta property="og:site_name" content="KHATAM">
+<meta property="og:site_name" content="QALAM">
 <meta property="og:type" content="${ld && ld['@type'] === 'Product' ? 'product' : 'website'}">
 <meta property="og:url" content="${url}">
 <meta property="og:title" content="${esc(title)}">
@@ -51,25 +51,25 @@ for (const p of P) {
   const cat = p.cats.find(c => CATS[c]) || 'hjem';
   urls.push(page({
     file, depth: 1, boot: `/p/${p.id}`, img,
-    title: `${nice(p.name)} – ${p.type} | KHATAM`, desc: plain(p.desc),
+    title: `${nice(p.name)} – ${p.type} | QALAM`, desc: plain(p.desc),
     ld: { '@context': 'https://schema.org', '@type': 'Product', name: `${nice(p.name)} ${p.ar}`, description: plain(p.desc), image: img,
-      brand: { '@type': 'Brand', name: 'KHATAM' }, sku: p.id, category: CATS[cat],
+      brand: { '@type': 'Brand', name: 'QALAM' }, sku: p.id, category: CATS[cat],
       offers: { '@type': 'Offer', price: String(p.price), priceCurrency: 'DKK', availability: 'https://schema.org/InStock', url: SITE + file,
         shippingDetails: { '@type': 'OfferShippingDetails', shippingDestination: { '@type': 'DefinedRegion', addressCountry: 'DK' } } } },
   }));
 }
 const CAT_TXT = {
-  hjem: ['Til hjemmet – personlige islamiske gaver | KHATAM', 'Hyldeskilte, dørskilte og nøglebakke med arabisk kalligrafi i guld. Designet og lavet i Danmark.', 'maktaba'],
-  ramadan: ['Ramadan & Eid – gaver og pynt | KHATAM', 'Bordskilte med Ramadan Mubarak og Eid Mubarak, Eidiyya-æsker med barnets navn og gaveæsker. Bestil senest 25. januar.', 'mubarak'],
-  born: ['Til børnene – Eid-gaver med navn | KHATAM', 'Eidiyya-æsker og gaver med barnets navn i guld på arabisk og latin. Designet og lavet i Danmark.', 'eidiyya'],
+  hjem: ['Til hjemmet – personlige islamiske gaver | QALAM', 'Hyldeskilte, dørskilte og nøglebakke med arabisk kalligrafi i guld. Designet og lavet i Danmark.', 'maktaba'],
+  ramadan: ['Ramadan & Eid – gaver og pynt | QALAM', 'Bordskilte med Ramadan Mubarak og Eid Mubarak, Eidiyya-æsker med barnets navn og gaveæsker. Bestil senest 25. januar.', 'mubarak'],
+  born: ['Til børnene – Eid-gaver med navn | QALAM', 'Eidiyya-æsker og gaver med barnets navn i guld på arabisk og latin. Designet og lavet i Danmark.', 'eidiyya'],
 };
 for (const [k, [title, desc, im]] of Object.entries(CAT_TXT)) {
   if (!CATS[k]) continue;
   urls.push(page({ file: `c/${k}.html`, depth: 1, boot: `/?c=${k}`, title, desc, img: `${SITE}img/${im}.webp`,
-    ld: { '@context': 'https://schema.org', '@type': 'CollectionPage', name: CATS[k], url: `${SITE}c/${k}.html`, breadcrumb: crumbs([['KHATAM', SITE], [CATS[k], `${SITE}c/${k}.html`]]) } }));
+    ld: { '@context': 'https://schema.org', '@type': 'CollectionPage', name: CATS[k], url: `${SITE}c/${k}.html`, breadcrumb: crumbs([['QALAM', SITE], [CATS[k], `${SITE}c/${k}.html`]]) } }));
 }
 urls.push(page({ file: 'levering-og-faq.html', depth: 0, boot: '/info', img: `${SITE}img/maktaba.webp`,
-  title: 'Levering, retur og spørgsmål | KHATAM', desc: 'Fragt, leveringstid, Ramadan-frist, returret for personlige varer og svar på de mest stillede spørgsmål.', ld: null }));
+  title: 'Levering, retur og spørgsmål | QALAM', desc: 'Fragt, leveringstid, Ramadan-frist, returret for personlige varer og svar på de mest stillede spørgsmål.', ld: null }));
 
 writeFileSync(join(root, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

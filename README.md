@@ -1,4 +1,4 @@
-# KHATAM – webshop
+# QALAM – webshop
 
 Statisk webshop (HTML, CSS og JavaScript i én fil) til personlige islamiske gaver.
 Ingen build-trin: siden kører direkte fra mappen.

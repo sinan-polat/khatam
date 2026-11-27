@@ -1,4 +1,4 @@
-// KHATAM – Stripe Checkout via Cloudflare Workers
+// QALAM – Stripe Checkout via Cloudflare Workers
 //
 // The shop on GitHub Pages sends the cart here. This worker looks up the real prices (never trusts prices
 // from the browser), adds shipping, and creates a Stripe Checkout Session. The customer is then sent to
@@ -95,7 +95,7 @@ async function createCheckout(req, env) {
     mode: 'payment', locale: 'da', client_reference_id: order,
     customer_email: /^\S+@\S+\.\S+$/.test(email) ? email : undefined,
     line_items, metadata,
-    payment_intent_data: { description: `KHATAM ordre ${order}`, metadata,
+    payment_intent_data: { description: `QALAM ordre ${order}`, metadata,
       shipping: c.addr ? { name: name || 'Kunde', phone, address: { line1: clean(c.addr, 120), postal_code: clean(c.zip, 4), city: clean(c.city, 60), country: 'DK' } } : undefined },
     success_url: `${site}/#/tak?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${site}/#/kasse`,
@@ -121,7 +121,7 @@ export default {
       if (!env.STRIPE_SECRET_KEY) return json({ error: 'Stripe-nøglen mangler på serveren.' }, 500);
       if (req.method === 'POST' && url.pathname === '/checkout') return json(await createCheckout(req, env));
       if (req.method === 'GET' && url.pathname === '/session') return json(await sessionStatus(url, env));
-      return json({ ok: true, service: 'KHATAM checkout' });
+      return json({ ok: true, service: 'QALAM checkout' });
     } catch (e) { return json({ error: e.message || 'Der skete en fejl.' }, 400); }
   },
 };
