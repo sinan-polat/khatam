@@ -59,7 +59,7 @@ for (const p of P) {
   }));
 }
 const CAT_TXT = {
-  hjem: ['Til hjemmet – personlige islamiske gaver | KHATAM', 'Hyldeskilte, dørskilte, nøglebakke og tandbørsteholder med arabisk kalligrafi i guld. Designet og lavet i Danmark.', 'maktaba'],
+  hjem: ['Til hjemmet – personlige islamiske gaver | KHATAM', 'Hyldeskilte, dørskilte og nøglebakke med arabisk kalligrafi i guld. Designet og lavet i Danmark.', 'maktaba'],
   ramadan: ['Ramadan & Eid – gaver og pynt | KHATAM', 'Bordskilte med Ramadan Mubarak og Eid Mubarak, Eidiyya-æsker med barnets navn og gaveæsker. Bestil senest 25. januar.', 'mubarak'],
   born: ['Til børnene – Eid-gaver med navn | KHATAM', 'Eidiyya-æsker og gaver med barnets navn i guld på arabisk og latin. Designet og lavet i Danmark.', 'eidiyya'],
 };

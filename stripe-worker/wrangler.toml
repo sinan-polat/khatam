@@ -1,0 +1,10 @@
+name = "khatam-checkout"
+main = "worker.js"
+compatibility_date = "2026-11-01"
+
+[vars]
+SITE_URL = "https://qalam.dk"
+
+# The Stripe key is a secret. Never put it in this file. Add it with:
+#   npx wrangler secret put STRIPE_SECRET_KEY
+# or in the Cloudflare dashboard: Worker → Settings → Variables and Secrets.
