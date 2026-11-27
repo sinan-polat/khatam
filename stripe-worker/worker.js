@@ -76,7 +76,9 @@ async function createCheckout(req, env) {
   const free = goods >= FREE, home = c.ship === 'home';
   const ship = home ? (free ? HOME_UPGRADE : SHIP_HOME) : (free ? 0 : SHIP_PS);
   const site = (env.SITE_URL || 'https://qalam.dk').replace(/\/$/, '');
-  const order = 'KH-' + Date.now().toString(36).toUpperCase().slice(-6);
+  // short, readable order number: day + month + 3 digits, e.g. 2711-482
+  const dm = new Intl.DateTimeFormat('da-DK', { timeZone: 'Europe/Copenhagen', day: '2-digit', month: '2-digit' }).formatToParts(new Date());
+  const order = dm.find(p => p.type === 'day').value + dm.find(p => p.type === 'month').value + '-' + (100 + Math.floor(Math.random() * 900));
   const email = clean(c.email, 120), phone = clean(c.phone, 20);
   const name = clean(`${c.fname || ''} ${c.lname || ''}`, 80);
 

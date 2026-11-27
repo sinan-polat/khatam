@@ -1229,6 +1229,19 @@ footer .pay-icons span.pi{background:#fff}
 .cookiebar>div{display:flex;gap:10px;justify-content:flex-end}
 .cookiebar .btn{min-height:44px;padding:0 18px;font-size:14px}
 @media (max-width:820px){.cookiebar{bottom:calc(84px + env(safe-area-inset-bottom))}}
+
+/* thanks page: one screen, no scroll */
+body.tak-mode footer,body.tak-mode .news-g,body.tak-mode .ann-usp,body.tak-mode .nav,body.tak-mode #searchBtn,body.tak-mode .burger{display:none!important}
+body.tak-mode #app{min-height:0}
+.thanks{min-height:calc(100svh - 130px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 0!important;gap:6px}
+.thanks h1{margin-bottom:6px}
+.thanks .ordno{font-size:17px;color:var(--soft);margin:0}
+.thanks .ordno b{color:var(--ink);font-weight:600;letter-spacing:.04em}
+.thanks .tk-txt{max-width:40ch;color:var(--muted);font-size:15.5px;margin:4px auto 22px}
+
+.secure{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--muted);line-height:1.4;text-align:center}
+.secure svg{flex:none;color:var(--ok)}
+footer .pay-icons .secure{color:inherit;opacity:.85}
 </style>
 </head>
 <body>
@@ -1236,7 +1249,7 @@ footer .pay-icons span.pi{background:#fff}
 <a class="skip" href="#app">Spring til indhold</a>
 <div class="announce" id="announce">
   <div class="ann-top" id="annTop"><b>Ramadan 2027</b><span>Bestil senest 25. januar</span></div>
-  <div class="ann-usp"><span>Udkast inden for 24 timer</span><span>Lavet i Danmark efter bestilling</span><span>Gratis fragt over 349 kr.</span></div>
+  <div class="ann-usp"><span>Lavet i Danmark efter bestilling</span><span>Sendes inden for 3–5 hverdage</span><span>Gratis fragt over 349 kr.</span></div>
 </div>
 <header class="header" id="header">
   <div class="in">
@@ -1513,7 +1526,7 @@ function nameBlock(cfg, sz){
   let h='';
   if(ar) h += `<div class="an" lang="ar" style="font-size:${fit(ar,sz,5.5)}px">${esc(ar)}</div>`;
   if(ln) h += `<div class="ln" style="font-size:${fit(ln,sz*(ar?0.24:0.42),ar?8:7)}px;margin-top:${ar?sz*0.26:0}px">${esc(ln)}</div>`;
-  if(!ar && ln) h += `<div class="ph-txt" style="font-size:${sz*0.17}px;margin-top:${sz*0.12}px">arabisk skrift tilføjes i udkastet</div>`;
+  if(!ar && ln) h += `<div class="ph-txt" style="font-size:${sz*0.17}px;margin-top:${sz*0.12}px">vi skriver navnet på arabisk</div>`;
   return `<div>${h}</div>`;
 }
 function preview(p, cfg, scale=1){
@@ -1528,7 +1541,7 @@ function preview(p, cfg, scale=1){
     case 'qahwa': return `<div class="obj o-qahwa" style="${st}">${frame()}<div>${(cfg.ar||cfg.name)?nameBlock(cfg,50*s):`<svg viewBox="0 0 100 100" style="width:${120*s}px;color:var(--guld-lys)">${SEAL}</svg>`}</div></div>`;
     case 'mubarak': { const g = cfg.greeting==='eid' ? ['عيد مبارك','EID MUBARAK'] : ['رمضان مبارك','RAMADAN MUBARAK'];
       return `<div class="obj o-mubarak" style="${st}"><i class="foot"></i>${frame()}<div><div class="an" lang="ar" style="font-size:${58*s}px">${g[0]}</div><div class="ln" style="font-size:${15*s}px;margin-top:${12*s}px">${g[1]}</div></div></div>`;}
-    case 'bayt': return `<div class="obj o-bayt" style="${st}"><i class="screw" style="left:4%"></i><i class="screw" style="right:4%"></i>${frame()}<div>${(cfg.ar||cfg.name)?`<div class="an" lang="ar" style="font-size:${fit('بيت '+(cfg.ar||''),50*s,7)}px">${cfg.ar?'بيت '+esc(cfg.ar):''}</div><div class="ln" style="font-size:${15*s}px;margin-top:${10*s}px">${cfg.name?'FAMILIEN '+esc(cfg.name):''}</div>${!cfg.ar?`<div class="ph-txt" style="font-size:${13*s}px;margin-top:8px">arabisk skrift tilføjes i udkastet</div>`:''}`:`<div class="ph-txt" style="font-size:${20*s}px">Skriv familiens navn</div>`}</div></div>`;
+    case 'bayt': return `<div class="obj o-bayt" style="${st}"><i class="screw" style="left:4%"></i><i class="screw" style="right:4%"></i>${frame()}<div>${(cfg.ar||cfg.name)?`<div class="an" lang="ar" style="font-size:${fit('بيت '+(cfg.ar||''),50*s,7)}px">${cfg.ar?'بيت '+esc(cfg.ar):''}</div><div class="ln" style="font-size:${15*s}px;margin-top:${10*s}px">${cfg.name?'FAMILIEN '+esc(cfg.name):''}</div>${!cfg.ar?`<div class="ph-txt" style="font-size:${13*s}px;margin-top:8px">vi skriver navnet på arabisk</div>`:''}`:`<div class="ph-txt" style="font-size:${20*s}px">Skriv familiens navn</div>`}</div></div>`;
     case 'zawj': { const nm=(cfg.names||[]); const sq=(i,c,r)=>{ const n=(nm[i]||'').trim(); const a=n?toAr(n):''; return `<div class="obj zw" style="background:${c};transform:rotate(${r}deg)"><i class="fr"></i><div>${a?`<div class="an" lang="ar" style="font-size:${fit(a,30*s,4.5)}px">${esc(a)}</div>`:''}${n?`<div class="ln" style="font-size:${7*s}px;margin-top:6px">${esc(n)}</div>`:`<div class="ph-txt" style="font-size:${10*s}px">${['Hans','Hendes'][i]} navn</div>`}</div><i class="zh"></i></div>`; };
       const other = cfg.color==='smaragd' ? '#161513' : '#1E3A2F';
       return `<div class="zwrap">${sq(0,COLORS[cfg.color||'sort'].hex,-6)}${sq(1,other,39)}<div class="zstar"><i style="background:${COLORS[cfg.color||'sort'].hex}"></i><i style="background:${other};transform:rotate(45deg)"></i><span>Sammen bliver de til stjernen</span></div></div>`; }
@@ -1556,8 +1569,8 @@ function productImg(p, cls=''){
 }
 function faq(){
   const q = [
-    ['Hvad hvis jeg ikke ved, hvordan navnet staves på arabisk?','Skriv navnet med danske bogstaver. Siden foreslår den arabiske stavning for de mest almindelige navne, og ellers skriver vi det for dig. Du godkender altid et udkast, før vi printer.'],
-    ['Hvornår skal jeg bestille, hvis gaven skal nå frem til Ramadan?','Bestil senest 25. januar 2027. Ramadan ventes at begynde omkring 8. februar, og så har vi tid til udkast, produktion og levering.'],
+    ['Hvad hvis jeg ikke ved, hvordan navnet staves på arabisk?','Skriv navnet med danske bogstaver. Siden foreslår den arabiske stavning for de mest almindelige navne, og ellers skriver vi det for dig. Vil du have en bestemt stavning, kan du skrive den selv eller i beskedfeltet ved kassen.'],
+    ['Hvornår skal jeg bestille, hvis gaven skal nå frem til Ramadan?','Bestil senest 25. januar 2027. Ramadan ventes at begynde omkring 8. februar, og så har vi tid til produktion og levering.'],
     ['Hvor meget koster fragt?','Levering til pakkeshop koster 45 kr og er gratis, når du handler for 349 kr eller mere. Levering til døren koster 59 kr, eller 15 kr når du har fri fragt.'],
     ['Kan jeg returnere en personlig gave?','Varer med navn er lavet til dig og kan derfor ikke returneres efter fortrydelsesretten. Er der fejl i produktet, laver vi det om uden beregning.'],
     ['Hvad er gaverne lavet af?','PLA med mat overflade og præget guld. Gaverne er lavet til brug inde. De tåler daglig brug, men ikke direkte sol, regn eller varme over ca. 50 °C, fx i en bil eller i en vindueskarm mod syd. Aftørres med en fugtig klud og må ikke i opvaskemaskinen.'],
@@ -1604,7 +1617,7 @@ function viewHome(cat){
 
   <section class="sec trust-sec"><div class="wrap">
     <div class="trust">
-      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M4 4h16v16H4z"/><path d="m8 12 3 3 5-6"/></svg><h4>Udkast før print</h4><p>Du godkender designet, før vi går i gang.</p></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M4 4h16v16H4z"/><path d="m8 12 3 3 5-6"/></svg><h4>Fejl laver vi om</h4><p>Er der fejl i varen, laver vi den om uden beregning.</p></div>
       <div><svg viewBox="0 0 100 100" fill="none">${SEAL}</svg><h4>Lavet i Danmark</h4><p>Designet og lavet efter bestilling.</p></div>
       <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.5"/><circle cx="17" cy="17.5" r="1.5"/></svg><h4>Gratis fragt</h4><p>Til pakkeshop ved køb over 349 kr.</p></div>
       <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="3" y="6" width="18" height="13" rx="1.5"/><path d="M3 10h18"/></svg><h4>Sikker betaling</h4><p>MobilePay, kort og Apple Pay.</p></div>
@@ -1720,8 +1733,7 @@ const FBT = {maktaba:['mubarak','gaveaeske','tabaq'], gaveaeske:['mubarak','eidi
 /* products that can go straight into the cart from another page (no name needed) */
 const quickAdd = p => p.personal==='none' || p.personal==='greeting' || p.personal==='shelf' || (p.personal==='name' && !p.req);
 const PAY = [['MobilePay','#5A78FF'],['Apple Pay','#111'],['G Pay','#3C4043'],['Visa','#1A1F71'],['Mastercard','#111']];
-function payIcons(){ return PAY.map(([n,c])=> n==='Mastercard' ? `<span class="pi" title="Mastercard"><i style="background:#EB001B"></i><i style="background:#F79E1B;margin-left:-5px;mix-blend-mode:multiply"></i></span>`
-  : `<span class="pi" title="${n}" style="color:${c}">${n==='Visa'?'<b style="font-style:italic;letter-spacing:.02em">VISA</b>':n==='G Pay'?'<b><span style="color:#4285F4">G</span> Pay</b>':`<b>${n}</b>`}</span>`).join(''); }
+function payIcons(){ return `<span class="secure"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Sikker betaling via Stripe · MobilePay, kort, Apple Pay og Google Pay</span>`; }
 function stars(n=5){ return `<span class="stars" aria-label="${n} ud af 5 stjerner">${[1,2,3,4,5].map(i=>`<i class="${i<=Math.round(n)?'on':''}"><svg viewBox="0 0 20 20"><path d="m10 3 2.1 4.6 5 .5-3.8 3.4 1.1 4.9L10 13.9 5.6 16.4l1.1-4.9L2.9 8.1l5-.5L10 3Z" fill="currentColor"/></svg></i>`).join('')}</span>`; }
 function revStats(list){ if(!list.length) return null; const avg = list.reduce((a,r)=>a+(r.rating||5),0)/list.length; return {avg:Math.round(avg*10)/10, n:list.length}; }
 function countdownParts(){ const ms = RAMADAN_DEADLINE - Date.now(); if(ms<=0) return null; const m=Math.floor(ms/6e4); return {d:Math.floor(m/1440), h:Math.floor(m/60)%24, m:m%60}; }
@@ -1743,7 +1755,6 @@ function steps(p){
     names:['Tilpas gaven','Vælg farve, og skriv navnene. Vi foreslår arabisk stavning.'], shelf:['Vælg dine skilte','Vælg farve og 4 af 9 kategorier.'],
     greeting:['Vælg teksten','Ramadan Mubarak eller Eid Mubarak, i sort eller smaragd.'], none:['Vælg farve','Sort eller smaragd, begge med præget guld.']}[p.personal] || ['Tilpas gaven','Vælg farve og tekst.'];
   const s = [first];
-  if(!['none','greeting'].includes(p.personal)) s.push(['Godkend udkastet','Du får det inden for 24 timer på mail og SMS.']);
   s.push(['Vi laver og sender','Inden for 3–5 hverdage, pakket som gave.']);
   return s;
 }
@@ -1822,13 +1833,13 @@ function viewProduct(id, editKey){
   const others = P.filter(x=>x.id!==id && !(FBT[id]||[]).includes(x.id) && x.cats.some(c=>p.cats.includes(c))).slice(0,4);
   const named = ['name','family','names'].includes(p.personal);
   const accs = acc('Produktbeskrivelse', `<p>${p.desc}</p>`)
-    + (named ? acc('Arabisk stavning', `<p>Skriv navnet med danske bogstaver. Siden foreslår den arabiske stavning for de mest almindelige navne, og ellers skriver vi det for dig. Du godkender altid et udkast, før vi printer.</p>`) : '')
+    + (named ? acc('Arabisk stavning', `<p>Skriv navnet med danske bogstaver. Siden foreslår den arabiske stavning for de mest almindelige navne, og ellers skriver vi det for dig. Vil du have en bestemt stavning, kan du skrive den selv eller i beskedfeltet ved kassen.</p>`) : '')
     + acc('Mål og materiale', `<p>${p.details}</p>`)
-    + acc('Levering &amp; forsendelse', `<ul class="ul"><li>Digitalt udkast inden for 24 timer på mail og SMS.</li><li>Laves og sendes 3–5 hverdage efter din godkendelse.</li><li>PostNord pakkeshop 45 kr, gratis ved køb over ${FREE} kr. Levering til døren 59 kr.</li><li>Bestil senest 25. januar, så når gaven frem til Ramadan.</li></ul>`)
+    + acc('Levering &amp; forsendelse', `<ul class="ul"><li>Laves og sendes inden for 3–5 hverdage.</li><li>PostNord pakkeshop 45 kr, gratis ved køb over ${FREE} kr. Levering til døren 59 kr.</li><li>Bestil senest 25. januar, så når gaven frem til Ramadan.</li></ul>`)
     + acc('Personlige varer og retur', `<p>Varer med navn er lavet specielt til dig og kan ikke returneres efter fortrydelsesretten. Varer uden navn kan returneres inden for 14 dage. Er der fejl i produktet, laver vi det om uden beregning.</p>`)
     + acc('Har du brug for hjælp?', `<p>Skriv til <a class="link" href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>. Vi svarer inden for én hverdag.</p>`);
   const feats = [...pts, ['dk','Designet og lavet i Danmark']].slice(0,4);
-  const featDesc = {pen:'Du godkender stavningen i et udkast, før vi printer.', ar:'Præget i guld, så skriften står skarpt.', ruler:'Mål, der passer til hjemmet.', grid:'Sammensæt det, så det passer til jer.', gift:'Pakket som gave og klar til at give.', tag:'Samme gaver, lavere pris i sæt.', heat:'Holdbart materiale til daglig brug.', sun:'Til brug inde, væk fra direkte sol.', coin:'Glider ind i vognlåsen som en mønt.', home:'Lavet til at stå fremme i hverdagen.', drop:'Nem at holde ren.', star:'Den ottetakkede stjerne fra vores logo.', magnet:'Holder delene samlet.', dk:'Laves efter bestilling, når du har godkendt udkastet.'};
+  const featDesc = {pen:'Navnet skrives på arabisk og latin, præcis som du skriver det.', ar:'Præget i guld, så skriften står skarpt.', ruler:'Mål, der passer til hjemmet.', grid:'Sammensæt det, så det passer til jer.', gift:'Pakket som gave og klar til at give.', tag:'Samme gaver, lavere pris i sæt.', heat:'Holdbart materiale til daglig brug.', sun:'Til brug inde, væk fra direkte sol.', coin:'Glider ind i vognlåsen som en mønt.', home:'Lavet til at stå fremme i hverdagen.', drop:'Nem at holde ren.', star:'Den ottetakkede stjerne fra vores logo.', magnet:'Holder delene samlet.', dk:'Laves efter bestilling, når du har bestilt.'};
   return `
   <div class="wrap">
     <nav class="crumbs" aria-label="Brødkrummer"><a href="#/?c=alle">Shop</a>${chev(1)}<a href="c/${p.cats[0]}.html">${CATS[p.cats[0]]}</a>${chev(1)}<span>${nice(p.name)}</span></nav>
@@ -1852,14 +1863,14 @@ function viewProduct(id, editKey){
         <p class="desc">${p.desc}</p>
         ${pts.length?`<div class="pts">${pts.map(([k,t])=>`<div>${ico(k)}<span>${t}</span></div>`).join('')}</div>`:''}
         ${opts}
-        <p class="stock"><i></i>${['none','greeting'].includes(p.personal)?'Laves til dig efter bestilling':'Laves til dig: udkast inden for 24 timer'}</p>
-        <p class="eta">${ico('box')}<span>Forventet levering <b>${etaText(p)}</b>${['none','greeting'].includes(p.personal)?'':', hvis du godkender udkastet samme dag.'}</span></p>
+        <p class="stock"><i></i>${['none','greeting'].includes(p.personal)?'Laves til dig efter bestilling':'Laves til dig efter bestilling'}</p>
+        <p class="eta">${ico('box')}<span>Forventet levering <b>${etaText(p)}</b></span></p>
         <div class="add-row">
           <div class="qty"><button data-q="-1" aria-label="Færre"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 10h10"/></svg></button><span id="qv">${pv.qty}</span><button data-q="1" aria-label="Flere"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 10h10M10 5v10"/></svg></button></div>
           <button class="btn btn-dark btn-xl" id="addBtn">${editKey?'Gem ændringer':'Læg i kurven'} · <span class="addPrice">${kr(p.price*pv.qty)}</span></button></div>
         <div class="pay-icons center">${payIcons()}</div>
         <div id="shipHint"></div>
-        <div class="trust3"><div>${ico('check')}<span>Du godkender et udkast, før vi printer</span></div><div>${ico('box')}<span>Gratis fragt på ordrer over ${FREE} kr.</span></div><div>${ico('shield')}<span>Fejl laver vi om uden beregning</span></div></div>
+        <div class="trust3"><div>${ico('check')}<span>Designet og lavet i Danmark</span></div><div>${ico('box')}<span>Gratis fragt på ordrer over ${FREE} kr.</span></div><div>${ico('shield')}<span>Fejl laver vi om uden beregning</span></div></div>
         ${fbt.length?`<div class="fbt"><h3>Passer godt sammen med</h3>${fbt.map(fbtRow).join('')}</div>`:''}
         <button class="textbtn sharebtn" id="shareBtn" type="button"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M10 3v10M6 7l4-4 4 4M4 12v4h12v-4"/></svg>Del dit design</button>
       </div>
@@ -1919,6 +1930,7 @@ document.addEventListener('submit', async e => {
   }catch(err){ say('Det lykkedes ikke at tilmelde dig. Prøv igen om lidt.', true); }
   btn.disabled=false; btn.textContent='Tilmeld dig';
 });
+if(!NEWSLETTER_URL) document.querySelector('.news-g')?.remove();
 document.querySelector('#newsForm input[type=email]')?.addEventListener('input', e => e.target.classList.remove('need'));
 /* hide social icons that have no address yet, and point the rest at the real profiles */
 $$('[aria-label="Instagram"],[aria-label="TikTok"]').forEach(a=>{ const url=SOCIAL[a.getAttribute('aria-label').toLowerCase()]; if(url){ a.href=url; a.target='_blank'; a.rel='noopener'; } else a.remove(); });
@@ -1979,7 +1991,7 @@ function bindProduct(){
     if(!use3d){ if(window.K3D) K3D.unmount(); box.classList.remove('is3d'); box.innerHTML = stageView==='design' ? preview(p, pv, Math.min(1.25, box.clientWidth/440)) : `<img src="img/${p.imgs[0]}.webp" alt="">`; }
     if(stageView==='foto' && p.imgs.length>1) box.innerHTML = productImg(p);
     if(/^r\d$/.test(stageView)){ if(window.K3D) K3D.unmount(); box.classList.remove('is3d'); box.innerHTML = `<img class="realfoto" src="img/foto/${p.id}-${stageView.slice(1)}.webp" alt="Foto af ${nice(p.name)}">`; }
-    $('#stageNote').textContent = stageView==='design' ? (box.classList.contains('is3d') ? (p.id==='safar' ? 'Træk for at dreje. Navnet står på bagsiden.' : 'Træk for at dreje. Det endelige udkast sendes til godkendelse.') : 'Forhåndsvisning. Det endelige udkast sendes til godkendelse.') : '';
+    $('#stageNote').textContent = stageView==='design' ? (box.classList.contains('is3d') ? (p.id==='safar' ? 'Træk for at dreje. Navnet står på bagsiden.' : 'Træk for at dreje.') : 'Forhåndsvisning af dit design.') : '';
     const jb=$('#joinBtn'); if(jb) jb.hidden = !(p.id==='zawj' && box.classList.contains('is3d'));
     const b3=$('#btn3d'); if(b3){ b3.hidden = !(LITE && HAS_GL && !window._k3dFailed && stageView==='design'); const on=box.classList.contains('is3d'); b3.textContent = on ? 'Vis 2D' : (window._want3d ? 'Indlæser 3D …' : 'Se i 3D'); b3.setAttribute('aria-pressed', on); }
     $$('.addPrice').forEach(e=>e.textContent = kr(p.price*pv.qty));
@@ -2012,7 +2024,7 @@ function bindProduct(){
       el.innerHTML = `<div class="suggest"><span>Du skriver selv den arabiske stavning.</span><button class="textbtn" data-armode="auto">Brug forslag</button></div>`; return;
     }
     if(s){ pv.ar = s; const known = arKnown(pv.name); el.innerHTML = `<div class="suggest ok"><span><span class="tick"><svg viewBox="0 0 20 20" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" style="vertical-align:-2px"><path d="m4.5 10.5 3.5 3.5 7.5-8"/></svg></span> ${known?'Arabisk stavning':'Forslag til arabisk stavning'}</span><span class="ar" lang="ar">${s}</span></div><button class="textbtn" data-armode="manual">Skriv selv på arabisk</button>`; }
-    else { pv.ar = ''; el.innerHTML = `<div class="suggest"><span>Vi skriver navnet på arabisk for dig og sender et udkast.</span></div><button class="textbtn" data-armode="manual">Eller skriv selv på arabisk</button>`; }
+    else { pv.ar = ''; el.innerHTML = `<div class="suggest"><span>Vi skriver navnet på arabisk for dig.</span></div><button class="textbtn" data-armode="manual">Eller skriv selv på arabisk</button>`; }
   };
   const app = $('#app');
   // gallery: arrows, dots and swipe step through the visible thumbnails
@@ -2091,7 +2103,7 @@ function addToCart(){
 /* ---------- drawer ---------- */
 function itemMeta(i){
   const p = byId(i.id), m = [COLORS[i.color].label];
-  if(i.name) m.push((p.personal==='family'?'Familien ':'')+esc(i.name) + (i.ar?` (<span class="ar" lang="ar">${esc(i.ar)}</span>)`:', arabisk stavning i udkastet'));
+  if(i.name) m.push((p.personal==='family'?'Familien ':'')+esc(i.name) + (i.ar?` (<span class="ar" lang="ar">${esc(i.ar)}</span>)`:', arabisk skrift laves af os'));
   if(i.greeting) m.push(i.greeting==='eid'?'Eid Mubarak':'Ramadan Mubarak');
   if(i.names) m.push(i.names.map((n,k)=>esc(n)+(i.ars&&i.ars[k]?` <span class="ar" lang="ar">${esc(i.ars[k])}</span>`:'')).join(', '));
   if(i.coin) m.push(i.coin==='10'?'10-krone-størrelse':'20-krone-størrelse');
@@ -2139,7 +2151,7 @@ function renderDrawer(){
         <div><span>Fragt til pakkeshop</span><span>${t.free?'<b style="color:var(--ok)">Gratis</b>':kr(SHIP_PS)}</span></div>
         <div class="tot"><span>I alt</span><b>${kr(t.goods+(t.free?0:SHIP_PS))}</b></div>
       </div>
-      <a href="#/kasse" class="btn btn-dark btn-block" data-close-nav>Gå til kassen</a><p style="text-align:center;font-size:12px;color:var(--muted);margin-top:10px">Personlige varer laves efter godkendt udkast.</p>
+      <a href="#/kasse" class="btn btn-dark btn-block" data-close-nav>Gå til kassen</a><p style="text-align:center;font-size:12px;color:var(--muted);margin-top:10px">Personlige varer laves efter bestilling.</p>
       <div class="pay-icons">${payIcons()}</div>
     </div>`;
 }
@@ -2182,8 +2194,8 @@ function viewCheckout(){
   let body = '';
   if(coStep===1){
     body = `<div class="co-sec"><h3>Kontaktoplysninger</h3>
-      <div class="field"><label for="email">E-mail <span class="muted" style="font-weight:400">(udkastet sendes hertil)</span></label><input class="input" id="email" type="email" inputmode="email" autocomplete="email" value="${esc(c.email)}" placeholder="navn@mail.dk"></div>
-      <div class="field"><label for="phone">Mobilnummer <span class="muted" style="font-weight:400">(SMS om udkast og levering)</span></label><input class="input" id="phone" type="tel" inputmode="tel" autocomplete="tel" value="${esc(c.phone)}" placeholder="12 34 56 78"></div></div>
+      <div class="field"><label for="email">E-mail <span class="muted" style="font-weight:400">(kvitteringen sendes hertil)</span></label><input class="input" id="email" type="email" inputmode="email" autocomplete="email" value="${esc(c.email)}" placeholder="navn@mail.dk"></div>
+      <div class="field"><label for="phone">Mobilnummer <span class="muted" style="font-weight:400">(til fragtfirmaet)</span></label><input class="input" id="phone" type="tel" inputmode="tel" autocomplete="tel" value="${esc(c.phone)}" placeholder="12 34 56 78"></div></div>
       <div class="co-sec"><h3>Leveringsadresse</h3>
       <div class="two"><div class="field"><label for="fname">Fornavn</label><input class="input" id="fname" autocomplete="given-name" value="${esc(c.fname)}"></div><div class="field"><label for="lname">Efternavn</label><input class="input" id="lname" autocomplete="family-name" value="${esc(c.lname)}"></div></div>
       <div class="field"><label for="addr">Adresse</label><input class="input" id="addr" autocomplete="street-address" value="${esc(c.addr)}"></div>
@@ -2204,9 +2216,9 @@ function viewCheckout(){
       <div class="review-row"><span>Levering</span><span>${c.ship==='home'?'Til døren':'PostNord pakkeshop'}, ${t.ship?kr(t.ship):'gratis'}</span></div></div>
       <div class="co-sec"><h3>Betaling</h3>
       <p class="muted" style="font-size:14.5px">Du sendes videre til Stripes sikre betalingsside. Her kan du betale med MobilePay, kort, Apple Pay eller Google Pay.</p>
-      <div class="pay-icons" style="justify-content:flex-start;margin:14px 0 4px">${payIcons()}</div>
+      
       <label class="check"><input type="checkbox" id="terms"><span>Jeg har læst <a href="#/info#handel" class="link">handelsbetingelserne</a> og ved, at varer med navn ikke kan returneres efter fortrydelsesretten.</span></label>
-      <div class="notice"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg><span>Vi går først i gang, når du har godkendt det digitale udkast. Du hører fra os inden for 24 timer.</span></div></div>
+      <div class="notice"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg><span>Vi laver og sender din gave inden for 3–5 hverdage. Tjek gerne stavningen i ordreoversigten, før du betaler.</span></div></div>
       <button class="btn btn-dark btn-block" id="payBtn" style="height:58px" disabled>Betal ${kr(t.total)}</button>`;
   }
   return `<div class="wrap"><div class="co">
@@ -2281,17 +2293,10 @@ function viewThanks(){
   const o = window._order || store.get('khatam_last_order', null);
   return `<div class="wrap thanks">
     <svg class="seal" viewBox="0 0 100 100">${SEAL}</svg>
-    
     <h1>Tak for din bestilling</h1>
-    <p class="ordno">Ordrenummer ${o?esc(o.no):''}</p>
-    <p style="font-size:18px;font-weight:300;color:#D6CEC0">Vi har sendt en bekræftelse til ${o?esc(o.email):'din e-mail'}.</p>
-    <div class="timeline">
-      <div><span class="n">1</span><span><b>Udkast inden for 24 timer</b><p>Du får et digitalt udkast på mail og SMS med navnet i arabisk og latinsk skrift.</p></span></div>
-      <div><span class="n">2</span><span><b>Du godkender eller retter</b><p>Svar blot "godkendt" eller skriv, hvad vi skal ændre. Vi går først i gang, når du har godkendt.</p></span></div>
-      <div><span class="n">3</span><span><b>Produktion og afsendelse</b><p>Gaven laves og pakkes inden for 3–5 hverdage. Du får et track-and-trace-nummer.</p></span></div>
-    </div>
-    ${o?`<div class="co-sec" style="text-align:left">${o.items.map(i=>{const p=byId(i.id);return `<div class="mini" style="border-color:var(--line)"><div class="li-img" style="background:var(--surface-2)">${pvThumb(p,i)}<span class="q">${i.qty}</span></div><div><b>${nice(p.name)}</b><small>${itemMeta(i)}</small></div><div><b>${kr(p.price*i.qty)}</b></div></div>`}).join('')}<div class="sum" style="margin-top:14px"><div class="tot"><span>Betalt</span><span>${kr(o.t.total)}</span></div></div></div>`:''}
-    <a href="#/" class="btn btn-dark" style="margin-top:20px">Tilbage til forsiden</a>
+    ${o?`<p class="ordno">Ordrenummer <b>${esc(o.no)}</b></p>`:''}
+    <p class="tk-txt">Du får en kvittering på ${o&&o.email?esc(o.email):'din e-mail'}. Vi laver og sender din gave inden for 3–5 hverdage.</p>
+    <a href="#/" class="btn btn-dark">Tilbage til forsiden</a>
   </div>`;
 }
 function viewInfo(){
@@ -2301,7 +2306,7 @@ function viewInfo(){
     <table class="table"><tr><th>Levering</th><th>Under 349 kr</th><th>Fra 349 kr</th></tr>
       <tr><td>PostNord pakkeshop</td><td>45 kr</td><td><b style="color:var(--ok)">Gratis</b></td></tr>
       <tr><td>Levering til døren</td><td>59 kr</td><td>15 kr</td></tr></table>
-    <h2>Tidsplan</h2><p>Udkast inden for 24 timer. Når du har godkendt, laver og sender vi gaven inden for 3–5 hverdage. PostNord leverer normalt på 1–3 hverdage.</p>
+    <h2>Tidsplan</h2><p>Vi laver og sender gaven inden for 3–5 hverdage. PostNord leverer normalt på 1–3 hverdage.</p>
     <p><b>Ramadan 2027:</b> Bestil senest 25. januar, så når gaven frem før Ramadan, der ventes at begynde omkring 8. februar.</p>
     <h2 id="retur">Returret</h2><p>Varer med navn eller anden personlig tilpasning er lavet efter dine ønsker og er derfor undtaget fra fortrydelsesretten. Varer uden tilpasning kan returneres inden for 14 dage. Er der fejl i en vare, laver vi den om uden beregning.</p>
     <h2>Spørgsmål</h2>${faq()}
@@ -2309,14 +2314,14 @@ function viewInfo(){
     <p><b>Sælger:</b> ${BUSINESS.name}, CVR ${BUSINESS.cvr}, ${BUSINESS.city}, Danmark. E-mail: <a class="link" href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>.</p>
     <p><b>Priser:</b> Alle priser er i danske kroner og er de endelige priser. ${BUSINESS.name} er ikke momsregistreret, så der lægges ikke moms oven i. Fragt vises i kurven og i kassen, før du betaler.</p>
     <p><b>Bestilling og betaling:</b> Aftalen er indgået, når du har betalt. Du betaler sikkert via Stripe med MobilePay, kort, Apple Pay eller Google Pay. Beløbet trækkes ved bestillingen. Vi gemmer ikke dine kortoplysninger.</p>
-    <p><b>Udkast og produktion:</b> Personlige varer laves efter et digitalt udkast, som du godkender. Du får udkastet på mail inden for 24 timer. Vi går først i gang, når du har godkendt det. Vil du annullere, inden du har godkendt udkastet, får du hele beløbet retur.</p>
-    <p><b>Levering:</b> Vi sender med PostNord i Danmark. Gaven laves og sendes inden for 3–5 hverdage efter godkendt udkast, og PostNord leverer normalt på 1–3 hverdage. Se fragtpriserne øverst på siden.</p>
+    <p><b>Produktion:</b> Personlige varer laves præcis efter de navne og valg, du har angivet i bestillingen, så tjek stavningen, før du betaler. Vil du annullere, så skriv til os hurtigst muligt. Er vi ikke gået i gang, får du hele beløbet retur.</p>
+    <p><b>Levering:</b> Vi sender med PostNord i Danmark. Gaven laves og sendes inden for 3–5 hverdage efter bestillingen, og PostNord leverer normalt på 1–3 hverdage. Se fragtpriserne øverst på siden.</p>
     <p><b>Fortrydelsesret:</b> Varer uden navn eller anden tilpasning kan fortrydes inden for 14 dage efter, at du har modtaget dem. Skriv til os inden fristen, og send varen retur i samme stand inden 14 dage efter. Du betaler selv returfragten, og vi refunderer købsprisen inklusive den oprindelige standardfragt senest 14 dage efter, at vi har modtaget din besked. Varer, der er lavet efter dine anvisninger, fx med navn, er undtaget fra fortrydelsesretten (forbrugeraftalelovens § 18, stk. 2, nr. 3).</p>
     <p><b>Reklamation:</b> Du har 2 års reklamationsret efter købeloven. Er der fejl i en vare, laver vi den om eller refunderer den. Skriv til os med et billede af fejlen inden for rimelig tid, efter du har opdaget den.</p>
     <p><b>Klage:</b> Er du utilfreds, så skriv til os, så finder vi en løsning. Du kan også klage til Nævnenes Hus, Toldboden 2, 8800 Viborg, via <a class="link" href="https://naevneneshus.dk" target="_blank" rel="noopener">naevneneshus.dk</a>.</p>
     <h2 id="privat">Privatlivspolitik</h2>
     <p><b>Dataansvarlig:</b> ${BUSINESS.name}, CVR ${BUSINESS.cvr}, ${BUSINESS.city}, ${CONTACT_EMAIL}.</p>
-    <p><b>Når du handler</b> bruger vi dit navn, din adresse, e-mail og telefonnummer til at sende dig udkastet, lave og levere gaven og svare på spørgsmål. Navne og tekster til gaven bruger vi kun til din ordre. Grundlaget er aftalen med dig, og regnskabsoplysninger gemmer vi i 5 år, som bogføringsloven kræver.</p>
+    <p><b>Når du handler</b> bruger vi dit navn, din adresse, e-mail og telefonnummer til at lave og levere gaven og svare på spørgsmål. Navne og tekster til gaven bruger vi kun til din ordre. Grundlaget er aftalen med dig, og regnskabsoplysninger gemmer vi i 5 år, som bogføringsloven kræver.</p>
     <p><b>Nyhedsbrev:</b> Tilmelder du dig, gemmer vi din e-mail hos vores nyhedsbrevsudbyder, indtil du afmelder dig. Du kan afmelde dig i hver mail.</p>
     <p><b>Hvem ser dine data:</b> Kun dem, der skal bruge dem for at levere: Stripe (betaling), PostNord (fragt), Cloudflare (sender din bestilling videre til Stripe) og vores nyhedsbrevsudbyder. Siden ligger hos GitHub Pages, som ligesom andre webhoteller registrerer tekniske oplysninger som IP-adresse. Vi sælger aldrig dine oplysninger.</p>
     <p><b>Cookies:</b> Din kurv gemmes kun i din egen browser. Vi bruger kun cookies til statistik og annoncer, hvis du siger ja til det i cookie-banneret. Du kan altid ændre dit valg via linket "Cookie-indstillinger" nederst på siden.</p>
@@ -2353,7 +2358,7 @@ function setMeta(title, desc){ if(window.KHATAM_BOOT && !location.hash) return; 
 function route(){
   window._pdpRender = null; clearInterval(window._cdT); document.body.classList.remove('has-buybar'); if(LITE) window._want3d = false; window._dots = null; if(window.K3D) K3D.unmount(); window._pdpIO && window._pdpIO.disconnect();
   const h = location.hash.slice(1) || window.KHATAM_BOOT || '/';
-  document.body.classList.toggle('co-mode', h.split('?')[0]==='/kasse');   // checkout without menu, search and newsletter, as in Shopify
+  document.body.classList.toggle('co-mode', h.split('?')[0]==='/kasse'); document.body.classList.toggle('tak-mode', h.split('?')[0]==='/tak');   // checkout without menu, search and newsletter, as in Shopify
   const [path, qs] = h.split('?'); const params = new URLSearchParams(qs||'');
   if(!window._keepDrawer) closeDrawer(); window._keepDrawer = false;
   const app = $('#app'); app.onclick = null; app.oninput = null; app.onchange = null; window.onresize = null;
