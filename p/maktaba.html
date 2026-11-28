@@ -87,7 +87,7 @@ h1,h2,h3{font-weight:600;letter-spacing:-.02em;line-height:1.15}
 .count.bump{animation:bump .4s}
 @keyframes bump{50%{transform:scale(1.35)}}
 .burger{display:none}
-@media (max-width:820px){.nav{display:none}.burger{display:grid}.header .in{gap:6px;height:60px}.logo{margin-right:auto}.logo span{font-size:19px}}
+@media (max-width:900px){.nav{display:none}.burger{display:grid}.header .in{gap:6px;height:60px}.logo{margin-right:auto}.logo span{font-size:19px}}
 .mnav{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:opacity .25s}
 .mnav.on{opacity:1;pointer-events:auto}
 .mnav-in{position:absolute;inset:0 auto 0 0;width:min(86vw,340px);background:#fff;padding:22px 24px;transform:translateX(-100%);transition:transform .3s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;gap:4px}
@@ -104,26 +104,26 @@ h1,h2,h3{font-weight:600;letter-spacing:-.02em;line-height:1.15}
 .hero h1{font-size:clamp(38px,5.4vw,66px);max-width:12ch;margin-bottom:16px;font-weight:600;letter-spacing:-.035em}
 .hero p{max-width:40ch;font-size:17px;color:#EDE6DA;margin-bottom:28px}
 .hero .ctas{display:flex;gap:12px;flex-wrap:wrap}
-@media (max-width:820px){.hero{min-height:0;display:block;background:var(--green)}
+@media (max-width:900px){.hero{min-height:0;display:block;background:var(--green)}
   .hero picture,.hero img{position:relative;height:auto;aspect-ratio:4/3;object-position:45% 50%}
   .hero::after{display:none}
   .hero .wrap{padding-top:28px;padding-bottom:36px}.hero h1{font-size:36px}.hero p{font-size:16px}
   .hero .btn{flex:1}}
 
 /* trust strip */
-.trust{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding:26px 0;border-bottom:1px solid var(--line)}
-.trust div{display:flex;align-items:center;gap:12px;font-size:14px;line-height:1.35}
+.trust{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;padding:26px 0;border-bottom:1px solid var(--line)}
+.trust>div{display:flex;align-items:center;gap:12px;font-size:14px;line-height:1.35}
 .trust svg{flex:none;width:26px;height:26px;color:var(--gold)}
 .trust b{display:block;font-weight:600}
 .trust span{color:var(--muted);font-size:13px}
-@media (max-width:820px){.trust{grid-template-columns:1fr 1fr;gap:16px 12px;padding:20px 0}}
+@media (max-width:900px){.trust{grid-template-columns:1fr 1fr;gap:16px 12px;padding:20px 0}}
 
 /* sections */
 .sec{padding:72px 0}
 .sec-h{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:28px}
 .sec-h h2{font-size:clamp(26px,3vw,36px)}
 .sec-h p{color:var(--muted);max-width:48ch}
-@media (max-width:820px){.sec{padding:48px 0}.sec-h{display:block}.sec-h p{margin-top:6px}}
+@media (max-width:900px){.sec{padding:48px 0}.sec-h{display:block}.sec-h p{margin-top:6px}}
 
 /* product cards */
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
@@ -151,7 +151,7 @@ h1,h2,h3{font-weight:600;letter-spacing:-.02em;line-height:1.15}
 .chips-ro{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 24px}
 .chips-ro span{border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:13px;display:inline-flex;gap:8px;align-items:center;background:#fff}
 .chips-ro .ar{color:var(--gold-t);font-size:14px}
-@media (max-width:820px){.split{grid-template-columns:1fr;gap:24px}.split.rev>:first-child{order:0}}
+@media (max-width:900px){.split{grid-template-columns:1fr;gap:24px}.split.rev>:first-child{order:0}}
 .bg-panel{background:var(--panel)}
 .soon{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .soon>div{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px;display:flex;flex-direction:column;gap:8px}
@@ -219,8 +219,13 @@ h1,h2,h3{font-weight:600;letter-spacing:-.02em;line-height:1.15}
 .sign i.l{left:20px}.sign i.r{right:20px}
 .sign.empty{background:transparent;box-shadow:none;border:1.5px dashed #c9c1b3;color:var(--muted)}
 .sign.empty::before,.sign.empty::after,.sign.empty i{display:none}
-.sign.empty span{font-size:13px}
-.stack{display:flex;flex-direction:column;gap:6px;width:min(100%,300px)}
+.sign.empty span{font-size:13px;display:flex;align-items:center;gap:8px}
+.sign.empty b{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;border:1.5px solid #c9c1b3;font-size:11.5px;font-weight:600}
+.stack{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;width:min(100%,460px);min-width:0}
+.stack .sign{width:100%;min-width:0}
+.stack .sign .ar{font-size:clamp(15px,4.4vw,21px)}.stack .sign::before{inset:5px}.stack .sign::after{inset:7.5px}
+.stack .sign i{width:9px;height:9px;border-width:1.5px}.stack .sign i::after{inset:1.5px}.stack .sign i.l{left:13px}.stack .sign i.r{right:13px}
+.stack .sign.empty span{font-size:12px}
 .stack .sign{width:100%}
 .buy{display:flex;gap:12px;align-items:stretch;margin-top:6px}
 .qty{display:flex;align-items:center;border:1.5px solid var(--line);border-radius:999px;height:54px}
@@ -282,8 +287,8 @@ body.typing .bbar{transform:translateY(110%)!important}
 .dr-f{border-top:1px solid var(--line);padding:16px 20px calc(16px + env(safe-area-inset-bottom))}
 .tot{display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px}
 .tot.big{font-size:18px;font-weight:600;margin:8px 0 14px}
-.empty{padding:48px 0;text-align:center;color:var(--muted)}
-.empty .btn{margin-top:18px}
+.cart-empty{padding:48px 0;text-align:center;color:var(--muted)}
+.cart-empty .btn{margin-top:18px}
 
 /* checkout */
 body.co-mode .nav,body.co-mode .announce,body.co-mode .burger,body.co-mode footer .cols{display:none!important}
@@ -341,7 +346,7 @@ footer .logo span{color:#fff}
 footer .bottom{border-top:1px solid rgba(255,255,255,.14);padding:20px 0 28px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12.5px;color:#C9C2B3}
 footer .bottom a{text-decoration:underline;text-underline-offset:3px}
 footer .secure{color:#C9C2B3;margin:0}footer .secure svg{color:#9fd0b2}
-@media (max-width:820px){footer .cols{grid-template-columns:1fr 1fr;gap:20px;padding:40px 0 24px}footer .cols>div:first-child{grid-column:1/-1}}
+@media (max-width:900px){footer .cols{grid-template-columns:1fr 1fr;gap:20px;padding:40px 0 24px}footer .cols>div:first-child{grid-column:1/-1}}
 
 /* toast, cookie */
 .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:var(--ink);color:#fff;padding:12px 18px;border-radius:12px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:120;max-width:calc(100vw - 32px)}
@@ -356,7 +361,7 @@ footer .secure{color:#C9C2B3;margin:0}footer .secure svg{color:#9fd0b2}
 
 /* ===================== PHONE LAYOUT (≤ 820px) — app-style ===================== */
 .tabbar{display:none}
-@media (max-width:820px){
+@media (max-width:900px){
   body{font-size:15px;padding-bottom:calc(64px + env(safe-area-inset-bottom))}
   .wrap{padding:0 18px}
   /* header: menu · logo · cart */
@@ -440,9 +445,7 @@ footer .secure{color:#C9C2B3;margin:0}footer .secure svg{color:#9fd0b2}
   .chips:not(.subj){display:grid;grid-template-columns:1fr 1fr;gap:8px}
   .chip.size{min-width:0;padding:10px 12px}
   .prev{padding:14px;margin-top:10px}
-  .stack{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;width:100%;min-width:0}.stack .sign{min-width:0}.sign.empty span{font-size:12px;white-space:nowrap}
-  .stack .sign .ar{font-size:17px}.stack .sign::before{inset:4px}.stack .sign::after{inset:6.5px}
-  .stack .sign i{width:8px;height:8px;border-width:1.5px}.stack .sign i::after{inset:1.5px}.stack .sign i.l{left:11px}.stack .sign i.r{right:11px}
+  .stack{width:100%;gap:8px}.sign.empty span{white-space:nowrap}
   .buy .btn{display:none}
   .buy{justify-content:space-between;align-items:center}
   .buy::before{content:"Antal";font-weight:600;font-size:14px}
@@ -476,6 +479,42 @@ footer .secure{color:#C9C2B3;margin:0}footer .secure svg{color:#9fd0b2}
   .info{padding:20px 0 40px}.info h1{font-size:26px}.info h2{font-size:18px;margin-top:26px}
   .table{font-size:13.5px}.table th,.table td{padding:9px 4px}
 }
+
+/* info page */
+.info .sub{color:var(--muted);margin:-8px 0 18px}
+.jump{position:sticky;top:68px;z-index:20;display:flex;gap:8px;overflow-x:auto;background:#fff;padding:10px 0;margin-bottom:6px;scrollbar-width:none;border-bottom:1px solid var(--line)}
+.jump::-webkit-scrollbar{display:none}
+.jump a{flex:none;border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:13.5px;background:#fff}
+.jump a:hover{border-color:var(--ink)}
+.info section{padding-top:8px}
+.ship{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.shipc{border:1px solid var(--line);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:8px}
+.shipc .sh{display:flex;gap:10px;align-items:center}.shipc .sh svg{width:22px;height:22px;color:var(--gold)}
+.shipc .pr{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}.shipc .pr span{font-size:24px;font-weight:600}
+.shipc .pr em{font-style:normal;font-size:12.5px;font-weight:600;color:var(--ok);background:#EEF4EF;padding:3px 9px;border-radius:999px}
+.shipc small{color:var(--muted);font-size:13px}
+.steps{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;counter-reset:s}
+.steps li{display:flex;flex-direction:column;gap:10px;background:var(--panel);border-radius:var(--r);padding:16px}
+.steps i{font-style:normal;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--green);color:#fff;font-size:13px;font-weight:600}
+.steps b{display:block;font-size:14.5px}.steps span{color:var(--soft);font-size:13.5px;line-height:1.45}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+.facts div{border:1px solid var(--line);border-radius:var(--r);padding:14px;text-align:center}
+.facts b{display:block;font-size:22px;color:var(--green)}.facts span{font-size:12.5px;color:var(--muted)}
+.icards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.icard{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:var(--r);padding:16px}
+.icard svg{flex:none;width:24px;height:24px;color:var(--gold)}.icard b{display:block;font-size:14.5px;margin-bottom:2px}.icard span{font-size:13.5px;color:var(--soft);line-height:1.45}
+.fine{font-size:13px;color:var(--muted);margin-top:10px}
+.contact{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--green);color:#fff;border-radius:var(--r);padding:22px;margin-top:30px}
+.contact p{color:#D8D2C4!important;margin:0!important}.contact .btn{background:#fff;color:var(--ink)}.contact .btn svg{width:18px;height:18px}
+.legal details .body p{font-size:14px}
+@media (max-width:900px){
+  .jump{top:54px;margin:0 -18px 6px;padding:10px 18px}
+  .ship,.icards{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr;gap:10px}.steps li{padding:14px}
+  .facts{gap:8px}.facts b{font-size:19px}
+  .contact{flex-direction:column;align-items:flex-start}.contact .btn{width:100%}
+}
+.drawer{visibility:hidden;transition:transform .3s cubic-bezier(.2,.8,.2,1),visibility 0s .3s}.drawer.on{visibility:visible;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
 </style>
 </head>
 <body>
@@ -527,7 +566,7 @@ footer .secure{color:#C9C2B3;margin:0}footer .secure svg{color:#9fd0b2}
 /* ================= data ================= */
 const SITE_URL = 'https://qalam.dk/';
 const CONTACT_EMAIL = 'hej@qalam.dk';
-const BUSINESS = {name:'QALAM', cvr:'43925474', city:'Egedalsvænge 50, 2980 Kokkedal'};
+const BUSINESS = {name:'QALAM', cvr:'43925474', city:'Egedalsvænge, 2980 Kokkedal'};
 /* Stripe checkout backend (Cloudflare Worker). Empty = a test dialog instead of real payment. */
 const CHECKOUT_API = 'https://qalam-checkout.sinanp2020.workers.dev';
 const FREE = 349, SHIP_PS = 45, SHIP_HOME = 59, HOME_UPGRADE = 15;
@@ -568,7 +607,7 @@ const ICON = {
   check:'<path d="m5 12 4 4 10-10"/>', truck:'<path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.5"/><circle cx="17" cy="17.5" r="1.5"/>',
   back:'<path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-2"/>', dk:'<path d="M3 5h18v14H3z"/><path d="M9 5v14M3 12h18"/>',
   lock:'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>', clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
-  chat:'<path d="M4 5h16v11H8l-4 4z"/>'};
+  chat:'<path d="M4 5h16v11H8l-4 4z"/>', shield:'<path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.5 4.3-1.1 7.5-4.9 7.5-9.5V6z"/><path d="m8.8 12.2 2.3 2.3 4.3-4.6"/>'};
 const ico = k => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[k]}</svg>`;
 const secureLine = () => `${ico('lock')}<span>Sikker betaling via Stripe · MobilePay, kort, Apple Pay og Google Pay</span>`;
 function addWorkdays(d, n){ const x=new Date(d); while(n>0){ x.setDate(x.getDate()+1); const w=x.getDay(); if(w!==0 && w!==6) n--; } return x; }
@@ -576,12 +615,12 @@ function eta(){ const a = addWorkdays(new Date(), 4), b = addWorkdays(new Date()
   const D=['søn','man','tir','ons','tor','fre','lør'], M=['jan','feb','mar','apr','maj','jun','jul','aug','sep','okt','nov','dec'];
   return `${D[a.getDay()]}. ${a.getDate()}.${a.getMonth()===b.getMonth()?'':' '+M[a.getMonth()]+'.'} – ${D[b.getDay()]}. ${b.getDate()}. ${M[b.getMonth()]}.`; }
 /* smooth scroll that leaves room for the sticky header (and the bottom bar on phones) */
-function goTo(el, where='start'){ if(!el) return; const hd=($('.header')?.offsetHeight||0)+12, r=el.getBoundingClientRect();
-  const bottomBar = innerWidth<=820 ? 84 : 0, room = innerHeight-hd-bottomBar;
+function goTo(el, where='start'){ if(!el) return; const hd=($('.header')?.offsetHeight||0)+($('.jump')?.offsetHeight||0)+12, r=el.getBoundingClientRect();
+  const bottomBar = innerWidth<=900 ? 84 : 0, room = innerHeight-hd-bottomBar;
   let top = where==='center' && r.height<room ? scrollY + r.top - hd - (room-r.height)/2 : scrollY + r.top - hd;
   scrollTo({top:Math.max(0,top), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'}); }
 /* only scroll if the element is not already fully in view */
-function reveal(el){ if(!el) return; const hd=($('.header')?.offsetHeight||0)+8, r=el.getBoundingClientRect(), bb=innerWidth<=820?84:0;
+function reveal(el){ if(!el) return; const hd=($('.header')?.offsetHeight||0)+8, r=el.getBoundingClientRect(), bb=innerWidth<=900?84:0;
   if(r.top < hd || r.bottom > innerHeight-bb) goTo(el,'center'); }
 let toastT; function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('on'); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('on'), 2600); }
 
@@ -655,7 +694,7 @@ function upsell(){
 }
 function renderDrawer(){
   const t = totals(), el = $('#drIn');
-  if(!cart.length){ el.innerHTML = `<div class="dr-body"><div class="empty"><p>Din kurv er tom.</p><a class="btn btn-dark" href="#shop" data-close>Se produkterne</a></div></div>`; return; }
+  if(!cart.length){ el.innerHTML = `<div class="dr-body"><div class="cart-empty"><p>Din kurv er tom.</p><a class="btn btn-dark" href="#shop" data-close>Se produkterne</a></div></div>`; return; }
   const u = upsell();
   el.innerHTML = `<div class="dr-body">
     <div class="fs">${t.free?'<b>Du har gratis fragt</b> til pakkeshop.':`Køb for <b>${kr(t.missing)}</b> mere, så får du gratis fragt.`}<div class="bar"><i style="width:${Math.min(100,t.goods/FREE*100)}%"></i></div></div>
@@ -692,9 +731,10 @@ function card(p){
     <div class="row"><span class="price">${p.sizes?'Fra ':''}${kr(fromPrice(p))}${p.compare?`<s>${kr(p.compare)}</s>`:''}</span><span class="btn btn-outline">Vælg</span></div></a>`;
 }
 const FAQ = [
-  ['Hvor hurtigt får jeg min ordre?','Vi printer efter bestilling og sender inden for 3–5 hverdage. PostNord leverer normalt på 1–3 hverdage.'],
+  ['Hvor hurtigt får jeg min ordre?','Vi printer efter bestilling, kontrollerer og sender inden for 3–5 hverdage. PostNord leverer normalt på 1–3 hverdage.'],
   ['Hvad koster fragt?',`Levering til pakkeshop koster ${SHIP_PS} kr og er gratis, når du handler for ${FREE} kr eller mere. Levering til døren koster ${SHIP_HOME} kr, eller ${HOME_UPGRADE} kr når du har gratis fragt.`],
   ['Kan jeg nå at få det før Ramadan?','Ja, hvis du bestiller senest 25. januar 2027. Ramadan ventes at begynde omkring 8. februar.'],
+  ['Bliver varerne tjekket, før de sendes?','Ja. Hver ordre bliver kontrolleret i hånden: at det er de rigtige emner og størrelser, at skrift og guldkant står skarpt, og at lys og batteri virker. Først derefter pakkes og sendes den.'],
   ['Kan jeg returnere?','Ja. Du har 14 dages returret på alle varer. Er der fejl i en vare, laver vi den om eller giver pengene tilbage.'],
   ['Hvad er de lavet af?','De er 3D-printet i sort med guld. De er lavet til brug inde og tåler ikke direkte sol eller varme over ca. 50 °C. Aftørres med en tør eller let fugtig klud.'],
   ['Hvordan betaler jeg?','Du betaler sikkert hos Stripe med MobilePay, kort, Apple Pay eller Google Pay. Vi ser aldrig dine kortoplysninger.'],
@@ -703,15 +743,16 @@ const faqHtml = () => FAQ.map(([q,a])=>`<details><summary>${q}</summary><p>${a}<
 const trustHtml = () => `<div class="trust">
   <div>${ico('dk')}<div><b>Lavet i Danmark</b><span>Printet efter bestilling</span></div></div>
   <div>${ico('truck')}<div><b>Gratis fragt over ${FREE} kr</b><span>Sendes inden for 3–5 hverdage</span></div></div>
+  <div>${ico('shield')}<div><b>Kontrolleret før afsendelse</b><span>Hver vare tjekkes i hånden</span></div></div>
   <div>${ico('back')}<div><b>14 dages returret</b><span>Fejl laver vi om</span></div></div>
   <div>${ico('lock')}<div><b>Sikker betaling</b><span>MobilePay, kort og Apple Pay</span></div></div></div>`;
 
 function viewHome(){
   return `<section class="hero">
-    <picture><source media="(max-width:820px)" srcset="img/hero-1000.jpg"><img src="img/hero-wide-1200.jpg" srcset="img/hero-wide-1200.jpg 1200w, img/hero-wide.jpg 2400w" sizes="100vw" alt="Lanterne og hyldeskiltet Fiqh i sort og guld" fetchpriority="high"></picture>
+    <picture><source media="(max-width:900px)" srcset="img/hero-1000.jpg"><img src="img/hero-wide-1200.jpg" srcset="img/hero-wide-1200.jpg 1200w, img/hero-wide.jpg 2400w" sizes="100vw" alt="Lanterne og hyldeskiltet Fiqh i sort og guld" fetchpriority="high"></picture>
     <div class="wrap"><p class="eye">Sort &amp; guld · lavet i Danmark</p>
       <h1>Arabisk kalligrafi til hjemmet</h1>
-      <p>Hyldeskilte til dine bøger og lanterner til Ramadan. Printet efter bestilling og sendt inden for 3–5 hverdage.</p>
+      <p>Hyldeskilte til dine bøger og lanterner til Ramadan. Printet efter bestilling, tjekket i hånden og sendt inden for 3–5 hverdage.</p>
       <div class="ctas"><a href="#shop" class="btn btn-light">Se produkterne</a><a href="p/maktaba.html" class="btn btn-ghost">Sæt med 4 skilte</a></div></div>
   </section>
   <div class="wrap">${trustHtml()}</div>
@@ -743,7 +784,7 @@ function viewHome(){
 
 let pv = {};
 function signsHtml(list, n){
-  const out = []; for(let k=0;k<n;k++){ const s = subj(list[k]); out.push(s ? `<div class="sign"><i class="l"></i><span class="ar" lang="ar">${s[2]}</span><i class="r"></i></div>` : `<div class="sign empty"><span>Vælg emne ${n>1?k+1:''}</span></div>`); }
+  const out = []; for(let k=0;k<n;k++){ const s = subj(list[k]); out.push(s ? `<div class="sign"><i class="l"></i><span class="ar" lang="ar">${s[2]}</span><i class="r"></i></div>` : (n>1 ? `<div class="sign empty"><span><b>${k+1}</b>Emne ${k+1}</span></div>` : `<div class="sign empty"><span>Vælg et emne</span></div>`)); }
   return n>1 ? `<div class="stack">${out.join('')}</div>` : out[0];
 }
 function viewProduct(id){
@@ -754,7 +795,7 @@ function viewProduct(id){
   if(p.pick) opts += `<div class="opt"><div class="opt-h">${p.pick===1?'Vælg emne':'Vælg 4 emner'}<span id="pickCount">${p.pick===1?'':'0 af 4 valgt'}</span></div>
     <div class="chips subj" id="subjChips">${SUBJECTS.map(([k,l,a])=>`<button class="chip" data-subj="${k}" aria-pressed="false">${l} <span class="ar" lang="ar">${a}</span></button>`).join('')}</div>
     <p class="opt-err" id="pickErr">Vælg 4 emner, før du lægger sættet i kurven.</p>
-    <div class="prev"><div id="signPrev"></div><small>Sådan ser ${p.pick===1?'dit skilt':'dine skilte'} ud</small></div></div>`;
+    <div class="prev"><div id="signPrev"></div><small id="prevTxt">Sådan ser ${p.pick===1?'dit skilt':'dine skilte'} ud</small></div></div>`;
   if(p.sizes) opts += `<div class="opt"><div class="opt-h">Størrelse</div><div class="chips">${p.sizes.map(s=>`<button class="chip size" data-size="${s.id}" aria-pressed="false"><b>${s.label}</b><span class="cp">${kr(s.price)}${s.compare?` · spar ${kr(s.compare-s.price)}`:''}</span></button>`).join('')}</div></div>`;
   const nudge = id==='hyldeskilt' ? {img:'maktaba-1', t:'Skal du bruge flere?', d:'Sættet med 4 valgfrie skilte koster 249 kr – du sparer 27 kr.', href:'p/maktaba.html', cta:'Se sættet'}
     : id==='maktaba' ? {img:'lanterne-1', t:'Lanterne fra 99 kr', d:'Samme sort og guld. Står fint ved siden af skiltene.', href:'p/lanterne.html', cta:'Se lanterner'}
@@ -778,6 +819,7 @@ function viewProduct(id){
         <div class="meta">
           <div>${ico('truck')}<span>Forventet levering <b>${eta()}</b> · gratis fragt over ${FREE} kr</span></div>
           ${deadline}
+          <div>${ico('shield')}<span>Hver ordre bliver <b>kontrolleret i hånden</b>, før den sendes.</span></div>
           <div>${ico('back')}<span>14 dages returret. Fejl laver vi om.</span></div>
         </div>
         <div class="nudge"><img src="${img(nudge.img,1)}" alt=""><div><b>${nudge.t}</b>${nudge.d}</div><a class="btn btn-outline" href="${nudge.href}">${nudge.cta}</a></div>
@@ -803,7 +845,8 @@ function bindProduct(){
     if(p.pick){ $$('[data-subj]').forEach(b=>{ const n=pv.subjects.indexOf(b.dataset.subj), on=n>-1; b.classList.toggle('on',on); b.setAttribute('aria-pressed',on);
         b.querySelector('.n')?.remove(); if(on && p.pick>1) b.insertAdjacentHTML('afterbegin', `<span class="n">${n+1}</span>`); });
       if(p.pick>1) $('#pickCount').textContent = `${pv.subjects.length} af 4 valgt`;
-      $('#signPrev').innerHTML = signsHtml(pv.subjects, p.pick); if(pv.subjects.length===p.pick) $('#pickErr').classList.remove('on'); }
+      $('#signPrev').innerHTML = signsHtml(pv.subjects, p.pick);
+      if(p.pick>1) $('#prevTxt').textContent = pv.subjects.length===4 ? 'Sådan ser dine 4 skilte ud' : `Vælg ${4-pv.subjects.length} ${4-pv.subjects.length===1?'emne':'emner'} mere`; if(pv.subjects.length===p.pick) $('#pickErr').classList.remove('on'); }
   };
   const add = () => {
     if(p.pick && pv.subjects.length !== p.pick){ $('#pickErr').classList.add('on'); goTo($('#subjChips').closest('.opt')); return; }
@@ -853,7 +896,7 @@ function viewCheckout(){
     </div>
     <div class="paybar"><button class="btn btn-dark btn-block" id="payBtn" style="min-height:58px;margin-top:20px;font-size:16px">Gå til betaling · ${kr(t.total)}</button>
     <div class="secure">${secureLine()}</div></div>
-    <p class="terms">Du betaler på Stripes sikre side. Ved at betale accepterer du vores <a class="link" href="#/info#handel">handelsbetingelser</a>. 14 dages returret.</p>
+    <p class="terms">Hver ordre kontrolleres i hånden, før den sendes. Du betaler på Stripes sikre side. Ved at betale accepterer du vores <a class="link" href="#/info#handel">handelsbetingelser</a>. 14 dages returret.</p>
   </div>
   <aside><div class="sum"><h2>Din ordre</h2>${sumItems()}${sumTotals(t)}</div></aside></div></div>`;
 }
@@ -902,20 +945,54 @@ function viewThanks(){
   return `<div class="wrap thanks"><svg viewBox="0 0 100 100">${SEAL}</svg>
     <h1>Tak for din bestilling</h1>
     ${o?`<p class="no">Ordrenummer <b>${esc(o.no)}</b></p>`:''}
-    <p class="t">Du får en kvittering på ${o&&o.email?esc(o.email):'din e-mail'}. Vi printer og sender din ordre inden for 3–5 hverdage.</p>
+    <p class="t">Du får en kvittering på ${o&&o.email?esc(o.email):'din e-mail'}. Vi printer, kontrollerer og sender din ordre inden for 3–5 hverdage.</p>
     <a href="#/" class="btn btn-dark">Tilbage til forsiden</a></div>`;
 }
 function viewInfo(){
+  const card = (icon, t, d) => `<div class="icard">${ico(icon)}<div><b>${t}</b><span>${d}</span></div></div>`;
   return `<div class="wrap"><div class="info">
-    <h1>Levering og FAQ</h1>
-    <h2>Fragt</h2>
-    <table class="table"><tr><th>Levering</th><th>Under ${FREE} kr</th><th>Fra ${FREE} kr</th></tr>
-      <tr><td>PostNord pakkeshop</td><td>${SHIP_PS} kr</td><td><b style="color:var(--ok)">Gratis</b></td></tr>
-      <tr><td>Levering til døren</td><td>${SHIP_HOME} kr</td><td>${HOME_UPGRADE} kr</td></tr></table>
-    <p>Vi printer efter bestilling og sender inden for 3–5 hverdage. PostNord leverer normalt på 1–3 hverdage. <b>Ramadan 2027:</b> Bestil senest 25. januar.</p>
-    <h2 id="retur">Returret</h2><p>Du har 14 dages returret på alle varer, fra du har modtaget dem. Skriv til <a class="link" href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>, og send varen retur i samme stand inden 14 dage. Du betaler selv returfragten. Er der fejl i en vare, laver vi den om eller refunderer den.</p>
-    <h2>Spørgsmål</h2><div class="faq" style="margin:0">${faqHtml()}</div>
-    <h2 id="handel">Handelsbetingelser</h2>
+    <h1>Levering og hjælp</h1>
+    <p class="sub">Det vigtigste på ét sted. Tryk på et emne for at springe derhen.</p>
+    <nav class="jump" aria-label="Spring til">
+      <a href="#/info#fragt">Fragt</a><a href="#/info#forloeb">Leveringstid</a><a href="#/info#retur">Retur</a><a href="#/info#faq">Spørgsmål</a><a href="#/info#kontakt">Kontakt</a><a href="#/info#vilkaar">Betingelser</a>
+    </nav>
+
+    <section id="fragt"><h2>Fragt</h2>
+      <div class="ship">
+        <div class="shipc"><div class="sh">${ico('truck')}<b>PostNord pakkeshop</b></div><div class="pr"><span>${SHIP_PS} kr</span><em>Gratis fra ${FREE} kr</em></div><small>Sendes til pakkeshoppen nærmest din adresse.</small></div>
+        <div class="shipc"><div class="sh">${ico('dk')}<b>Levering til døren</b></div><div class="pr"><span>${SHIP_HOME} kr</span><em>${HOME_UPGRADE} kr fra ${FREE} kr</em></div><small>PostNord bringer pakken hjem til dig.</small></div>
+      </div>
+    </section>
+
+    <section id="forloeb"><h2>Sådan foregår det</h2>
+      <ol class="steps">
+        <li><i>1</i><div><b>Du bestiller</b><span>Betal sikkert med MobilePay eller kort.</span></div></li>
+        <li><i>2</i><div><b>Vi printer din ordre</b><span>Lavet efter bestilling i sort og guld.</span></div></li>
+        <li><i>3</i><div><b>Vi kontrollerer hver vare</b><span>Rigtige emner, skarp skrift, lys og batteri virker.</span></div></li>
+        <li><i>4</i><div><b>PostNord leverer</b><span>Du får besked, når pakken er på vej.</span></div></li>
+      </ol>
+      <div class="facts"><div><b>3–5</b><span>hverdage før afsendelse</span></div><div><b>1–3</b><span>hverdage med PostNord</span></div><div><b>25. jan</b><span>sidste frist før Ramadan</span></div></div>
+    </section>
+
+    <section id="retur"><h2>Returret</h2>
+      <div class="icards">
+        ${card('back','14 dages returret','På alle varer, fra du har modtaget dem.')}
+        ${card('chat','Skriv til os først',`<a class="link" href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a> – send varen retur i samme stand.`)}
+        ${card('shield','Fejl laver vi om','Er noget galt, laver vi en ny eller giver pengene tilbage.')}
+      </div>
+      <p class="fine">Du betaler selv returfragten ved fortrydelse. Ved fejl betaler vi.</p>
+    </section>
+
+    <section id="faq"><h2>Spørgsmål</h2><div class="faq" style="margin:0">${faqHtml()}</div></section>
+
+    <section id="kontakt"><div class="contact">
+      <div><h2 style="margin:0 0 4px">Har du et spørgsmål?</h2><p>Vi svarer inden for én hverdag.</p></div>
+      <a class="btn btn-dark" href="mailto:${CONTACT_EMAIL}">${ico('chat')} Skriv til os</a>
+    </div></section>
+
+    <section id="vilkaar"><h2>Betingelser</h2>
+      <div class="acc legal">
+        <details id="handel"><summary>Handelsbetingelser</summary><div class="body">
     <p><b>Sælger:</b> ${BUSINESS.name}, CVR ${BUSINESS.cvr}, ${BUSINESS.city}, Danmark. E-mail: <a class="link" href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>.</p>
     <p><b>Priser:</b> Alle priser er i danske kroner og er de endelige priser. ${BUSINESS.name} er ikke momsregistreret, så der lægges ikke moms oven i. Fragt vises i kurven og i kassen, før du betaler.</p>
     <p><b>Bestilling og betaling:</b> Aftalen er indgået, når du har betalt. Du betaler sikkert via Stripe med MobilePay, kort, Apple Pay eller Google Pay. Beløbet trækkes ved bestillingen. Vi gemmer ikke dine kortoplysninger.</p>
@@ -923,15 +1000,20 @@ function viewInfo(){
     <p><b>Fortrydelsesret:</b> Du kan fortryde dit køb inden for 14 dage efter, at du har modtaget varen. Skriv til os inden fristen, og send varen retur i samme stand senest 14 dage efter. Du betaler selv returfragten. Vi refunderer købsprisen inklusive den oprindelige standardfragt senest 14 dage efter, at vi har modtaget din besked, men vi kan vente, til vi har fået varen retur.</p>
     <p><b>Reklamation:</b> Du har 2 års reklamationsret efter købeloven. Er der fejl i en vare, laver vi den om eller refunderer den. Skriv til os med et billede af fejlen.</p>
     <p><b>Klage:</b> Er du utilfreds, så skriv til os, så finder vi en løsning. Du kan også klage til Nævnenes Hus, Toldboden 2, 8800 Viborg, via <a class="link" href="https://naevneneshus.dk" target="_blank" rel="noopener">naevneneshus.dk</a>.</p>
-    <h2 id="privat">Privatlivspolitik</h2>
+            </div></details>
+        <details id="privat"><summary>Privatlivspolitik</summary><div class="body">
     <p><b>Dataansvarlig:</b> ${BUSINESS.name}, CVR ${BUSINESS.cvr}, ${BUSINESS.city}, ${CONTACT_EMAIL}.</p>
     <p><b>Når du handler</b> bruger vi dit navn, din adresse, e-mail og telefonnummer til at levere din ordre og svare på spørgsmål. Grundlaget er aftalen med dig. Regnskabsoplysninger gemmer vi i 5 år, som bogføringsloven kræver.</p>
     <p><b>Hvem ser dine data:</b> Kun dem, der skal bruge dem for at levere: Stripe (betaling), PostNord (fragt) og Cloudflare (sender din bestilling videre til Stripe). Siden ligger hos GitHub Pages, som ligesom andre webhoteller registrerer tekniske oplysninger som IP-adresse. Vi sælger aldrig dine oplysninger.</p>
     <p><b>Cookies:</b> Din kurv gemmes kun i din egen browser. Vi bruger kun cookies til statistik og annoncer, hvis du siger ja til det i cookie-banneret. Du kan altid ændre dit valg via "Cookie-indstillinger" nederst på siden.</p>
     <p><b>Dine rettigheder:</b> Du kan få indsigt i, rettet eller slettet dine oplysninger ved at skrive til os. Du kan klage til Datatilsynet (datatilsynet.dk).</p>
-    <h2 id="kontakt">Kontakt</h2><p>Skriv til <a class="link" href="mailto:${CONTACT_EMAIL}">${CONTACT_EMAIL}</a>. Vi svarer inden for én hverdag.</p><p class="muted">${BUSINESS.name} · CVR ${BUSINESS.cvr} · ${BUSINESS.city}</p>
+            </div></details>
+      </div>
+      <p class="fine">${BUSINESS.name} · CVR ${BUSINESS.cvr} · ${BUSINESS.city}</p>
+    </section>
   </div></div>`;
 }
+function openAnchor(id){ const el=document.getElementById(id); if(!el) return; if(el.tagName==='DETAILS') el.open=true; goTo(el); }
 
 /* ================= router ================= */
 function setMeta(title){ if(window.KHATAM_BOOT && !location.hash) return; document.title = title; }
@@ -948,7 +1030,7 @@ function route(){
   if(path.startsWith('/p/')){ const id=path.slice(3); app.innerHTML = viewProduct(id); bindProduct(); const p=byId(id); if(p) setMeta(`${p.name} – ${p.type} | QALAM`); top(); }
   else if(path==='/kasse'){ track('Til kassen'); app.innerHTML = viewCheckout(); bindCheckout(); setMeta('Kassen | QALAM'); top(); }
   else if(path==='/tak'){ scrollTo(0,0); if(params.get('session_id') && CHECKOUT_API) confirmPayment(params.get('session_id')); else app.innerHTML = viewThanks(); }
-  else if(path.startsWith('/info')){ app.innerHTML = viewInfo(); const a=h.split('#')[1]; setTimeout(()=>a&&!back?goTo(document.getElementById(a)):top(), 30); setMeta('Levering, retur og spørgsmål | QALAM'); }
+  else if(path.startsWith('/info')){ app.innerHTML = viewInfo(); const a=h.split('#')[1]; setTimeout(()=>a&&!back?openAnchor(a):top(), 30); setMeta('Levering, retur og spørgsmål | QALAM'); }
   else { app.innerHTML = viewHome(); setMeta('QALAM – hyldeskilte og lanterner med arabisk kalligrafi'); if(window._toShop){ window._toShop=false; scrollTo(0,0); setTimeout(()=>goTo($('#shop .sec-h')),40); } else top(); }
   const tab = path.startsWith('/info') ? 'info' : (path==='/' && location.hash.includes('shop')) ? 'shop' : path==='/' ? 'home' : '';
   $$('[data-tab]').forEach(a=>a.classList.toggle('on', a.dataset.tab===tab));
@@ -963,11 +1045,11 @@ document.addEventListener('click', e => {
   else if(href==='#shop'){ e.preventDefault(); closeMenu(); $$('[data-tab]').forEach(t=>t.classList.toggle('on', t.dataset.tab==='shop'));
     if($('#shop')) goTo($('#shop .sec-h')); else { window._toShop = true; location.hash = '#/'; } }
   else if(href==='#/' && (location.hash==='' || location.hash==='#/') && !window.KHATAM_BOOT){ e.preventDefault(); closeMenu(); scrollTo({top:0,behavior:'smooth'}); $$('[data-tab]').forEach(t=>t.classList.toggle('on', t.dataset.tab==='home')); }
-  else if(href.startsWith('#/info#') && location.hash.startsWith('#/info')){ e.preventDefault(); closeMenu(); history.replaceState(null,'',href); goTo(document.getElementById(href.split('#')[2])); }
+  else if(href.startsWith('#/info#') && location.hash.startsWith('#/info')){ e.preventDefault(); closeMenu(); history.replaceState(null,'',href); openAnchor(href.split('#')[2]); }
   else if(href.startsWith('#/')) closeMenu();
 });
 /* an opened FAQ answer is pulled into view if it ends below the screen */
-document.addEventListener('click', e => { const s=e.target.closest('.faq summary, .acc summary'); if(!s) return; const d=s.parentElement; setTimeout(()=>{ if(!d.open) return; const r=d.getBoundingClientRect(); if(r.bottom > innerHeight-(innerWidth<=820?84:0)) reveal(d); }, 40); });
+document.addEventListener('click', e => { const s=e.target.closest('.faq summary, .acc summary'); if(!s) return; const d=s.parentElement; setTimeout(()=>{ if(!d.open) return; const r=d.getBoundingClientRect(); if(r.bottom > innerHeight-(innerWidth<=900?84:0)) reveal(d); }, 40); });
 function openMenu(){ $('#mnav').classList.add('on'); $('#mnav').setAttribute('aria-hidden','false'); }
 function closeMenu(){ $('#mnav').classList.remove('on'); $('#mnav').setAttribute('aria-hidden','true'); }
 $('#burger').onclick = openMenu; $('#mnav').onclick = e => { if(e.target.id==='mnav' || e.target.closest('[data-close-menu]')) closeMenu(); };
