@@ -44,7 +44,7 @@ ${depth ? '<base href="../">\n' : ''}<script>window.KHATAM_BOOT = ${JSON.stringi
 <meta name="twitter:title" content="${esc(title)}">
 <meta name="twitter:description" content="${esc(desc)}">
 <meta name="twitter:image" content="${img}">
-${ld ? `<script type="application/ld+json">${JSON.stringify(ld)}</script>\n` : ''}<!--/seo-->`;
+${ld ? [].concat(ld).map(x => `<script type="application/ld+json">${JSON.stringify(x)}</script>\n`).join('') : ''}<!--/seo-->`;
   const out = html.replace(/<!--seo-->[\s\S]*?<!--\/seo-->/, head);
   mkdirSync(dirname(join(root, file)), { recursive: true });
   writeFileSync(join(root, file), out);
@@ -72,7 +72,8 @@ const offer = (price, url, extra = {}) => ({ '@type': 'Offer', price: String(pri
 const urls = [SITE], feed = [];
 for (const p of P) {
   const file = `p/${p.id}.html`, url = SITE + file, name = `${p.name} – ${p.type}`, images = pics(p);
-  const desc = `${p.lead} ${p.sizes ? 'Fra ' + Math.min(...p.sizes.map(s => s.price)) : p.price} kr. Gratis fragt over ${FREE} kr.`;
+  let desc = `${p.lead} ${p.sizes ? 'Fra ' + Math.min(...p.sizes.map(s => s.price)) : p.price} kr. Gratis fragt over ${FREE} kr.`;
+  if (desc.length > 158) desc = `${p.name} i sort og guld. ${p.sizes ? 'Fra ' + Math.min(...p.sizes.map(s => s.price)) : p.price} kr. LED-lys med batteri følger med. Kontrolleret i hånden. Gratis fragt over ${FREE} kr.`.slice(0, 158);
   let ld;
   if (p.sizes) {
     ld = { '@context': 'https://schema.org', '@type': 'ProductGroup', name: `${p.name} ${p.ar}`.trim(), description: p.lead + ' ' + p.details, image: images,
@@ -83,7 +84,9 @@ for (const p of P) {
     ld = { '@context': 'https://schema.org', '@type': 'Product', name: `${p.name} ${p.ar}`.trim(), description: p.lead + ' ' + p.details, image: images,
       brand: { '@type': 'Brand', name: 'QALAM' }, sku: p.id, offers: offer(p.price, url) };
   }
-  urls.push(page({ file, depth: 1, boot: `/p/${p.id}`, img: og(p.id), alt: name, type: 'product', title: `${name} | QALAM`, desc, ld }));
+  const crumbs = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'QALAM', item: SITE }, { '@type': 'ListItem', position: 2, name: p.name, item: url }] };
+  urls.push(page({ file, depth: 1, boot: `/p/${p.id}`, img: og(p.id), alt: name, type: 'product', title: `${p.seo || name} | QALAM`, desc, ld: [ld, crumbs] }));
   const variants = p.sizes ? p.sizes.map(s => ({ id: `${p.id}-${s.id}`, title: `${p.name} – ${s.label.toLowerCase()}`, price: s.price, size: s.label, group: p.id }))
     : [{ id: p.id, title: name, price: p.price }];
   for (const v of variants) feed.push({ ...v, desc: p.lead + ' ' + p.details, link: url, images });
